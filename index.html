@@ -67,14 +67,18 @@
       max-width: 300px;
       margin: 0 auto 30px;
       display: block;
-      opacity: 0;
-      animation: fadeInPulse 2s ease-out forwards;
-      filter: drop-shadow(0 0 10px #ff6a00);
+      animation: fadeIn 2s ease-out, rotateShadow 5s linear infinite;
     }
-    @keyframes fadeInPulse {
-      0% { opacity: 0; transform: scale(0.95); }
-      50% { opacity: 1; transform: scale(1.05); }
-      100% { opacity: 1; transform: scale(1); }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes rotateShadow {
+      0%   { filter: drop-shadow(4px 0 10px #ff6a00); }
+      25%  { filter: drop-shadow(0 4px 10px #00c8ff); }
+      50%  { filter: drop-shadow(-4px 0 10px #ff6a00); }
+      75%  { filter: drop-shadow(0 -4px 10px #00c8ff); }
+      100% { filter: drop-shadow(4px 0 10px #ff6a00); }
     }
   </style>
 </head>
