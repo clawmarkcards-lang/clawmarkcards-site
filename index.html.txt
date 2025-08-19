@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Claw Mark Cards</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: black;
+    }
+    #intro-video {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+  <video id="intro-video" autoplay playsinline>
+    <source src="claw_intro_with_sound.mp4" type="video/mp4">
+  </video>
+  <script>
+    const intro = document.getElementById('intro-video');
+    intro.onended = () => {
+      localStorage.setItem("introPlayed", "true");
+      window.location.href = "/"; // redirect to homepage
+    };
+    if (localStorage.getItem("introPlayed")) {
+      window.location.href = "/"; // skip if already seen
+    }
+  </script>
+</body>
+</html>
