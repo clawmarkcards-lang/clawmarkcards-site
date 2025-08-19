@@ -63,7 +63,8 @@
 
     .glow-container {
       position: relative;
-      width: 200px;
+      width: 240px;
+      height: 240px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -72,11 +73,9 @@
     .glow-container::before {
       content: "";
       position: absolute;
-      top: -10%;
-      left: -10%;
-      width: 120%;
-      height: 120%;
-      border-radius: 30%;
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
       z-index: 0;
       animation: glowOrange 5s linear infinite;
     }
@@ -86,27 +85,27 @@
     }
 
     .side-img {
-      width: 200px;
-      max-width: 100%;
-      clip-path: polygon(10% 0%, 90% 0%, 100% 20%, 100% 80%, 90% 100%, 10% 100%, 0% 80%, 0% 20%);
+      width: 100%;
+      height: auto;
       position: relative;
       z-index: 1;
+      filter: drop-shadow(0 0 12px rgba(0,0,0,0.7));
     }
 
     @keyframes glowOrange {
-      0% { box-shadow: 0 0 10px #ff6a00; }
-      25% { box-shadow: 0 0 20px #ff6a00; }
-      50% { box-shadow: 0 0 35px #ff6a00; }
-      75% { box-shadow: 0 0 20px #ff6a00; }
-      100% { box-shadow: 0 0 10px #ff6a00; }
+      0% { box-shadow: 0 0 15px #ff6a00; }
+      25% { box-shadow: 0 0 25px #ff6a00; }
+      50% { box-shadow: 0 0 40px #ff6a00; }
+      75% { box-shadow: 0 0 25px #ff6a00; }
+      100% { box-shadow: 0 0 15px #ff6a00; }
     }
 
     @keyframes glowBlue {
-      0% { box-shadow: 0 0 10px #00c8ff; }
-      25% { box-shadow: 0 0 20px #00c8ff; }
-      50% { box-shadow: 0 0 35px #00c8ff; }
-      75% { box-shadow: 0 0 20px #00c8ff; }
-      100% { box-shadow: 0 0 10px #00c8ff; }
+      0% { box-shadow: 0 0 15px #00c8ff; }
+      25% { box-shadow: 0 0 25px #00c8ff; }
+      50% { box-shadow: 0 0 40px #00c8ff; }
+      75% { box-shadow: 0 0 25px #00c8ff; }
+      100% { box-shadow: 0 0 15px #00c8ff; }
     }
 
     #logo {
@@ -157,11 +156,11 @@
 
   <main class="main-container">
     <div class="glow-container">
-      <img class="side-img" src="bear.jpg" alt="Bear">
+      <img class="side-img" src="bear.png" alt="Bear">
     </div>
     <img id="logo" src="logo.png" alt="Claw Mark Cards Logo">
     <div class="glow-container right">
-      <img class="side-img" src="panther.jpg" alt="Panther">
+      <img class="side-img" src="panther.png" alt="Panther">
     </div>
   </main>
 
