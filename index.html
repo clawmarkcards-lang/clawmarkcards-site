@@ -52,20 +52,25 @@
       50% { opacity: 0.6; }
       100% { opacity: 1; }
     }
-    main {
+    .main-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
       padding: 30px;
-      text-align: center;
     }
-    footer {
-      background-color: #1e1e1e;
-      text-align: center;
-      padding: 15px;
-      font-size: 0.9em;
-      color: #aaaaaa;
+    .side-img {
+      width: 200px;
+      max-width: 100%;
+      opacity: 0.85;
+      transition: opacity 0.3s ease;
+    }
+    .side-img:hover {
+      opacity: 1;
     }
     #logo {
       max-width: 300px;
-      margin: 0 auto 30px;
+      margin: 0 20px;
       display: block;
       animation: fadeIn 2s ease-out, rotateShadow 5s linear infinite;
     }
@@ -79,6 +84,13 @@
       50%  { filter: drop-shadow(-4px 0 10px #ff6a00); }
       75%  { filter: drop-shadow(0 -4px 10px #00c8ff); }
       100% { filter: drop-shadow(4px 0 10px #ff6a00); }
+    }
+    footer {
+      background-color: #1e1e1e;
+      text-align: center;
+      padding: 15px;
+      font-size: 0.9em;
+      color: #aaaaaa;
     }
   </style>
 </head>
@@ -99,11 +111,12 @@
     🚧 Build in Progress – Live Breaks, Premium Products, and Social Media Launches coming soon. Stay tuned! 🚀
   </div>
 
-  <main>
+  <main class="main-container">
+    <img class="side-img" src="bear.png" alt="Bear">
     <img id="logo" src="logo.png" alt="Claw Mark Cards Logo">
-    <h2>Welcome to Your New Card Store</h2>
-    <p>This is your custom storefront to sell sports cards, TCGs, slabs, and memorabilia.</p>
+    <img class="side-img" src="panther.png" alt="Panther">
   </main>
+
   <footer>
     <p>© 2025 Claw Mark Cards • Powered by the Hobby</p>
   </footer>
