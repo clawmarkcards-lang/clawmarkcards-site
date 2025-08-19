@@ -58,15 +58,30 @@
       align-items: center;
       flex-wrap: wrap;
       padding: 30px;
+      gap: 20px;
     }
     .side-img {
       width: 200px;
       max-width: 100%;
-      filter: brightness(0.7) drop-shadow(0 0 10px #000);
-      transition: filter 0.3s ease;
+      clip-path: polygon(10% 0%, 90% 0%, 100% 20%, 100% 80%, 90% 100%, 10% 100%, 0% 80%, 0% 20%);
+      animation: glowOrange 5s linear infinite;
     }
-    .side-img:hover {
-      filter: brightness(1) drop-shadow(0 0 12px #ff6a00);
+    .side-img.right {
+      animation: glowBlue 5s linear infinite;
+    }
+    @keyframes glowOrange {
+      0% { filter: drop-shadow(0 0 6px #ff6a00); }
+      25% { filter: drop-shadow(0 0 10px #ff6a00); }
+      50% { filter: drop-shadow(0 0 15px #ff6a00); }
+      75% { filter: drop-shadow(0 0 10px #ff6a00); }
+      100% { filter: drop-shadow(0 0 6px #ff6a00); }
+    }
+    @keyframes glowBlue {
+      0% { filter: drop-shadow(0 0 6px #00c8ff); }
+      25% { filter: drop-shadow(0 0 10px #00c8ff); }
+      50% { filter: drop-shadow(0 0 15px #00c8ff); }
+      75% { filter: drop-shadow(0 0 10px #00c8ff); }
+      100% { filter: drop-shadow(0 0 6px #00c8ff); }
     }
     #logo {
       max-width: 300px;
@@ -114,7 +129,7 @@
   <main class="main-container">
     <img class="side-img" src="bear.jpg" alt="Bear">
     <img id="logo" src="logo.png" alt="Claw Mark Cards Logo">
-    <img class="side-img" src="panther.jpg" alt="Panther">
+    <img class="side-img right" src="panther.jpg" alt="Panther">
   </main>
 
   <footer>
