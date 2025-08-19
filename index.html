@@ -1,32 +1,35 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Claw Mark Cards</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>Claw Mark Cards</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: black;
+    }
+    #intro-video {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>Claw Mark Cards</h1>
-        <p class="tagline">Every Rip Leaves a Mark</p>
-        <nav>
-            <a href="#">Shop</a>
-            <a href="#">Login</a>
-            <a href="#">Dashboard</a>
-            <a href="#">Cart</a>
-        </nav>
-    </header>
-    <main>
-        <section class="hero">
-            <h2>Welcome to the Jungle of Rips 🐾</h2>
-            <p>Slabs, raw, sealed, and savage deals – your card hunt starts here.</p>
-            <button onclick="alert('Shop Coming Soon!')">Enter the Breakroom</button>
-        </section>
-    </main>
-    <footer>
-        <p>© 2025 Claw Mark Cards • Powered by the Hobby</p>
-    </footer>
+  <video id="intro-video" autoplay playsinline>
+    <source src="claw_intro_final_fastcut.mp4" type="video/mp4">
+  </video>
+  <script>
+    const intro = document.getElementById('intro-video');
+    intro.onended = () => {
+      localStorage.setItem("introPlayed", "true");
+      window.location.href = "/"; // redirect to homepage
+    };
+    if (localStorage.getItem("introPlayed")) {
+      window.location.href = "/"; // skip if already seen
+    }
+  </script>
 </body>
 </html>
