@@ -18,16 +18,22 @@
   </style>
 </head>
 <body>
-  <video id="intro-video" autoplay muted playsinline>
+  <video id="intro-video" autoplay muted playsinline preload="auto">
     <source src="claw_intro_final_fastcut.mp4" type="video/mp4">
+    Your browser does not support the video tag.
   </video>
+
   <script>
     const intro = document.getElementById('intro-video');
 
-    // Skip if already played
+    // Skip intro if already played
     if (localStorage.getItem("introPlayed")) {
       window.location.href = "/";
     } else {
+      intro.addEventListener('canplaythrough', () => {
+        intro.play();
+      });
+
       intro.addEventListener('ended', () => {
         localStorage.setItem("introPlayed", "true");
         window.location.href = "/";
