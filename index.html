@@ -2,43 +2,71 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Claw Mark Cards</title>
   <style>
-    html, body {
+    body {
       margin: 0;
       padding: 0;
-      overflow: hidden;
-      background: black;
+      font-family: Arial, sans-serif;
+      background-color: #0d0d0d;
+      color: #f2f2f2;
     }
-    #intro-video {
-      width: 100vw;
-      height: 100vh;
-      object-fit: cover;
+    header {
+      background-color: #ff6a00;
+      padding: 20px;
+      text-align: center;
+      border-bottom: 3px solid #007bff;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.2em;
+      color: #ffffff;
+    }
+    .tagline {
+      font-style: italic;
+      margin-top: 5px;
+      color: #f8d382;
+    }
+    nav a {
+      margin: 0 15px;
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      color: #00c8ff;
+    }
+    main {
+      padding: 30px;
+      text-align: center;
+    }
+    footer {
+      background-color: #1e1e1e;
+      text-align: center;
+      padding: 15px;
+      font-size: 0.9em;
+      color: #aaaaaa;
     }
   </style>
 </head>
 <body>
-  <video id="intro-video" autoplay muted playsinline preload="auto">
-    <source src="claw_intro_final_fastcut.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
-
-  <script>
-    const intro = document.getElementById('intro-video');
-
-    // Skip intro if already played
-    if (localStorage.getItem("introPlayed")) {
-      window.location.href = "/";
-    } else {
-      intro.addEventListener('canplaythrough', () => {
-        intro.play();
-      });
-
-      intro.addEventListener('ended', () => {
-        localStorage.setItem("introPlayed", "true");
-        window.location.href = "/";
-      });
-    }
-  </script>
+  <header>
+    <h1>Claw Mark Cards</h1>
+    <p class="tagline">Every Rip Leaves a Mark</p>
+    <nav>
+      <a href="#">Shop</a>
+      <a href="#">Login</a>
+      <a href="#">Dashboard</a>
+      <a href="#">Cart</a>
+    </nav>
+  </header>
+  <main>
+    <h2>Welcome to Your New Card Store</h2>
+    <p>This is your custom storefront to sell sports cards, TCGs, slabs, and memorabilia.</p>
+  </main>
+  <footer>
+    <p>© 2025 Claw Mark Cards • Powered by the Hobby</p>
+  </footer>
 </body>
 </html>
