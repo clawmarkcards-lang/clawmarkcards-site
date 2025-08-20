@@ -1,0 +1,189 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Claw Mark Cards</title>
+  <style>
+    @font-face {
+      font-family: 'Workout';
+      src: url('workout.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #0d0d0d;
+      color: #f2f2f2;
+    }
+
+    header {
+      background-color: #ff6a00;
+      padding: 20px;
+      text-align: center;
+      border-bottom: 3px solid #007bff;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.5em;
+      color: #ffffff;
+      font-family: 'Workout', sans-serif;
+    }
+
+    .tagline {
+      font-style: italic;
+      margin-top: 5px;
+      color: #f8d382;
+      font-size: 1.3em;
+      font-family: 'Workout', sans-serif;
+    }
+
+    nav a {
+      margin: 0 15px;
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      color: #00c8ff;
+    }
+
+    #announcement {
+      background-color: #1a1a1a;
+      text-align: center;
+      padding: 15px;
+      font-size: 1.1em;
+      color: #ffcc00;
+      border-bottom: 2px solid #ff6a00;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.6; }
+      100% { opacity: 1; }
+    }
+
+    .main-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      padding: 30px;
+      gap: 20px;
+    }
+
+    .glow-container {
+      position: relative;
+      width: 240px;
+      height: 240px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .glow-container::before {
+      content: "";
+      position: absolute;
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      z-index: 0;
+      animation: glowOrange 5s linear infinite;
+    }
+
+    .glow-container.right::before {
+      animation: glowBlue 5s linear infinite;
+    }
+
+    .side-img {
+      width: 100%;
+      height: auto;
+      position: relative;
+      z-index: 1;
+      filter: drop-shadow(0 0 12px rgba(0,0,0,0.7));
+    }
+
+    @keyframes glowOrange {
+      0% { box-shadow: 0 0 15px #ff6a00; }
+      25% { box-shadow: 0 0 25px #ff6a00; }
+      50% { box-shadow: 0 0 40px #ff6a00; }
+      75% { box-shadow: 0 0 25px #ff6a00; }
+      100% { box-shadow: 0 0 15px #ff6a00; }
+    }
+
+    @keyframes glowBlue {
+      0% { box-shadow: 0 0 15px #00c8ff; }
+      25% { box-shadow: 0 0 25px #00c8ff; }
+      50% { box-shadow: 0 0 40px #00c8ff; }
+      75% { box-shadow: 0 0 25px #00c8ff; }
+      100% { box-shadow: 0 0 15px #00c8ff; }
+    }
+
+    #logo {
+      max-width: 300px;
+      margin: 0 20px;
+      display: block;
+      animation: fadeIn 2s ease-out, rotateShadow 5s linear infinite;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes rotateShadow {
+      0%   { filter: drop-shadow(4px 0 10px #ff6a00); }
+      25%  { filter: drop-shadow(0 4px 10px #00c8ff); }
+      50%  { filter: drop-shadow(-4px 0 10px #ff6a00); }
+      75%  { filter: drop-shadow(0 -4px 10px #00c8ff); }
+      100% { filter: drop-shadow(4px 0 10px #ff6a00); }
+    }
+
+    footer {
+      background-color: #1e1e1e;
+      text-align: center;
+      padding: 15px;
+      font-size: 0.9em;
+      color: #aaaaaa;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Claw Mark Cards</h1>
+    <p class="tagline">Every Rip Leaves Its Mark</p>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="social.html">Social Media</a>
+      <a href="#">Login</a>
+      <a href="#">Cart</a>
+    </nav>
+  </header>
+
+  <div id="announcement">
+    🚧 Build in Progress – Live Breaks, Premium Products, and Social Media Launches coming soon. Stay tuned! 🚀
+  </div>
+
+  <main class="main-container">
+    <div class="glow-container">
+      <img class="side-img" src="bear.png" alt="Bear">
+    </div>
+    <img id="logo" src="logo.png" alt="Claw Mark Cards Logo">
+    <div class="glow-container right">
+      <img class="side-img" src="panther.png" alt="Panther">
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 Claw Mark Cards • Powered by the Hobby</p>
+  </footer>
+</body>
+</html>
