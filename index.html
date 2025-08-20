@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -54,9 +53,96 @@
       color: #00c8ff;
     }
 
-    main {
-      padding: 40px;
+    #announcement {
+      background-color: #1a1a1a;
       text-align: center;
+      padding: 15px;
+      font-size: 1.1em;
+      color: #ffcc00;
+      border-bottom: 2px solid #ff6a00;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.6; }
+      100% { opacity: 1; }
+    }
+
+    .main-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      padding: 30px;
+      gap: 20px;
+    }
+
+    .glow-container {
+      position: relative;
+      width: 240px;
+      height: 240px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .glow-container::before {
+      content: "";
+      position: absolute;
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      z-index: 0;
+      animation: glowOrange 5s linear infinite;
+    }
+
+    .glow-container.right::before {
+      animation: glowBlue 5s linear infinite;
+    }
+
+    .side-img {
+      width: 100%;
+      height: auto;
+      position: relative;
+      z-index: 1;
+      filter: drop-shadow(0 0 12px rgba(0,0,0,0.7));
+    }
+
+    @keyframes glowOrange {
+      0% { box-shadow: 0 0 15px #ff6a00; }
+      25% { box-shadow: 0 0 25px #ff6a00; }
+      50% { box-shadow: 0 0 40px #ff6a00; }
+      75% { box-shadow: 0 0 25px #ff6a00; }
+      100% { box-shadow: 0 0 15px #ff6a00; }
+    }
+
+    @keyframes glowBlue {
+      0% { box-shadow: 0 0 15px #00c8ff; }
+      25% { box-shadow: 0 0 25px #00c8ff; }
+      50% { box-shadow: 0 0 40px #00c8ff; }
+      75% { box-shadow: 0 0 25px #00c8ff; }
+      100% { box-shadow: 0 0 15px #00c8ff; }
+    }
+
+    #logo {
+      max-width: 300px;
+      margin: 0 20px;
+      display: block;
+      animation: fadeIn 2s ease-out, rotateShadow 5s linear infinite;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes rotateShadow {
+      0%   { filter: drop-shadow(4px 0 10px #ff6a00); }
+      25%  { filter: drop-shadow(0 4px 10px #00c8ff); }
+      50%  { filter: drop-shadow(-4px 0 10px #ff6a00); }
+      75%  { filter: drop-shadow(0 -4px 10px #00c8ff); }
+      100% { filter: drop-shadow(4px 0 10px #ff6a00); }
     }
 
     footer {
@@ -81,9 +167,18 @@
     </nav>
   </header>
 
-  <main>
-    <h2>Welcome to Your New Card Store</h2>
-    <p>This is your custom storefront to sell sports cards, TCGs, slabs, and memorabilia.</p>
+  <div id="announcement">
+    🚧 Build in Progress – Live Breaks, Premium Products, and Social Media Launches coming soon. Stay tuned! 🚀
+  </div>
+
+  <main class="main-container">
+    <div class="glow-container">
+      <img class="side-img" src="bear.png" alt="Bear">
+    </div>
+    <img id="logo" src="logo.png" alt="Claw Mark Cards Logo">
+    <div class="glow-container right">
+      <img class="side-img" src="panther.png" alt="Panther">
+    </div>
   </main>
 
   <footer>
