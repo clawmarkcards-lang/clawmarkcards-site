@@ -2,7 +2,7 @@
 const auth = firebase.auth();
 const db = firebase.firestore();
 
-const ADMIN_EMAIL = "youradmin@email.com"; // Replace this with your actual admin email
+const ADMIN_EMAIL = "clawmarkcards@gmail.com"; // Replace this with your actual admin email
 
 auth.onAuthStateChanged(user => {
   if (!user || user.email !== ADMIN_EMAIL) {
