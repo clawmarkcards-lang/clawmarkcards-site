@@ -69,6 +69,18 @@
       100% { opacity: 1; }
     }
 
+    /* 🔥 Status widget styles */
+    #cm-user-status {
+      margin: 12px auto;
+      text-align: center;
+      font-weight: 800;
+      font-size: 1.1em;
+    }
+    #cm-user-status.cm-not { color: #ff5757; }
+    #cm-user-status.cm-yes  { color: #00c8ff; }
+    #cm-user-status a { color: #00c8ff; text-decoration: underline; }
+    #cm-user-status a:hover { filter: brightness(1.2); }
+
     .main-container {
       display: flex;
       justify-content: center;
@@ -172,6 +184,9 @@
     🚧 Build in Progress – Live Breaks, Premium Products, and Social Media Launches coming soon. Stay tuned! 🚀
   </div>
 
+  <!-- 🔥 Login/Tier Status -->
+  <div id="cm-user-status">Loading status...</div>
+
   <main class="main-container">
     <div class="glow-container">
       <img class="side-img" src="bear.png" alt="Bear">
@@ -185,5 +200,52 @@
   <footer>
     <p>© 2025 Claw Mark Cards • Powered by the Hobby</p>
   </footer>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+  <!-- Status logic -->
+  <script>
+  (function () {
+    const firebaseConfig = {
+      apiKey: "AIzaSyCM5La0C7dKpWgQUpAxVQguDcEV1D4Vmms",
+      authDomain: "clawmark-login.firebaseapp.com",
+      projectId: "clawmark-login",
+      storageBucket: "clawmark-login.firebasestorage.app",
+      messagingSenderId: "334338665183",
+      appId: "1:334338665183:web:eb179b820393234c74576a",
+      measurementId: "G-JE64ZQ56T5"
+    };
+
+    if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    const el = document.getElementById("cm-user-status");
+
+    const showNot = () => {
+      el.className = "cm-not";
+      el.innerHTML = "❌ You are not marked. <a href='signup.html'>Get Marked now — Sign up</a>.";
+    };
+
+    const showYes = (email, tier) => {
+      el.className = "cm-yes";
+      el.innerHTML = `🔐 Logged in as: ${email} • 🏆 Tier: ${tier || "Fresh Mark"}`;
+    };
+
+    auth.onAuthStateChanged((user) => {
+      if (!user) { showNot(); return; }
+
+      db.collection("users").doc(user.uid).get()
+        .then((doc) => {
+          const data = doc.exists ? doc.data() : {};
+          showYes(data.email || user.email, data.tier || "Fresh Mark");
+        })
+        .catch(() => showYes(user.email, "Fresh Mark"));
+    });
+  })();
+  </script>
 </body>
 </html>
