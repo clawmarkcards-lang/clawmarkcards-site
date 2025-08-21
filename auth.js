@@ -9,45 +9,42 @@ const firebaseConfig = {
   measurementId: "G-JE64ZQ56T5"
 };
 
-// Initialize Firebase
+// Initialize Firebase (compat)
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 
-// Signup form logic
+// SIGNUP form logic (+ email verification + default tier)
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("signup-form");
-
-  if (!form) {
-    console.warn("Signup form not found.");
-    return;
-  }
+  if (!form) return; // Page may not have the signup form
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    const email = document.getElementById("email").value;
+    const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value;
-    const favoriteTeam = document.getElementById("favoriteTeam").value;
-    const favoritePlayer = document.getElementById("favoritePlayer").value;
+    const favoriteTeam = document.getElementById("favoriteTeam").value.trim();
+    const favoritePlayer = document.getElementById("favoritePlayer").value.trim();
 
     auth.createUserWithEmailAndPassword(email, password)
       .then((userCredential) => {
         const user = userCredential.user;
 
-        // Send verification email
-        return user.sendEmailVerification()
-          .then(() => {
-            return db.collection("users").doc(user.uid).set({
-              email: user.email,
-              favoriteTeam: favoriteTeam,
-              favoritePlayer: favoritePlayer,
-              createdAt: new Date().toISOString()
-            });
+        // Send verification FIRST
+        return user.sendEmailVerification().then(() => {
+          // Then create Firestore profile with default tier
+          return db.collection("users").doc(user.uid).set({
+            email: user.email,
+            favoriteTeam,
+            favoritePlayer,
+            tier: "Fresh Mark",            // 🔥 default tier
+            createdAt: new Date().toISOString()
           });
+        });
       })
       .then(() => {
-        alert("Signup successful! Check your email to verify before logging in! Please check your inbox and spam folders.");
+        alert("Signup successful! A verification email has been sent.\n\nPlease check your inbox and spam folder before logging in.");
         form.reset();
       })
       .catch((error) => {
