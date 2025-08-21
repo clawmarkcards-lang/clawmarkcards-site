@@ -2,188 +2,293 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Claw Mark Cards</title>
-  <style>
-    @font-face {
-      font-family: 'Workout';
-      src: url('workout.otf') format('opentype');
-      font-weight: normal;
-      font-style: normal;
-    }
+  <title>Claw Mark Cards — Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+  <!-- TODO: Load your custom "Workout" font here if you have a local file or CDN -->
+  <!-- <link rel="stylesheet" href="path/to/workout-font.css" /> -->
+
+  <style>
+    :root {
+      --blue: #00f0ff;   /* electric blue */
+      --orange: #ff8c00; /* accent orange */
+      --bg: #0f0f0f;
+      --panel: #171717;
+      --text: #f2f2f2;
+      --muted: #9aa0a6;
+      --danger: #ff5757;
+    }
+    * { box-sizing: border-box; }
     body {
       margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      background-color: #0d0d0d;
-      color: #f2f2f2;
+      font-family: "Workout", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
     }
 
+    /* Simple header/nav */
     header {
-      background-color: #ff6a00;
-      padding: 20px;
-      text-align: center;
-      border-bottom: 3px solid #007bff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 20px;
+      background: linear-gradient(90deg, #101010 0%, #151515 100%);
+      border-bottom: 1px solid #222;
     }
-
-    header h1 {
-      margin: 0;
-      font-size: 2.5em;
-      color: #ffffff;
-      font-family: 'Workout', sans-serif;
+    .brand {
+      display: flex; align-items: center; gap: 10px;
+      font-weight: 800; letter-spacing: 0.5px;
     }
-
-    .tagline {
-      font-style: italic;
-      margin-top: 5px;
-      color: #f8d382;
-      font-size: 1.3em;
-      font-family: 'Workout', sans-serif;
+    .brand .logo {
+      width: 36px; height: 36px; border-radius: 8px;
+      background: radial-gradient(circle at 30% 30%, var(--blue), #003e44 60%);
+      box-shadow: 0 0 18px rgba(0, 240, 255, 0.45);
     }
-
     nav a {
-      margin: 0 15px;
-      color: #ffffff;
+      color: var(--text);
       text-decoration: none;
-      font-weight: bold;
+      margin-left: 16px;
+      font-weight: 600;
+    }
+    nav a:hover { color: var(--blue); }
+
+    main {
+      max-width: 1100px;
+      margin: 24px auto;
+      padding: 0 20px 40px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 24px;
     }
 
-    nav a:hover {
-      color: #00c8ff;
+    .panel {
+      background: var(--panel);
+      border: 1px solid #222;
+      border-radius: 14px;
+      padding: 18px;
+      box-shadow: 0 0 18px rgba(0,0,0,0.35);
     }
+    .panel h2 { margin: 0 0 10px; }
+    .muted { color: var(--muted); }
 
-    #announcement {
-      background-color: #1a1a1a;
-      text-align: center;
-      padding: 15px;
-      font-size: 1.1em;
-      color: #ffcc00;
-      border-bottom: 2px solid #ff6a00;
-      animation: pulse 2s infinite;
+    /* User status styles */
+    #user-info {
+      font-weight: 700;
+      margin: 8px 0 12px;
     }
-
-    @keyframes pulse {
-      0% { opacity: 1; }
-      50% { opacity: 0.6; }
-      100% { opacity: 1; }
-    }
-
-    .main-container {
-      display: flex;
-      justify-content: center;
+    #badge-slot {
+      display: inline-flex;
       align-items: center;
-      flex-wrap: wrap;
-      padding: 30px;
-      gap: 20px;
+      gap: 10px;
+      padding: 10px 14px;
+      border: 1px dashed #2a2a2a;
+      border-radius: 10px;
+      background: #121212;
+      margin-top: 8px;
     }
-
-    .glow-container {
-      position: relative;
-      width: 240px;
-      height: 240px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    .badge-placeholder {
+      width: 40px; height: 40px; border-radius: 8px;
+      background: radial-gradient(circle at 40% 40%, var(--orange), #3a2000 60%);
+      box-shadow: 0 0 12px rgba(255,140,0,0.35);
     }
+    .badge-label { font-weight: 800; letter-spacing: 0.3px; }
 
-    .glow-container::before {
-      content: "";
-      position: absolute;
-      width: 240px;
-      height: 240px;
-      border-radius: 50%;
-      z-index: 0;
-      animation: glowOrange 5s linear infinite;
+    /* Buttons */
+    .row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    button, .btn {
+      appearance: none;
+      border: none;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-weight: 800;
+      cursor: pointer;
+      color: #000;
+      background: var(--blue);
+      box-shadow: 0 0 14px rgba(0,240,255,0.3);
     }
-
-    .glow-container.right::before {
-      animation: glowBlue 5s linear infinite;
+    button:hover, .btn:hover { filter: brightness(1.1); }
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid #2a2a2a;
+      box-shadow: none;
     }
+    .danger { background: var(--danger); color: #fff; }
 
-    .side-img {
-      width: 100%;
-      height: auto;
-      position: relative;
-      z-index: 1;
-      filter: drop-shadow(0 0 12px rgba(0,0,0,0.7));
-    }
-
-    @keyframes glowOrange {
-      0% { box-shadow: 0 0 15px #ff6a00; }
-      25% { box-shadow: 0 0 25px #ff6a00; }
-      50% { box-shadow: 0 0 40px #ff6a00; }
-      75% { box-shadow: 0 0 25px #ff6a00; }
-      100% { box-shadow: 0 0 15px #ff6a00; }
-    }
-
-    @keyframes glowBlue {
-      0% { box-shadow: 0 0 15px #00c8ff; }
-      25% { box-shadow: 0 0 25px #00c8ff; }
-      50% { box-shadow: 0 0 40px #00c8ff; }
-      75% { box-shadow: 0 0 25px #00c8ff; }
-      100% { box-shadow: 0 0 15px #00c8ff; }
-    }
-
-    #logo {
-      max-width: 300px;
-      margin: 0 20px;
-      display: block;
-      animation: fadeIn 2s ease-out, rotateShadow 5s linear infinite;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    @keyframes rotateShadow {
-      0%   { filter: drop-shadow(4px 0 10px #ff6a00); }
-      25%  { filter: drop-shadow(0 4px 10px #00c8ff); }
-      50%  { filter: drop-shadow(-4px 0 10px #ff6a00); }
-      75%  { filter: drop-shadow(0 -4px 10px #00c8ff); }
-      100% { filter: drop-shadow(4px 0 10px #ff6a00); }
-    }
-
+    /* Footer */
     footer {
-      background-color: #1e1e1e;
-      text-align: center;
-      padding: 15px;
-      font-size: 0.9em;
-      color: #aaaaaa;
+      padding: 20px; text-align: center;
+      color: var(--muted);
+      border-top: 1px solid #222;
+      background: #111;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      main { grid-template-columns: 1fr; }
     }
   </style>
 </head>
+
 <body>
   <header>
-    <h1>Claw Mark Cards</h1>
-    <p class="tagline">Every Rip Leaves Its Mark</p>
+    <div class="brand">
+      <div class="logo" aria-hidden="true"></div>
+      <div>Claw Mark Cards</div>
+    </div>
     <nav>
       <a href="index.html">Home</a>
       <a href="about.html">About Us</a>
       <a href="social.html">Social Media</a>
+      <a href="signup.html">Sign Up</a>
       <a href="login.html">Login</a>
-      <a href="signup.html">Signup</a>
-      <a href="#">Cart</a>
     </nav>
   </header>
 
-  <div id="announcement">
-    🚧 Build in Progress – Live Breaks, Premium Products, and Social Media Launches coming soon. Stay tuned! 🚀
-  </div>
+  <main>
+    <!-- Left: Hero / Content -->
+    <section class="panel">
+      <h2>Welcome to Claw Mark Cards</h2>
+      <p class="muted">Custom homepage with glow, jagged edges, and the Claw ethos. This area is your hero/content block. Replace with your animated intro when ready.</p>
 
-  <main class="main-container">
-    <div class="glow-container">
-      <img class="side-img" src="bear.png" alt="Bear">
-    </div>
-    <img id="logo" src="logo.png" alt="Claw Mark Cards Logo">
-    <div class="glow-container right">
-      <img class="side-img" src="panther.png" alt="Panther">
-    </div>
+      <div style="margin-top:14px;">
+        <div class="row">
+          <a class="btn" href="signup.html">Get Marked (Join)</a>
+          <a class="btn-ghost" href="login.html">Log In</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Right: User status -->
+    <aside class="panel">
+      <h2>Your Status</h2>
+      <div id="user-info" class="muted">Loading user info...</div>
+
+      <!-- Tier badge placeholder (swap with emblem later) -->
+      <div id="badge-slot" aria-live="polite" style="display:none;">
+        <div class="badge-placeholder" aria-hidden="true"></div>
+        <div class="badge-label" id="badge-label">Tier: —</div>
+      </div>
+
+      <div class="row" style="margin-top:12px;">
+        <button id="logout-btn" class="danger" style="display:none;">Log Out</button>
+      </div>
+
+      <div id="profile-meta" class="muted" style="margin-top:12px; display:none;"></div>
+    </aside>
   </main>
 
   <footer>
-    <p>© 2025 Claw Mark Cards • Powered by the Hobby</p>
+    © <span id="year"></span> Claw Mark Cards. All rights reserved.
   </footer>
+
+  <!-- Firebase SDKs (Compat) -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+  <script>
+    // Footer year
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyCM5La0C7dKpWgQUpAxVQguDcEV1D4Vmms",
+      authDomain: "clawmark-login.firebaseapp.com",
+      projectId: "clawmark-login",
+      storageBucket: "clawmark-login.firebasestorage.app",
+      messagingSenderId: "334338665183",
+      appId: "1:334338665183:web:eb179b820393234c74576a",
+      measurementId: "G-JE64ZQ56T5"
+    };
+
+    // Initialize Firebase safely (avoid duplicate init if scripts reused)
+    if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+    }
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    const infoDiv = document.getElementById("user-info");
+    const badgeSlot = document.getElementById("badge-slot");
+    const badgeLabel = document.getElementById("badge-label");
+    const logoutBtn = document.getElementById("logout-btn");
+    const meta = document.getElementById("profile-meta");
+
+    function showNotMarked() {
+      infoDiv.textContent = "❌ You are not marked.";
+      infoDiv.style.color = "var(--danger)";
+      badgeSlot.style.display = "none";
+      logoutBtn.style.display = "none";
+      meta.style.display = "none";
+    }
+
+    function showMarked(email, tier, team, player) {
+      infoDiv.innerHTML = `🔐 Logged in as: ${email}`;
+      infoDiv.style.color = "var(--blue)";
+
+      // Placeholder badge UI (swap for emblem later)
+      badgeLabel.textContent = `Tier: ${tier || "Fresh Mark"}`;
+      badgeSlot.style.display = "inline-flex";
+
+      // Extra metadata (favorite team/player)
+      const parts = [];
+      if (team) parts.push(`🏈 Team: ${team}`);
+      if (player) parts.push(`🧍 Player: ${player}`);
+      if (parts.length) {
+        meta.textContent = parts.join(" • ");
+        meta.style.display = "block";
+      } else {
+        meta.style.display = "none";
+      }
+
+      logoutBtn.style.display = "inline-block";
+    }
+
+    // Optional: lock down homepage for authenticated users only
+    // Set to true to force redirect to login when not signed in
+    const REQUIRE_LOGIN_FOR_HOMEPAGE = false;
+
+    // Auth state listener
+    auth.onAuthStateChanged((user) => {
+      if (!user) {
+        if (REQUIRE_LOGIN_FOR_HOMEPAGE) {
+          window.location.href = "login.html";
+          return;
+        }
+        showNotMarked();
+        return;
+      }
+
+      // Pull profile from Firestore for tier/team/player
+      db.collection("users").doc(user.uid).get()
+        .then((doc) => {
+          const data = doc.exists ? doc.data() : {};
+          showMarked(
+            data.email || user.email,
+            data.tier || "Fresh Mark",
+            data.favoriteTeam || "",
+            data.favoritePlayer || ""
+          );
+        })
+        .catch((err) => {
+          console.error("Error loading user profile:", err);
+          // Fallback to basic info if Firestore read fails
+          showMarked(user.email, "Fresh Mark", "", "");
+        });
+    });
+
+    // Logout handler
+    logoutBtn.addEventListener("click", () => {
+      auth.signOut()
+        .then(() => {
+          showNotMarked();
+        })
+        .catch((err) => {
+          console.error("Logout error:", err);
+          alert("Could not log out: " + err.message);
+        });
+    });
+  </script>
 </body>
 </html>
