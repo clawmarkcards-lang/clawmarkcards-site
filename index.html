@@ -2,69 +2,148 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Claw Mark Cards — Home</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <!-- Your site styles -->
-  <link rel="stylesheet" href="styles.css" /> <!-- keep your existing CSS -->
-
-  <!-- Widget styles (scoped) -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Claw Mark Cards</title>
   <style>
-    #cm-user-status { 
-      margin-top: 20px; 
-      font-weight: 800; 
-      font-size: 1.1rem;
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #0d0d0d;
+      color: #f2f2f2;
     }
-    #cm-user-status.cm-not { color: #ff5757; }      /* red */
-    #cm-user-status.cm-yes { color: #00f0ff; }      /* electric blue */
+    header {
+      background-color: #ff6a00;
+      padding: 20px;
+      text-align: center;
+      border-bottom: 3px solid #007bff;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.2em;
+      color: #ffffff;
+    }
+    .tagline {
+      font-style: italic;
+      margin-top: 5px;
+      color: #f8d382;
+    }
+    nav a {
+      margin: 0 15px;
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      color: #00c8ff;
+    }
+    #announcement {
+      background-color: #1a1a1a;
+      text-align: center;
+      padding: 15px;
+      font-size: 1.1em;
+      color: #ffcc00;
+      border-bottom: 2px solid #ff6a00;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.6; }
+      100% { opacity: 1; }
+    }
+    .main-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      padding: 30px;
+    }
+    .side-img {
+      width: 200px;
+      max-width: 100%;
+      filter: brightness(0.7) drop-shadow(0 0 10px #000);
+      transition: filter 0.3s ease;
+    }
+    .side-img:hover {
+      filter: brightness(1) drop-shadow(0 0 12px #ff6a00);
+    }
+    #logo {
+      max-width: 300px;
+      margin: 0 20px;
+      display: block;
+      animation: fadeIn 2s ease-out, rotateShadow 5s linear infinite;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes rotateShadow {
+      0%   { filter: drop-shadow(4px 0 10px #ff6a00); }
+      25%  { filter: drop-shadow(0 4px 10px #00c8ff); }
+      50%  { filter: drop-shadow(-4px 0 10px #ff6a00); }
+      75%  { filter: drop-shadow(0 -4px 10px #00c8ff); }
+      100% { filter: drop-shadow(4px 0 10px #ff6a00); }
+    }
+    footer {
+      background-color: #1e1e1e;
+      text-align: center;
+      padding: 15px;
+      font-size: 0.9em;
+      color: #aaaaaa;
+    }
+
+    /* ───── Scoped styles for the status widget only ───── */
+    #cm-user-status { 
+      margin: 12px auto 0; 
+      max-width: 1100px;
+      padding: 0 20px;
+      font-weight: 800; 
+      font-size: 1.05rem; 
+    }
+    #cm-user-status.cm-not { color: #ff5757; }     /* red */
+    #cm-user-status.cm-yes  { color: #00f0ff; }    /* electric blue */
     #cm-user-status a { color: #00f0ff; text-decoration: underline; }
     #cm-user-status a:hover { filter: brightness(1.2); }
   </style>
 </head>
-
 <body>
-  <!-- HEADER -->
   <header>
-    <div class="brand">
-      <img src="logo.png" alt="Claw Mark Cards Logo" height="50" />
-      <h1>Claw Mark Cards</h1>
-    </div>
+    <h1>Claw Mark Cards</h1>
+    <p class="tagline">Every Rip Leaves a Mark</p>
     <nav>
       <a href="index.html">Home</a>
       <a href="about.html">About Us</a>
       <a href="social.html">Social Media</a>
-      <a href="signup.html">Sign Up</a>
-      <a href="login.html">Login</a>
+      <a href="#">Login</a>
+      <a href="#">Cart</a>
     </nav>
   </header>
 
-  <!-- MAIN CONTENT -->
-  <main>
-    <section>
-      <h2>Welcome to Claw Mark Cards</h2>
-      <p>The premier place for collectors, breakers, and fans. Join the tribe and get Marked.</p>
+  <div id="announcement">
+    🚧 Build in Progress – Live Breaks, Premium Products, and Social Media Launches coming soon. Stay tuned! 🚀
+  </div>
 
-      <!-- 🔥 User status block -->
-      <div id="cm-user-status">Loading status...</div>
-    </section>
+  <!-- 🔥 Non-destructive Marked status (inserted under announcement) -->
+  <div id="cm-user-status" aria-live="polite">Loading status...</div>
 
-    <!-- Your other homepage sections stay here -->
+  <main class="main-container">
+    <img class="side-img" src="bear.jpg" alt="Bear">
+    <img id="logo" src="logo.png" alt="Claw Mark Cards Logo">
+    <img class="side-img" src="panther.jpg" alt="Panther">
   </main>
 
-  <!-- FOOTER -->
   <footer>
-    <p>© <span id="year"></span> Claw Mark Cards. All rights reserved.</p>
+    <p>© 2025 Claw Mark Cards • Powered by the Hobby</p>
   </footer>
 
-  <!-- Firebase SDKs -->
+  <!-- Firebase SDKs (Compat). If you already load these elsewhere on this page, you can remove these three lines. -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
-  <!-- Status logic -->
+  <!-- Scoped widget logic (safe init; no layout changes) -->
   <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-
+  (function () {
     const firebaseConfig = {
       apiKey: "AIzaSyCM5La0C7dKpWgQUpAxVQguDcEV1D4Vmms",
       authDomain: "clawmark-login.firebaseapp.com",
@@ -75,20 +154,25 @@
       measurementId: "G-JE64ZQ56T5"
     };
 
-    if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+    // Prevent duplicate init if SDKs are reused
+    if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+    }
     const auth = firebase.auth();
-    const db = firebase.firestore();
+    const db   = firebase.firestore();
+
     const el = document.getElementById("cm-user-status");
+    if (!el) return;
 
-    function showNot() {
-      el.className = "cm-user-status cm-not";
+    const showNot = () => {
+      el.className = "cm-not";
       el.innerHTML = "❌ You are not marked. <a href='signup.html'>Sign up here</a> to join.";
-    }
+    };
 
-    function showYes(email, tier) {
-      el.className = "cm-user-status cm-yes";
+    const showYes = (email, tier) => {
+      el.className = "cm-yes";
       el.innerHTML = `🔐 Logged in as: ${email} • 🏆 Tier: ${tier || "Fresh Mark"}`;
-    }
+    };
 
     auth.onAuthStateChanged((user) => {
       if (!user) { showNot(); return; }
@@ -98,10 +182,9 @@
           const data = doc.exists ? doc.data() : {};
           showYes(data.email || user.email, data.tier || "Fresh Mark");
         })
-        .catch(() => {
-          showYes(user.email, "Fresh Mark");
-        });
+        .catch(() => showYes(user.email, "Fresh Mark"));
     });
+  })();
   </script>
 </body>
 </html>
