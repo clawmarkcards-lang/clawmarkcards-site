@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
           });
       })
       .then(() => {
-        alert("Signup successful! Check your email to verify before logging in.");
+        alert("Signup successful! Check your email to verify before logging in! Please check your inbox and spam folders.");
         form.reset();
       })
       .catch((error) => {
