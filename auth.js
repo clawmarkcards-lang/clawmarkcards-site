@@ -12,6 +12,7 @@ document.getElementById("signup-form").addEventListener("submit", function (e) {
 
   auth.createUserWithEmailAndPassword(email, password)
     .then((cred) => {
+      console.log("User created:", cred.user.uid);
       return db.collection("users").doc(cred.user.uid).set({
         email,
         favoriteTeam,
@@ -20,9 +21,12 @@ document.getElementById("signup-form").addEventListener("submit", function (e) {
       });
     })
     .then(() => {
+      console.log("Firestore document written.");
+      alert("Signup success! Redirecting...");
       window.location.href = "dashboard.html";
     })
     .catch((err) => {
+      console.error("Signup error:", err.message);
       alert(err.message);
     });
 });
