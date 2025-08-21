@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Claw Mark Signup</title>
 
   <!-- Firebase SDKs (Compat Version) -->
@@ -9,42 +9,121 @@
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
-  <!-- Your Auth Logic -->
-  <script src="auth.js" defer></script>
+  <!-- Auth Logic Script -->
+  <script defer>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCM5La0C7dKpWgQUpAxVQguDcEV1D4Vmms",
+      authDomain: "clawmark-login.firebaseapp.com",
+      projectId: "clawmark-login",
+      storageBucket: "clawmark-login.firebasestorage.app",
+      messagingSenderId: "334338665183",
+      appId: "1:334338665183:web:eb179b820393234c74576a",
+      measurementId: "G-JE64ZQ56T5"
+    };
 
-  <!-- Optional: Style the form a bit -->
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    // Signup form handler
+    document.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("signup-form").addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+        const favoriteTeam = document.getElementById("favoriteTeam").value;
+        const favoritePlayer = document.getElementById("favoritePlayer").value;
+
+        auth.createUserWithEmailAndPassword(email, password)
+          .then((userCredential) => {
+            const user = userCredential.user;
+
+            return db.collection("users").doc(user.uid).set({
+              email: user.email,
+              favoriteTeam: favoriteTeam,
+              favoritePlayer: favoritePlayer,
+              createdAt: new Date().toISOString()
+            });
+          })
+          .then(() => {
+            alert("Signup successful! Welcome to the Claw Mark.");
+            document.getElementById("signup-form").reset();
+          })
+          .catch((error) => {
+            console.error("Signup error:", error);
+            alert("Error: " + error.message);
+          });
+      });
+    });
+  </script>
+
+  <!-- Styles (Dark Theme + Glowing Button) -->
   <style>
     body {
-      font-family: 'Workout', sans-serif;
-      background-color: #111;
-      color: #eee;
+      font-family: 'Arial', sans-serif;
+      background-color: #0f0f0f;
+      color: #f2f2f2;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
+      margin: 0;
     }
 
     form {
-      background-color: #222;
+      background-color: #1a1a1a;
       padding: 2rem;
-      border-radius: 8px;
-      box-shadow: 0 0 10px #00f0ff;
+      border-radius: 10px;
+      box-shadow: 0 0 15px #00f0ff;
+      width: 300px;
+    }
+
+    form h2 {
+      text-align: center;
+      margin-bottom: 1rem;
     }
 
     input {
       display: block;
       width: 100%;
-      margin: 1rem 0;
-      padding: 0.5rem;
-      background: #000;
+      margin: 0.8rem 0;
+      padding: 0.6rem;
+      background-color: #000;
       color: #fff;
       border: 1px solid #555;
+      border-radius: 4px;
     }
 
     button {
+      width: 100%;
       background-color: #00f0ff;
       color: #000;
-      padding: 0.5rem 1rem;
+      padding: 0.6rem;
+      font-weight: bold;
       border: none;
+      border-radius: 4px;
       cursor: pointer;
-      fon
+      transition: background-color 0.2s ease-in-out;
+    }
+
+    button:hover {
+      background-color: #0ff;
+    }
+  </style>
+</head>
+
+<body>
+  <form id="signup-form">
+    <h2>🛡️ Get Marked</h2>
+
+    <input type="email" id="email" placeholder="Your Claw Mark Email" required />
+    <input type="password" id="password" placeholder="Unlock the Vault" required />
+    <input type="text" id="favoriteTeam" placeholder="Favorite NFL Team" required />
+    <input type="text" id="favoritePlayer" placeholder="Favorite Player" required />
+
+    <button type="submit">Sign Up</button>
+  </form>
+</body>
+</html>
