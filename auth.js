@@ -14,27 +14,48 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 
-// Signup form handler
-document.getElementById("signup-form").addEventListener("submit", (e) => {
-  e.preventDefault();
+// Signup form logic
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("signup-form");
 
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
+  if (!form) {
+    console.warn("Signup form not found.");
+    return;
+  }
 
-  auth.createUserWithEmailAndPassword(email, password)
-    .then((userCredential) => {
-      const user = userCredential.user;
-      return db.collection("users").doc(user.uid).set({
-        email: user.email,
-        createdAt: new Date().toISOString()
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    // Get field values
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    const favoriteTeam = document.getElementById("favoriteTeam").value;
+    const favoritePlayer = document.getElementById("favoritePlayer").value;
+
+    // Create user
+    auth.createUserWithEmailAndPassword(email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+
+        // Send verification email
+        return user.sendEmailVerification()
+          .then(() => {
+            // Save user info to Firestore
+            return db.collection("users").doc(user.uid).set({
+              email: user.email,
+              favoriteTeam: favoriteTeam,
+              favoritePlayer: favoritePlayer,
+              createdAt: new Date().toISOString()
+            });
+          });
+      })
+      .then(() => {
+        alert("Signup successful! Check your email to verify before logging in.");
+        form.reset();
+      })
+      .catch((error) => {
+        console.error("Signup error:", error);
+        alert("Signup failed: " + error.message);
       });
-    })
-    .then(() => {
-      alert("Signup successful! Welcome to the Claw Mark.");
-      document.getElementById("signup-form").reset();
-    })
-    .catch((error) => {
-      console.error("Signup error:", error);
-      alert("Error: " + error.message);
-    });
+  });
 });
