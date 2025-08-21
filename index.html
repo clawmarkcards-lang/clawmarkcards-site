@@ -5,54 +5,30 @@
   <title>Claw Mark Cards — Home</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+  <!-- Your site styles -->
+  <link rel="stylesheet" href="styles.css" /> <!-- keep your existing CSS -->
+
+  <!-- Widget styles (scoped) -->
   <style>
-    :root {
-      --blue: #00f0ff;
-      --orange: #ff8c00;
-      --bg: #0f0f0f;
-      --panel: #171717;
-      --text: #f2f2f2;
-      --danger: #ff5757;
+    #cm-user-status { 
+      margin-top: 20px; 
+      font-weight: 800; 
+      font-size: 1.1rem;
     }
-    body {
-      margin: 0;
-      font-family: "Workout", Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-    }
-    header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 14px 20px;
-      background: #111;
-      border-bottom: 1px solid #222;
-    }
-    nav a {
-      color: var(--text);
-      margin-left: 16px;
-      text-decoration: none;
-      font-weight: 600;
-    }
-    nav a:hover { color: var(--blue); }
-    main {
-      max-width: 900px;
-      margin: 40px auto;
-      padding: 0 20px;
-    }
-    h1 { margin-bottom: 10px; }
-    #user-info {
-      margin: 20px 0;
-      font-weight: bold;
-    }
-    .danger { color: var(--danger); }
-    .highlight { color: var(--blue); }
+    #cm-user-status.cm-not { color: #ff5757; }      /* red */
+    #cm-user-status.cm-yes { color: #00f0ff; }      /* electric blue */
+    #cm-user-status a { color: #00f0ff; text-decoration: underline; }
+    #cm-user-status a:hover { filter: brightness(1.2); }
   </style>
 </head>
 
 <body>
+  <!-- HEADER -->
   <header>
-    <div><strong>Claw Mark Cards</strong></div>
+    <div class="brand">
+      <img src="logo.png" alt="Claw Mark Cards Logo" height="50" />
+      <h1>Claw Mark Cards</h1>
+    </div>
     <nav>
       <a href="index.html">Home</a>
       <a href="about.html">About Us</a>
@@ -62,20 +38,33 @@
     </nav>
   </header>
 
+  <!-- MAIN CONTENT -->
   <main>
-    <h1>Welcome to Claw Mark Cards</h1>
-    <p>The premier place for collectors, breakers, and fans. Join the tribe and get Marked.</p>
+    <section>
+      <h2>Welcome to Claw Mark Cards</h2>
+      <p>The premier place for collectors, breakers, and fans. Join the tribe and get Marked.</p>
 
-    <!-- 🔥 User status block -->
-    <div id="user-info">Loading...</div>
+      <!-- 🔥 User status block -->
+      <div id="cm-user-status">Loading status...</div>
+    </section>
+
+    <!-- Your other homepage sections stay here -->
   </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© <span id="year"></span> Claw Mark Cards. All rights reserved.</p>
+  </footer>
 
   <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
+  <!-- Status logic -->
   <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
     const firebaseConfig = {
       apiKey: "AIzaSyCM5La0C7dKpWgQUpAxVQguDcEV1D4Vmms",
       authDomain: "clawmark-login.firebaseapp.com",
@@ -89,34 +78,28 @@
     if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
     const db = firebase.firestore();
-    const infoDiv = document.getElementById("user-info");
+    const el = document.getElementById("cm-user-status");
 
-    function showNotMarked() {
-      infoDiv.innerHTML = "❌ You are not marked. <a href='signup.html' style='color: var(--blue); text-decoration: underline;'>Sign up here</a> to join.";
-      infoDiv.className = "danger";
+    function showNot() {
+      el.className = "cm-user-status cm-not";
+      el.innerHTML = "❌ You are not marked. <a href='signup.html'>Sign up here</a> to join.";
     }
 
-    function showMarked(email, tier) {
-      infoDiv.innerHTML = `🔐 Logged in as: <span class="highlight">${email}</span> • 🏆 Tier: <span class="highlight">${tier}</span>`;
-      infoDiv.className = "highlight";
+    function showYes(email, tier) {
+      el.className = "cm-user-status cm-yes";
+      el.innerHTML = `🔐 Logged in as: ${email} • 🏆 Tier: ${tier || "Fresh Mark"}`;
     }
 
     auth.onAuthStateChanged((user) => {
-      if (!user) {
-        showNotMarked();
-        return;
-      }
+      if (!user) { showNot(); return; }
 
       db.collection("users").doc(user.uid).get()
         .then((doc) => {
           const data = doc.exists ? doc.data() : {};
-          showMarked(
-            data.email || user.email,
-            data.tier || "Fresh Mark"
-          );
+          showYes(data.email || user.email, data.tier || "Fresh Mark");
         })
         .catch(() => {
-          showMarked(user.email, "Fresh Mark");
+          showYes(user.email, "Fresh Mark");
         });
     });
   </script>
