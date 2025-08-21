@@ -5,137 +5,54 @@
   <title>Claw Mark Cards — Home</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- TODO: Load your custom "Workout" font here if you have a local file or CDN -->
-  <!-- <link rel="stylesheet" href="path/to/workout-font.css" /> -->
-
   <style>
     :root {
-      --blue: #00f0ff;   /* electric blue */
-      --orange: #ff8c00; /* accent orange */
+      --blue: #00f0ff;
+      --orange: #ff8c00;
       --bg: #0f0f0f;
       --panel: #171717;
       --text: #f2f2f2;
-      --muted: #9aa0a6;
       --danger: #ff5757;
     }
-    * { box-sizing: border-box; }
     body {
       margin: 0;
       font-family: "Workout", Arial, sans-serif;
       background: var(--bg);
       color: var(--text);
     }
-
-    /* Simple header/nav */
     header {
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 14px 20px;
-      background: linear-gradient(90deg, #101010 0%, #151515 100%);
+      background: #111;
       border-bottom: 1px solid #222;
-    }
-    .brand {
-      display: flex; align-items: center; gap: 10px;
-      font-weight: 800; letter-spacing: 0.5px;
-    }
-    .brand .logo {
-      width: 36px; height: 36px; border-radius: 8px;
-      background: radial-gradient(circle at 30% 30%, var(--blue), #003e44 60%);
-      box-shadow: 0 0 18px rgba(0, 240, 255, 0.45);
     }
     nav a {
       color: var(--text);
-      text-decoration: none;
       margin-left: 16px;
+      text-decoration: none;
       font-weight: 600;
     }
     nav a:hover { color: var(--blue); }
-
     main {
-      max-width: 1100px;
-      margin: 24px auto;
-      padding: 0 20px 40px;
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 24px;
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 20px;
     }
-
-    .panel {
-      background: var(--panel);
-      border: 1px solid #222;
-      border-radius: 14px;
-      padding: 18px;
-      box-shadow: 0 0 18px rgba(0,0,0,0.35);
-    }
-    .panel h2 { margin: 0 0 10px; }
-    .muted { color: var(--muted); }
-
-    /* User status styles */
+    h1 { margin-bottom: 10px; }
     #user-info {
-      font-weight: 700;
-      margin: 8px 0 12px;
+      margin: 20px 0;
+      font-weight: bold;
     }
-    #badge-slot {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 14px;
-      border: 1px dashed #2a2a2a;
-      border-radius: 10px;
-      background: #121212;
-      margin-top: 8px;
-    }
-    .badge-placeholder {
-      width: 40px; height: 40px; border-radius: 8px;
-      background: radial-gradient(circle at 40% 40%, var(--orange), #3a2000 60%);
-      box-shadow: 0 0 12px rgba(255,140,0,0.35);
-    }
-    .badge-label { font-weight: 800; letter-spacing: 0.3px; }
-
-    /* Buttons */
-    .row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-    button, .btn {
-      appearance: none;
-      border: none;
-      padding: 10px 14px;
-      border-radius: 10px;
-      font-weight: 800;
-      cursor: pointer;
-      color: #000;
-      background: var(--blue);
-      box-shadow: 0 0 14px rgba(0,240,255,0.3);
-    }
-    button:hover, .btn:hover { filter: brightness(1.1); }
-    .btn-ghost {
-      background: transparent;
-      color: var(--text);
-      border: 1px solid #2a2a2a;
-      box-shadow: none;
-    }
-    .danger { background: var(--danger); color: #fff; }
-
-    /* Footer */
-    footer {
-      padding: 20px; text-align: center;
-      color: var(--muted);
-      border-top: 1px solid #222;
-      background: #111;
-    }
-
-    /* Responsive */
-    @media (max-width: 900px) {
-      main { grid-template-columns: 1fr; }
-    }
+    .danger { color: var(--danger); }
+    .highlight { color: var(--blue); }
   </style>
 </head>
 
 <body>
   <header>
-    <div class="brand">
-      <div class="logo" aria-hidden="true"></div>
-      <div>Claw Mark Cards</div>
-    </div>
+    <div><strong>Claw Mark Cards</strong></div>
     <nav>
       <a href="index.html">Home</a>
       <a href="about.html">About Us</a>
@@ -146,52 +63,19 @@
   </header>
 
   <main>
-    <!-- Left: Hero / Content -->
-    <section class="panel">
-      <h2>Welcome to Claw Mark Cards</h2>
-      <p class="muted">Custom homepage with glow, jagged edges, and the Claw ethos. This area is your hero/content block. Replace with your animated intro when ready.</p>
+    <h1>Welcome to Claw Mark Cards</h1>
+    <p>The premier place for collectors, breakers, and fans. Join the tribe and get Marked.</p>
 
-      <div style="margin-top:14px;">
-        <div class="row">
-          <a class="btn" href="signup.html">Get Marked (Join)</a>
-          <a class="btn-ghost" href="login.html">Log In</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- Right: User status -->
-    <aside class="panel">
-      <h2>Your Status</h2>
-      <div id="user-info" class="muted">Loading user info...</div>
-
-      <!-- Tier badge placeholder (swap with emblem later) -->
-      <div id="badge-slot" aria-live="polite" style="display:none;">
-        <div class="badge-placeholder" aria-hidden="true"></div>
-        <div class="badge-label" id="badge-label">Tier: —</div>
-      </div>
-
-      <div class="row" style="margin-top:12px;">
-        <button id="logout-btn" class="danger" style="display:none;">Log Out</button>
-      </div>
-
-      <div id="profile-meta" class="muted" style="margin-top:12px; display:none;"></div>
-    </aside>
+    <!-- 🔥 User status block -->
+    <div id="user-info">Loading...</div>
   </main>
 
-  <footer>
-    © <span id="year"></span> Claw Mark Cards. All rights reserved.
-  </footer>
-
-  <!-- Firebase SDKs (Compat) -->
+  <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
   <script>
-    // Footer year
-    document.getElementById("year").textContent = new Date().getFullYear();
-
-    // Firebase config
     const firebaseConfig = {
       apiKey: "AIzaSyCM5La0C7dKpWgQUpAxVQguDcEV1D4Vmms",
       authDomain: "clawmark-login.firebaseapp.com",
@@ -202,91 +86,37 @@
       measurementId: "G-JE64ZQ56T5"
     };
 
-    // Initialize Firebase safely (avoid duplicate init if scripts reused)
-    if (!firebase.apps.length) {
-      firebase.initializeApp(firebaseConfig);
-    }
+    if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
     const db = firebase.firestore();
-
     const infoDiv = document.getElementById("user-info");
-    const badgeSlot = document.getElementById("badge-slot");
-    const badgeLabel = document.getElementById("badge-label");
-    const logoutBtn = document.getElementById("logout-btn");
-    const meta = document.getElementById("profile-meta");
 
     function showNotMarked() {
-      infoDiv.textContent = "❌ You are not marked.";
-      infoDiv.style.color = "var(--danger)";
-      badgeSlot.style.display = "none";
-      logoutBtn.style.display = "none";
-      meta.style.display = "none";
+      infoDiv.innerHTML = "❌ You are not marked. <a href='signup.html' style='color: var(--blue); text-decoration: underline;'>Sign up here</a> to join.";
+      infoDiv.className = "danger";
     }
 
-    function showMarked(email, tier, team, player) {
-      infoDiv.innerHTML = `🔐 Logged in as: ${email}`;
-      infoDiv.style.color = "var(--blue)";
-
-      // Placeholder badge UI (swap for emblem later)
-      badgeLabel.textContent = `Tier: ${tier || "Fresh Mark"}`;
-      badgeSlot.style.display = "inline-flex";
-
-      // Extra metadata (favorite team/player)
-      const parts = [];
-      if (team) parts.push(`🏈 Team: ${team}`);
-      if (player) parts.push(`🧍 Player: ${player}`);
-      if (parts.length) {
-        meta.textContent = parts.join(" • ");
-        meta.style.display = "block";
-      } else {
-        meta.style.display = "none";
-      }
-
-      logoutBtn.style.display = "inline-block";
+    function showMarked(email, tier) {
+      infoDiv.innerHTML = `🔐 Logged in as: <span class="highlight">${email}</span> • 🏆 Tier: <span class="highlight">${tier}</span>`;
+      infoDiv.className = "highlight";
     }
 
-    // Optional: lock down homepage for authenticated users only
-    // Set to true to force redirect to login when not signed in
-    const REQUIRE_LOGIN_FOR_HOMEPAGE = false;
-
-    // Auth state listener
     auth.onAuthStateChanged((user) => {
       if (!user) {
-        if (REQUIRE_LOGIN_FOR_HOMEPAGE) {
-          window.location.href = "login.html";
-          return;
-        }
         showNotMarked();
         return;
       }
 
-      // Pull profile from Firestore for tier/team/player
       db.collection("users").doc(user.uid).get()
         .then((doc) => {
           const data = doc.exists ? doc.data() : {};
           showMarked(
             data.email || user.email,
-            data.tier || "Fresh Mark",
-            data.favoriteTeam || "",
-            data.favoritePlayer || ""
+            data.tier || "Fresh Mark"
           );
         })
-        .catch((err) => {
-          console.error("Error loading user profile:", err);
-          // Fallback to basic info if Firestore read fails
-          showMarked(user.email, "Fresh Mark", "", "");
-        });
-    });
-
-    // Logout handler
-    logoutBtn.addEventListener("click", () => {
-      auth.signOut()
-        .then(() => {
-          showNotMarked();
-        })
-        .catch((err) => {
-          console.error("Logout error:", err);
-          alert("Could not log out: " + err.message);
+        .catch(() => {
+          showMarked(user.email, "Fresh Mark");
         });
     });
   </script>
