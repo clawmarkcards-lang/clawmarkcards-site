@@ -81,6 +81,21 @@
     #cm-user-status a { color: #00c8ff; text-decoration: underline; }
     #cm-user-status a:hover { filter: brightness(1.2); }
 
+    #logout-btn {
+      display: none;
+      margin: 10px auto;
+      padding: 8px 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      background: #ff5757;
+      color: white;
+      cursor: pointer;
+    }
+    #logout-btn:hover {
+      background: #ff4040;
+    }
+
     .main-container {
       display: flex;
       justify-content: center;
@@ -184,8 +199,9 @@
     🚧 Build in Progress – Live Breaks, Premium Products, and Social Media Launches coming soon. Stay tuned! 🚀
   </div>
 
-  <!-- 🔥 Login/Tier Status -->
+  <!-- 🔥 Login/Tier Status + Logout -->
   <div id="cm-user-status">Loading status...</div>
+  <button id="logout-btn">Log Out</button>
 
   <main class="main-container">
     <div class="glow-container">
@@ -224,15 +240,18 @@
     const db = firebase.firestore();
 
     const el = document.getElementById("cm-user-status");
+    const logoutBtn = document.getElementById("logout-btn");
 
     const showNot = () => {
       el.className = "cm-not";
       el.innerHTML = "❌ You are not marked. <a href='signup.html'>Get Marked now — Sign up</a>.";
+      logoutBtn.style.display = "none";
     };
 
     const showYes = (email, tier) => {
       el.className = "cm-yes";
       el.innerHTML = `🔐 Logged in as: ${email} • 🏆 Tier: ${tier || "Fresh Mark"}`;
+      logoutBtn.style.display = "block";
     };
 
     auth.onAuthStateChanged((user) => {
@@ -244,6 +263,16 @@
           showYes(data.email || user.email, data.tier || "Fresh Mark");
         })
         .catch(() => showYes(user.email, "Fresh Mark"));
+    });
+
+    // 🔥 Logout functionality
+    logoutBtn.addEventListener("click", () => {
+      auth.signOut().then(() => {
+        showNot();
+      }).catch((err) => {
+        console.error("Logout error:", err);
+        alert("Logout failed: " + err.message);
+      });
     });
   })();
   </script>
