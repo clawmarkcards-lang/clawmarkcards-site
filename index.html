@@ -1,61 +1,34 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Claw Mark Cards</title>
-
-  <!-- Optional: load Workout font from a local file.
-       Put your font at: /fonts/Workout.ttf  (case-sensitive)
-       If you don’t have it, this safely falls back to Arial. -->
   <style>
-    @font-face {
-      font-family: "Workout";
-      src: url("fonts/Workout.ttf") format("truetype");
-      font-weight: 400 900;
-      font-style: normal;
-      font-display: swap;
-    }
-  </style>
-
-  <style>
-    /* ====== Your original styles (preserved) ====== */
-    :root {
-      --electric-blue: #00c8ff;
-      --orange: #ff6a00;
-      --gold: #f8d382;
-      --bg-dark: #0d0d0d;
-      --panel: #1a1a1a;
-      --text: #f2f2f2;
-      --accent-blue: #007bff;
-    }
-
     body {
       margin: 0;
       padding: 0;
-      font-family: "Workout", Arial, sans-serif; /* ← use Workout if available */
-      background-color: var(--bg-dark);
-      color: var(--text);
+      font-family: Arial, sans-serif;
+      background-color: #0d0d0d;
+      color: #f2f2f2;
     }
-
     header {
-      background-color: var(--orange);
+      background-color: #ff6a00;
       padding: 20px;
       text-align: center;
-      border-bottom: 3px solid var(--accent-blue);
+      border-bottom: 3px solid #007bff;
     }
     header h1 {
       margin: 0;
       font-size: 2.2em;
       color: #ffffff;
-      letter-spacing: 0.3px;
     }
     .tagline {
       font-style: italic;
       margin-top: 5px;
-      color: var(--gold);
+      color: #f8d382;
     }
-
     nav a {
       margin: 0 15px;
       color: #ffffff;
@@ -63,16 +36,15 @@
       font-weight: bold;
     }
     nav a:hover {
-      color: var(--electric-blue);
+      color: #00c8ff;
     }
-
     #announcement {
-      background-color: var(--panel);
+      background-color: #1a1a1a;
       text-align: center;
       padding: 15px;
       font-size: 1.1em;
       color: #ffcc00;
-      border-bottom: 2px solid var(--orange);
+      border-bottom: 2px solid #ff6a00;
       animation: pulse 2s infinite;
     }
     @keyframes pulse {
@@ -80,32 +52,24 @@
       50% { opacity: 0.6; }
       100% { opacity: 1; }
     }
-
     .main-container {
       display: flex;
       justify-content: center;
       align-items: center;
       flex-wrap: wrap;
       padding: 30px;
-      gap: 20px;
     }
-
     .side-img {
       width: 200px;
       max-width: 100%;
-      height: auto;
       filter: brightness(0.7) drop-shadow(0 0 10px #000);
       transition: filter 0.3s ease;
-      object-fit: cover; /* prevents distortion if aspect ratio differs */
     }
     .side-img:hover {
-      filter: brightness(1) drop-shadow(0 0 12px var(--orange));
+      filter: brightness(1) drop-shadow(0 0 12px #ff6a00);
     }
-
     #logo {
       max-width: 300px;
-      width: 100%;
-      height: auto;
       margin: 0 20px;
       display: block;
       animation: fadeIn 2s ease-out, rotateShadow 5s linear infinite;
@@ -115,13 +79,12 @@
       to { opacity: 1; }
     }
     @keyframes rotateShadow {
-      0%   { filter: drop-shadow(4px 0 10px var(--orange)); }
-      25%  { filter: drop-shadow(0 4px 10px var(--electric-blue)); }
-      50%  { filter: drop-shadow(-4px 0 10px var(--orange)); }
-      75%  { filter: drop-shadow(0 -4px 10px var(--electric-blue)); }
-      100% { filter: drop-shadow(4px 0 10px var(--orange)); }
+      0%   { filter: drop-shadow(4px 0 10px #ff6a00); }
+      25%  { filter: drop-shadow(0 4px 10px #00c8ff); }
+      50%  { filter: drop-shadow(-4px 0 10px #ff6a00); }
+      75%  { filter: drop-shadow(0 -4px 10px #00c8ff); }
+      100% { filter: drop-shadow(4px 0 10px #ff6a00); }
     }
-
     footer {
       background-color: #1e1e1e;
       text-align: center;
@@ -129,19 +92,6 @@
       font-size: 0.9em;
       color: #aaaaaa;
     }
-
-    /* ====== Scoped status widget (won’t affect your layout) ====== */
-    #cm-user-status {
-      margin: 12px auto 0;
-      max-width: 1200px;
-      padding: 0 20px;
-      font-weight: 800;
-      font-size: 1.05rem;
-    }
-    #cm-user-status.cm-not { color: #ff5757; }   /* red */
-    #cm-user-status.cm-yes  { color: #00f0ff; }  /* electric blue */
-    #cm-user-status a { color: #00f0ff; text-decoration: underline; }
-    #cm-user-status a:hover { filter: brightness(1.2); }
   </style>
 </head>
 <body>
@@ -152,8 +102,7 @@
       <a href="index.html">Home</a>
       <a href="about.html">About Us</a>
       <a href="social.html">Social Media</a>
-      <a href="login.html">Login</a>
-      <a href="signup.html">Sign Up</a>
+      <a href="#">Login</a>
       <a href="#">Cart</a>
     </nav>
   </header>
@@ -162,69 +111,14 @@
     🚧 Build in Progress – Live Breaks, Premium Products, and Social Media Launches coming soon. Stay tuned! 🚀
   </div>
 
-  <!-- Logged-in / not-marked status (scoped, non-destructive) -->
-  <div id="cm-user-status" aria-live="polite">Loading status...</div>
-
   <main class="main-container">
-    <!-- Ensure these file names/paths match your actual files (see checklist below) -->
     <img class="side-img" src="bear.jpg" alt="Bear">
     <img id="logo" src="logo.png" alt="Claw Mark Cards Logo">
     <img class="side-img" src="panther.jpg" alt="Panther">
   </main>
 
   <footer>
-    <p>© <span id="year"></span> Claw Mark Cards • Powered by the Hobby</p>
+    <p>© 2025 Claw Mark Cards • Powered by the Hobby</p>
   </footer>
-
-  <!-- Firebase SDKs (Compat). If already loaded elsewhere on this page, you may remove these three lines to avoid duplicates. -->
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-
-  <!-- Status logic (safe init; no layout changes) -->
-  <script>
-    // Footer year
-    document.getElementById("year").textContent = new Date().getFullYear();
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyCM5La0C7dKpWgQUpAxVQguDcEV1D4Vmms",
-      authDomain: "clawmark-login.firebaseapp.com",
-      projectId: "clawmark-login",
-      storageBucket: "clawmark-login.firebasestorage.app",
-      messagingSenderId: "334338665183",
-      appId: "1:334338665183:web:eb179b820393234c74576a",
-      measurementId: "G-JE64ZQ56T5"
-    };
-
-    // Prevent duplicate init if SDKs are reused
-    if (!firebase.apps.length) {
-      firebase.initializeApp(firebaseConfig);
-    }
-    const auth = firebase.auth();
-    const db   = firebase.firestore();
-
-    const el = document.getElementById("cm-user-status");
-    if (el) {
-      const showNot = () => {
-        el.className = "cm-not";
-        el.innerHTML = "❌ You are not marked. <a href='signup.html'>Sign up here</a> to join.";
-      };
-      const showYes = (email, tier) => {
-        el.className = "cm-yes";
-        el.innerHTML = `🔐 Logged in as: ${email} • 🏆 Tier: ${tier || "Fresh Mark"}`;
-      };
-
-      auth.onAuthStateChanged((user) => {
-        if (!user) { showNot(); return; }
-
-        db.collection("users").doc(user.uid).get()
-          .then((doc) => {
-            const data = doc.exists ? doc.data() : {};
-            showYes(data.email || user.email, data.tier || "Fresh Mark");
-          })
-          .catch(() => showYes(user.email, "Fresh Mark"));
-      });
-    }
-  </script>
 </body>
 </html>
