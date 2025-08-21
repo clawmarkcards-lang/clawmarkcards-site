@@ -26,13 +26,11 @@ document.addEventListener("DOMContentLoaded", () => {
   form.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    // Get field values
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
     const favoriteTeam = document.getElementById("favoriteTeam").value;
     const favoritePlayer = document.getElementById("favoritePlayer").value;
 
-    // Create user
     auth.createUserWithEmailAndPassword(email, password)
       .then((userCredential) => {
         const user = userCredential.user;
@@ -40,7 +38,6 @@ document.addEventListener("DOMContentLoaded", () => {
         // Send verification email
         return user.sendEmailVerification()
           .then(() => {
-            // Save user info to Firestore
             return db.collection("users").doc(user.uid).set({
               email: user.email,
               favoriteTeam: favoriteTeam,
