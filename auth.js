@@ -1,38 +1,28 @@
-// Handles signup and login using Firebase Auth
-document.addEventListener('DOMContentLoaded', () => {
-  const auth = firebase.auth();
 
-  const signupForm = document.getElementById("signup-form");
-  if (signupForm) {
-    signupForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const email = document.getElementById("signup-email").value;
-      const password = document.getElementById("signup-password").value;
+const auth = firebase.auth();
+const db = firebase.firestore();
 
-      auth.createUserWithEmailAndPassword(email, password)
-        .then(() => {
-          window.location.href = "dashboard.html";
-        })
-        .catch((error) => {
-          alert("Signup error: " + error.message);
-        });
+document.getElementById("signup-form").addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+  const favoriteTeam = document.getElementById("favoriteTeam").value;
+  const favoritePlayer = document.getElementById("favoritePlayer").value;
+
+  auth.createUserWithEmailAndPassword(email, password)
+    .then((cred) => {
+      return db.collection("users").doc(cred.user.uid).set({
+        email,
+        favoriteTeam,
+        favoritePlayer,
+        signup: firebase.firestore.FieldValue.serverTimestamp()
+      });
+    })
+    .then(() => {
+      window.location.href = "dashboard.html";
+    })
+    .catch((err) => {
+      alert(err.message);
     });
-  }
-
-  const loginForm = document.getElementById("login-form");
-  if (loginForm) {
-    loginForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const email = document.getElementById("login-email").value;
-      const password = document.getElementById("login-password").value;
-
-      auth.signInWithEmailAndPassword(email, password)
-        .then(() => {
-          window.location.href = "dashboard.html";
-        })
-        .catch((error) => {
-          alert("Login error: " + error.message);
-        });
-    });
-  }
 });
