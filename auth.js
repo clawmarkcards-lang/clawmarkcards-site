@@ -14,7 +14,7 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 
-// SIGNUP form logic (+ email verification + default tier)
+// SIGNUP form logic (+ email verification + default tier/points)
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("signup-form");
   if (!form) return; // Page may not have the signup form
@@ -33,13 +33,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Send verification FIRST
         return user.sendEmailVerification().then(() => {
-          // Then create Firestore profile with default tier
+          // Then create Firestore profile with defaults
           return db.collection("users").doc(user.uid).set({
             email: user.email,
+            email_lc: user.email.toLowerCase(), // helpful for future searches
             favoriteTeam,
             favoritePlayer,
-            tier: "Fresh Mark",            // 🔥 default tier
-            createdAt: new Date().toISOString()
+            tier: "Fresh Mark",                  // default tier
+            points: 0,                           // default points
+            createdAt: new Date().toISOString()  // okay for now; can switch to serverTimestamp later
           });
         });
       })
