@@ -7,7 +7,7 @@ import { getAnalytics } from "firebase/analytics";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyCM5La0C7dKpWgQUpAxVQguDcEV1D4Vmms",
+  apiKey: "5a6b5354ace19c62a2747f46e9c0c1fede188476",
   authDomain: "clawmark-login.firebaseapp.com",
   projectId: "clawmark-login",
   storageBucket: "clawmark-login.firebasestorage.app",
@@ -18,4 +18,5 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+
 const analytics = getAnalytics(app);
