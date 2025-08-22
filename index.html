@@ -81,6 +81,27 @@
     #cm-user-status a { color: #00c8ff; text-decoration: underline; }
     #cm-user-status a:hover { filter: brightness(1.2); }
 
+    /* Badge + points styles */
+    #cm-user-status .badge-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-left: 10px;
+      vertical-align: middle;
+    }
+    #cm-user-status .badge-img {
+      width: 42px;
+      height: 42px;
+      object-fit: contain;
+      border-radius: 8px;
+      background: #111;
+      box-shadow: 0 0 10px rgba(0,0,0,0.35);
+    }
+    #cm-user-status .points {
+      font-weight: 800;
+      color: #ffcc00;
+    }
+
     #logout-btn {
       display: none;
       margin: 10px auto;
@@ -242,15 +263,35 @@
     const el = document.getElementById("cm-user-status");
     const logoutBtn = document.getElementById("logout-btn");
 
+    // 🔁 Map your tiers to your badge image filenames
+    const BADGE_MAP = {
+      "Fresh Mark": "badgesfresh.png",
+      "Deep Scar":  "badgesdeep.png",
+      "Full Claw":  "badgesfull.png"
+    };
+
+    const cleanTier = (t) => (t || "Fresh Mark").trim();
+    const getBadgeSrc = (tier) => BADGE_MAP[cleanTier(tier)] || BADGE_MAP["Fresh Mark"];
+
     const showNot = () => {
       el.className = "cm-not";
       el.innerHTML = "❌ You are not marked. <a href='signup.html'>Get Marked now — Sign up</a>.";
       logoutBtn.style.display = "none";
     };
 
-    const showYes = (email, tier) => {
+    const showYes = (email, tier, points) => {
+      const safeTier = cleanTier(tier);
+      const pts = Number.isFinite(points) ? points : 0;
+      const badgeSrc = getBadgeSrc(safeTier);
+
       el.className = "cm-yes";
-      el.innerHTML = `🔐 Logged in as: ${email} • 🏆 Tier: ${tier || "Fresh Mark"}`;
+      el.innerHTML =
+        `🔐 Logged in as: ${email} • 🏆 Tier: ${safeTier}
+         <span class="badge-wrap">
+           <img class="badge-img" src="${badgeSrc}" alt="${safeTier} badge"
+                onerror="this.style.display='none'">
+           <span class="points">Points: ${pts}</span>
+         </span>`;
       logoutBtn.style.display = "block";
     };
 
@@ -260,12 +301,18 @@
       db.collection("users").doc(user.uid).get()
         .then((doc) => {
           const data = doc.exists ? doc.data() : {};
-          showYes(data.email || user.email, data.tier || "Fresh Mark");
+          showYes(
+            (data.email || user.email),
+            (data.tier || "Fresh Mark"),
+            (typeof data.points === "number" ? data.points : 0)
+          );
         })
-        .catch(() => showYes(user.email, "Fresh Mark"));
+        .catch(() => {
+          showYes(user.email, "Fresh Mark", 0);
+        });
     });
 
-    // 🔥 Logout functionality
+    // Logout functionality
     logoutBtn.addEventListener("click", () => {
       auth.signOut().then(() => {
         showNot();
