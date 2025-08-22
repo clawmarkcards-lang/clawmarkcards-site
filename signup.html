@@ -25,7 +25,6 @@
       margin: 0;
       padding: 16px;
     }
-
     form {
       background-color: #1a1a1a;
       padding: 2rem;
@@ -33,32 +32,19 @@
       box-shadow: 0 0 15px #00c8ff33;
       width: 320px;
     }
-
     h2 { text-align: center; margin-bottom: 1rem; }
 
     .row { margin: 0.8rem 0; }
-
     input {
-      display: block;
-      width: 100%;
+      display: block; width: 100%;
       padding: 0.6rem;
-      background-color: #000;
-      color: #fff;
-      border: 1px solid #555;
-      border-radius: 4px;
+      background-color: #000; color: #fff;
+      border: 1px solid #555; border-radius: 4px;
     }
-
     button {
-      width: 100%;
-      background-color: #00c8ff;
-      color: #000;
-      padding: 0.6rem;
-      font-weight: bold;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: filter 0.15s ease-in-out;
-      margin-top: .4rem;
+      width: 100%; background-color: #00c8ff; color: #000;
+      padding: 0.6rem; font-weight: bold; border: none; border-radius: 4px;
+      cursor: pointer; transition: filter 0.15s ease-in-out; margin-top: .4rem;
     }
     button:hover { filter: brightness(1.1); }
 
@@ -67,6 +53,9 @@
     .err { color: #ff6b6b; }
     .muted { color: #bbb; font-size: .9rem; text-align: center; margin-top: .6rem; }
     a { color: #00c8ff; }
+
+    /* Failsafe: if any old eye buttons leak in, hide them */
+    .pw-toggle { display: none !important; }
   </style>
 </head>
 
@@ -95,25 +84,15 @@
     <div class="muted">Already marked? <a href="login.html">Login</a></div>
   </form>
 
-  <!-- Defensive: stop page reload; let auth.js run Firebase logic and set messages -->
+  <!-- Defensive: prevent page reload + remove any lingering eye elements if cached -->
   <script>
     (function () {
       const form = document.getElementById('signup-form');
-      if (!form) return;
-
-      // Prevent the browser from reloading on submit.
-      // Your auth.js should also call preventDefault, but this guarantees no flash/reset.
-      form.addEventListener('submit', function(e) {
-        e.preventDefault();
-      }, { capture: true });
-
-      // Optional convenience: if auth.js wants to set a success quickly, expose a helper.
-      window.CLAW_SIGNUP_MSG = function(text, ok) {
-        const el = document.getElementById('signup-msg');
-        if (!el) return;
-        el.className = 'msg ' + (ok ? 'ok' : 'err');
-        el.textContent = text || '';
-      };
+      if (form) {
+        form.addEventListener('submit', function(e) { e.preventDefault(); }, { capture: true });
+      }
+      // Nuke any stray eye buttons injected by old cached markup/scripts
+      document.querySelectorAll('.pw-toggle').forEach(el => el.remove());
     })();
   </script>
 </body>
