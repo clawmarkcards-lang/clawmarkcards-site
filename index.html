@@ -188,10 +188,10 @@
       100% { filter: drop-shadow(4px 0 10px #ff6a00); }
     }
 
-    /* NEW: sports cards / collectibles section */
+    /* Sports cards / collectibles section */
     .hobby-section {
       max-width: 900px;
-      margin: 20px auto 40px;
+      margin: 20px auto 20px;
       padding: 0 16px;
       text-align: center;
     }
@@ -224,11 +224,51 @@
       text-decoration: none;
       transition: filter .15s ease-in-out;
     }
-    .btn.alt {
-      background: #ff6a00;
-      color: #000;
-    }
+    .btn.alt { background: #ff6a00; color: #000; }
     .btn:hover { filter: brightness(1.12); }
+
+    /* NEW: Social CTA strip */
+    .social-strip {
+      max-width: 980px;
+      margin: 14px auto 40px;
+      padding: 0 16px;
+      text-align: center;
+    }
+    .social-strip h3 {
+      margin: 0 0 10px;
+      color: #ffcc00;
+      font-size: 1.3em;
+    }
+    .social-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      align-items: stretch;
+    }
+    @media (max-width: 860px) {
+      .social-grid { grid-template-columns: 1fr; }
+    }
+    .soc-card {
+      background: #151515;
+      border: 1px solid #252525;
+      border-radius: 14px;
+      padding: 14px;
+      box-shadow: 0 0 14px rgba(0,0,0,.35);
+      text-align: center;
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .soc-card:hover { transform: translateY(-2px); box-shadow: 0 0 22px rgba(0,0,0,.5); }
+    .soc-icon-wrap {
+      position: relative;
+      width: 110px; height: 110px;
+      margin: 6px auto 8px;
+      filter: drop-shadow(0 0 10px rgba(0,0,0,.55));
+    }
+    .soc-icon { width: 100%; height: 100%; object-fit: contain; }
+    .soc-title { font-weight: 800; margin: 4px 0 2px; }
+    .soc-handle { color: #bbb; font-size: .95em; margin: 0 0 8px; }
+    .soc-btn { display: inline-block; background: #00c8ff; color: #000; padding: 8px 14px; border-radius: 10px; font-weight: 800; text-decoration: none; transition: filter .15s; }
+    .soc-btn:hover { filter: brightness(1.12); }
 
     footer {
       background-color: #1e1e1e;
@@ -255,7 +295,7 @@
       <a href="index.html">Home</a>
       <a href="about.html">About Us</a>
       <a href="tiers.html">The Marked Tiers</a>
-      <a href="rewards.html">Rewards</a> <!-- NEW tab -->
+      <a href="rewards.html">Rewards</a>
       <a href="social.html">Social Media</a>
       <a href="login.html">Login</a>
       <a href="signup.html">Signup</a>
@@ -282,7 +322,7 @@
     </div>
   </main>
 
-  <!-- NEW: Sports Cards & Collectibles anchor -->
+  <!-- Sports Cards & Collectibles anchor -->
   <section class="hobby-section">
     <h2>Sports Cards • Collectibles • Breaks</h2>
     <p>
@@ -292,8 +332,50 @@
     </p>
     <div class="cta-row">
       <a class="btn" href="tiers.html">Explore The Marked Tiers →</a>
-      <a class="btn" href="rewards.html">View Rewards</a> <!-- NEW CTA -->
+      <a class="btn" href="rewards.html">View Rewards</a>
       <a class="btn alt" href="signup.html">Join The Marked</a>
+    </div>
+  </section>
+
+  <!-- NEW: Social CTA strip -->
+  <section class="social-strip" aria-label="Follow Claw Mark Cards">
+    <h3>Follow the Hunt</h3>
+    <div class="social-grid">
+      <!-- Facebook -->
+      <article class="soc-card">
+        <div class="soc-icon-wrap">
+          <img class="soc-icon" src="social_fb_clawmark.png" alt="Facebook icon with Claw Mark glow">
+        </div>
+        <div class="soc-title">Facebook</div>
+        <p class="soc-handle">/ClawMarkCards</p>
+        <a class="soc-btn" target="_blank" rel="noopener noreferrer"
+           href="https://www.facebook.com/share/1C6kEvsdoy/?mibextid=wwXIfr">Visit Page →</a>
+      </article>
+
+      <!-- TikTok -->
+      <article class="soc-card">
+        <div class="soc-icon-wrap">
+          <img class="soc-icon" src="social_tiktok_clawmark.png" alt="TikTok icon with Claw Mark dual glow">
+        </div>
+        <div class="soc-title">TikTok</div>
+        <p class="soc-handle">@cmc_n_h</p>
+        <a class="soc-btn" target="_blank" rel="noopener noreferrer"
+           href="https://www.tiktok.com/@cmc_n_h?_t=ZP-8z6DNe4C5j4&_r=1">Visit Page →</a>
+      </article>
+
+      <!-- Snapchat -->
+      <article class="soc-card">
+        <div class="soc-icon-wrap">
+          <img class="soc-icon" src="social_snap_clawmark.png" alt="Snapchat icon with Claw Mark gold/orange glow">
+        </div>
+        <div class="soc-title">Snapchat</div>
+        <p class="soc-handle">@clawmarkcards</p>
+        <a class="soc-btn" target="_blank" rel="noopener noreferrer"
+           href="https://www.snapchat.com/add/clawmarkcards?sender_web_id=71c05044-1b4b-468c-84af-32e21ba4b364&device_type=ios&is_copy_url=true">Visit Page →</a>
+      </article>
+    </div>
+    <div class="cta-row" style="margin-top:12px;">
+      <a class="btn" href="social.html">All Platforms</a>
     </div>
   </section>
 
@@ -327,7 +409,7 @@
     const elBadge  = document.getElementById("cm-badge-block");
     const logoutBtn = document.getElementById("logout-btn");
 
-    // Map tiers to your actual filenames (root folder)
+    // Map tiers to your actual filenames
     const BADGE_MAP = {
       "Fresh Mark": "badgesfresh.png",
       "Deep Scar":  "badgesdeep.png",
@@ -349,7 +431,7 @@
       const safeTier = cleanTier(tier);
       const pts = Number.isFinite(points) ? points : 0;
 
-      // Status line (text)
+      // Status line
       elStatus.className = "cm-yes";
       elStatus.innerHTML = `🔐 Logged in as: ${email} • 🏆 Tier: ${safeTier}`;
 
