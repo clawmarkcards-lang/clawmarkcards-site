@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>Claw Mark Signup</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- Firebase SDKs (Compat Version) -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
@@ -14,28 +15,26 @@
 
   <style>
     body {
-      font-family: 'Arial', sans-serif;
+      font-family: Arial, sans-serif;
       background-color: #0f0f0f;
       color: #f2f2f2;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
       margin: 0;
+      padding: 16px;
     }
 
     form {
       background-color: #1a1a1a;
       padding: 2rem;
       border-radius: 10px;
-      box-shadow: 0 0 15px #00f0ff;
+      box-shadow: 0 0 15px #00c8ff33;
       width: 320px;
     }
 
-    form h2 {
-      text-align: center;
-      margin-bottom: 1rem;
-    }
+    h2 { text-align: center; margin-bottom: 1rem; }
 
     .row { margin: 0.8rem 0; }
 
@@ -49,123 +48,72 @@
       border-radius: 4px;
     }
 
-    .pw-wrap { position: relative; }
-    .pw-toggle {
-      position: absolute;
-      right: .5rem;
-      top: 50%;
-      transform: translateY(-50%);
-      background: transparent;
-      border: 0;
-      cursor: pointer;
-      font-size: .95rem;
-      color: #ddd;
-    }
-    .pw-toggle:focus { outline: 2px solid #00f0ff; outline-offset: 2px; }
-
-    .error { color: #ff6b6b; font-size: .9rem; min-height: 1.1rem; }
-
     button {
       width: 100%;
-      background-color: #00f0ff;
+      background-color: #00c8ff;
       color: #000;
       padding: 0.6rem;
       font-weight: bold;
       border: none;
       border-radius: 4px;
       cursor: pointer;
-      transition: background-color 0.2s ease-in-out;
+      transition: filter 0.15s ease-in-out;
       margin-top: .4rem;
     }
-    button:hover { background-color: #0ff; }
-    button[disabled] { opacity: .6; cursor: not-allowed; }
+    button:hover { filter: brightness(1.1); }
+
+    .msg { margin-top: .8rem; font-size: .95rem; min-height: 1.2rem; text-align:center; }
+    .ok  { color: #7dff9e; }
+    .err { color: #ff6b6b; }
+    .muted { color: #bbb; font-size: .9rem; text-align: center; margin-top: .6rem; }
+    a { color: #00c8ff; }
   </style>
 </head>
 
 <body>
-  <form id="signupForm" novalidate>
+  <form id="signup-form" novalidate>
     <h2>🛡️ Get Marked</h2>
 
     <div class="row">
-      <input type="email" id="signupEmail" placeholder="Your Claw Mark Email" autocomplete="email" required />
+      <input type="email" id="email" placeholder="Your Claw Mark Email" autocomplete="email" required />
     </div>
 
     <div class="row">
-      <div class="pw-wrap">
-        <input type="password" id="signupPassword" placeholder="Unlock the vault" autocomplete="new-password" required />
-        <button type="button" class="pw-toggle" aria-label="Show password" data-target="signupPassword">👁</button>
-      </div>
+      <input type="password" id="password" placeholder="Unlock the Vault" autocomplete="new-password" required />
     </div>
 
     <div class="row">
-      <div class="pw-wrap">
-        <input type="password" id="signupPasswordConfirm" placeholder="Confirm password" autocomplete="new-password" required />
-        <button type="button" class="pw-toggle" aria-label="Show password" data-target="signupPasswordConfirm">👁</button>
-      </div>
-      <div id="signupMismatch" class="error"></div>
-    </div>
-
-    <div class="row">
-      <input type="text" id="favoriteTeam" placeholder="Favorite NFL Team" />
+      <input type="text" id="favoriteTeam" placeholder="Favorite Sports Team" />
     </div>
 
     <div class="row">
       <input type="text" id="favoritePlayer" placeholder="Favorite Player" />
     </div>
 
-    <button id="signupBtn" type="submit" disabled>Sign Up</button>
+    <button type="submit" id="signup-submit">Sign Up</button>
+    <div id="signup-msg" class="msg"></div>
+    <div class="muted">Already marked? <a href="login.html">Login</a></div>
   </form>
 
-  <!-- UX enhancer: double-password validation + eye toggles (auth.js remains unchanged) -->
+  <!-- Defensive: stop page reload; let auth.js run Firebase logic and set messages -->
   <script>
     (function () {
-      // Eye toggles
-      document.addEventListener('click', (e) => {
-        const btn = e.target.closest('.pw-toggle');
-        if (!btn) return;
-        const targetId = btn.getAttribute('data-target');
-        const input = document.getElementById(targetId);
-        if (!input) return;
-        const isPwd = input.type === 'password';
-        input.type = isPwd ? 'text' : 'password';
-        btn.setAttribute('aria-label', isPwd ? 'Hide password' : 'Show password');
-      });
+      const form = document.getElementById('signup-form');
+      if (!form) return;
 
-      // Double password validation
-      const form = document.getElementById('signupForm');
-      const emailEl = document.getElementById('signupEmail');
-      const pw1 = document.getElementById('signupPassword');
-      const pw2 = document.getElementById('signupPasswordConfirm');
-      const mismatchEl = document.getElementById('signupMismatch');
-      const submitBtn = document.getElementById('signupBtn');
+      // Prevent the browser from reloading on submit.
+      // Your auth.js should also call preventDefault, but this guarantees no flash/reset.
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+      }, { capture: true });
 
-      function validate() {
-        const emailOk = emailEl.validity.valid;
-        const p1 = pw1.value || '';
-        const p2 = pw2.value || '';
-        const ready = emailOk && p1.length > 0 && p2.length > 0;
-        const match = p1 === p2;
-        mismatchEl.textContent = (ready && !match) ? 'Passwords do not match.' : '';
-        submitBtn.disabled = !(ready && match);
-      }
-
-      ['input','change'].forEach(evt => {
-        emailEl.addEventListener(evt, validate);
-        pw1.addEventListener(evt, validate);
-        pw2.addEventListener(evt, validate);
-      });
-
-      form.addEventListener('submit', (e) => {
-        if (pw1.value !== pw2.value) {
-          e.preventDefault();
-          mismatchEl.textContent = 'Passwords do not match.';
-          submitBtn.disabled = true;
-          return;
-        }
-        // Let auth.js read #signupEmail and #signupPassword as usual
-      });
-
-      validate();
+      // Optional convenience: if auth.js wants to set a success quickly, expose a helper.
+      window.CLAW_SIGNUP_MSG = function(text, ok) {
+        const el = document.getElementById('signup-msg');
+        if (!el) return;
+        el.className = 'msg ' + (ok ? 'ok' : 'err');
+        el.textContent = text || '';
+      };
     })();
   </script>
 </body>
