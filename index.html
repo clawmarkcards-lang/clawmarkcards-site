@@ -49,25 +49,18 @@
       font-weight: bold;
     }
 
-    nav a:hover {
-      color: #00c8ff;
-    }
+    nav a:hover { color: #00c8ff; }
 
+    /* ✅ LIVE announcement */
     #announcement {
       background-color: #1a1a1a;
       text-align: center;
       padding: 15px;
-      font-size: 1.1em;
+      font-size: 1.05em;
       color: #ffcc00;
       border-bottom: 2px solid #ff6a00;
-      animation: pulse 2s infinite;
     }
-
-    @keyframes pulse {
-      0% { opacity: 1; }
-      50% { opacity: 0.6; }
-      100% { opacity: 1; }
-    }
+    #announcement b { color:#00c8ff; }
 
     /* 🔥 Status line */
     #cm-user-status {
@@ -227,27 +220,21 @@
     .btn.alt { background: #ff6a00; color: #000; }
     .btn:hover { filter: brightness(1.12); }
 
-    /* NEW: Social CTA strip */
+    /* Social CTA strip */
     .social-strip {
       max-width: 980px;
       margin: 14px auto 40px;
       padding: 0 16px;
       text-align: center;
     }
-    .social-strip h3 {
-      margin: 0 0 10px;
-      color: #ffcc00;
-      font-size: 1.3em;
-    }
+    .social-strip h3 { margin: 0 0 10px; color: #ffcc00; font-size: 1.3em; }
     .social-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 14px;
       align-items: stretch;
     }
-    @media (max-width: 860px) {
-      .social-grid { grid-template-columns: 1fr; }
-    }
+    @media (max-width: 860px) { .social-grid { grid-template-columns: 1fr; } }
     .soc-card {
       background: #151515;
       border: 1px solid #252525;
@@ -279,12 +266,8 @@
     }
 
     /* 📱 Responsive badge sizing */
-    @media (max-width: 1024px) {
-      .badge-large { width: 160px; height: 160px; }
-    }
-    @media (max-width: 640px) {
-      .badge-large { width: 120px; height: 120px; }
-    }
+    @media (max-width: 1024px) { .badge-large { width: 160px; height: 160px; } }
+    @media (max-width: 640px)   { .badge-large { width: 120px; height: 120px; } }
   </style>
 </head>
 <body>
@@ -303,8 +286,9 @@
     </nav>
   </header>
 
+  <!-- 🔔 LIVE banner -->
   <div id="announcement">
-    🚧 Build in Progress – Live Breaks, Premium Products, and Social Media Launches coming soon. Stay tuned! 🚀
+    ⚡ We’re active and ready to engage — follow us on <b>Facebook</b>, <b>TikTok</b>, and <b>Snapchat</b>. Tap <a href="social.html" style="color:#00c8ff; text-decoration:underline;">Social</a> to join The Marked.
   </div>
 
   <!-- Status + big badge + logout -->
@@ -337,7 +321,7 @@
     </div>
   </section>
 
-  <!-- NEW: Social CTA strip -->
+  <!-- Social CTA strip -->
   <section class="social-strip" aria-label="Follow Claw Mark Cards">
     <h3>Follow the Hunt</h3>
     <div class="social-grid">
@@ -380,7 +364,7 @@
   </section>
 
   <footer>
-    <p>© 2025 Claw Mark Cards • Powered by the Hobby</p>
+    <p>© 2025 Claw Mark Cards • Every Rip Leaves Its Mark</p>
   </footer>
 
   <!-- Firebase SDKs -->
