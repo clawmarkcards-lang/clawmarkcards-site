@@ -29,7 +29,7 @@
       padding: 2rem;
       border-radius: 10px;
       box-shadow: 0 0 15px #00f0ff;
-      width: 300px;
+      width: 320px;
     }
 
     form h2 {
@@ -37,16 +37,33 @@
       margin-bottom: 1rem;
     }
 
+    .row { margin: 0.8rem 0; }
+
     input {
       display: block;
       width: 100%;
-      margin: 0.8rem 0;
       padding: 0.6rem;
       background-color: #000;
       color: #fff;
       border: 1px solid #555;
       border-radius: 4px;
     }
+
+    .pw-wrap { position: relative; }
+    .pw-toggle {
+      position: absolute;
+      right: .5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: transparent;
+      border: 0;
+      cursor: pointer;
+      font-size: .95rem;
+      color: #ddd;
+    }
+    .pw-toggle:focus { outline: 2px solid #00f0ff; outline-offset: 2px; }
+
+    .error { color: #ff6b6b; font-size: .9rem; min-height: 1.1rem; }
 
     button {
       width: 100%;
@@ -58,24 +75,98 @@
       border-radius: 4px;
       cursor: pointer;
       transition: background-color 0.2s ease-in-out;
+      margin-top: .4rem;
     }
-
-    button:hover {
-      background-color: #0ff;
-    }
+    button:hover { background-color: #0ff; }
+    button[disabled] { opacity: .6; cursor: not-allowed; }
   </style>
 </head>
 
 <body>
-  <form id="signup-form">
+  <form id="signupForm" novalidate>
     <h2>🛡️ Get Marked</h2>
 
-    <input type="email" id="email" placeholder="Your Claw Mark Email" required />
-    <input type="password" id="password" placeholder="Unlock the Vault" required />
-    <input type="text" id="favoriteTeam" placeholder="Favorite NFL Team" required />
-    <input type="text" id="favoritePlayer" placeholder="Favorite Player" required />
+    <div class="row">
+      <input type="email" id="signupEmail" placeholder="Your Claw Mark Email" autocomplete="email" required />
+    </div>
 
-    <button type="submit">Sign Up</button>
+    <div class="row">
+      <div class="pw-wrap">
+        <input type="password" id="signupPassword" placeholder="Unlock the vault" autocomplete="new-password" required />
+        <button type="button" class="pw-toggle" aria-label="Show password" data-target="signupPassword">👁</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="pw-wrap">
+        <input type="password" id="signupPasswordConfirm" placeholder="Confirm password" autocomplete="new-password" required />
+        <button type="button" class="pw-toggle" aria-label="Show password" data-target="signupPasswordConfirm">👁</button>
+      </div>
+      <div id="signupMismatch" class="error"></div>
+    </div>
+
+    <div class="row">
+      <input type="text" id="favoriteTeam" placeholder="Favorite NFL Team" />
+    </div>
+
+    <div class="row">
+      <input type="text" id="favoritePlayer" placeholder="Favorite Player" />
+    </div>
+
+    <button id="signupBtn" type="submit" disabled>Sign Up</button>
   </form>
+
+  <!-- UX enhancer: double-password validation + eye toggles (auth.js remains unchanged) -->
+  <script>
+    (function () {
+      // Eye toggles
+      document.addEventListener('click', (e) => {
+        const btn = e.target.closest('.pw-toggle');
+        if (!btn) return;
+        const targetId = btn.getAttribute('data-target');
+        const input = document.getElementById(targetId);
+        if (!input) return;
+        const isPwd = input.type === 'password';
+        input.type = isPwd ? 'text' : 'password';
+        btn.setAttribute('aria-label', isPwd ? 'Hide password' : 'Show password');
+      });
+
+      // Double password validation
+      const form = document.getElementById('signupForm');
+      const emailEl = document.getElementById('signupEmail');
+      const pw1 = document.getElementById('signupPassword');
+      const pw2 = document.getElementById('signupPasswordConfirm');
+      const mismatchEl = document.getElementById('signupMismatch');
+      const submitBtn = document.getElementById('signupBtn');
+
+      function validate() {
+        const emailOk = emailEl.validity.valid;
+        const p1 = pw1.value || '';
+        const p2 = pw2.value || '';
+        const ready = emailOk && p1.length > 0 && p2.length > 0;
+        const match = p1 === p2;
+        mismatchEl.textContent = (ready && !match) ? 'Passwords do not match.' : '';
+        submitBtn.disabled = !(ready && match);
+      }
+
+      ['input','change'].forEach(evt => {
+        emailEl.addEventListener(evt, validate);
+        pw1.addEventListener(evt, validate);
+        pw2.addEventListener(evt, validate);
+      });
+
+      form.addEventListener('submit', (e) => {
+        if (pw1.value !== pw2.value) {
+          e.preventDefault();
+          mismatchEl.textContent = 'Passwords do not match.';
+          submitBtn.disabled = true;
+          return;
+        }
+        // Let auth.js read #signupEmail and #signupPassword as usual
+      });
+
+      validate();
+    })();
+  </script>
 </body>
 </html>
