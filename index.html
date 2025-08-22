@@ -188,6 +188,48 @@
       100% { filter: drop-shadow(4px 0 10px #ff6a00); }
     }
 
+    /* NEW: sports cards / collectibles section */
+    .hobby-section {
+      max-width: 900px;
+      margin: 20px auto 40px;
+      padding: 0 16px;
+      text-align: center;
+    }
+    .hobby-section h2 {
+      color: #ffcc00;
+      font-size: 1.6em;
+      margin-bottom: 10px;
+      text-shadow: 0 0 8px rgba(255, 204, 0, 0.2);
+    }
+    .hobby-section p {
+      font-size: 1.05em;
+      color: #ddd;
+      line-height: 1.6;
+      margin: 0 auto;
+    }
+    .cta-row {
+      margin-top: 14px;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-block;
+      background: #00c8ff;
+      color: #000;
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-weight: 800;
+      text-decoration: none;
+      transition: filter .15s ease-in-out;
+    }
+    .btn.alt {
+      background: #ff6a00;
+      color: #000;
+    }
+    .btn:hover { filter: brightness(1.12); }
+
     footer {
       background-color: #1e1e1e;
       text-align: center;
@@ -212,7 +254,7 @@
     <nav>
       <a href="index.html">Home</a>
       <a href="about.html">About Us</a>
-      <a href="tiers.html">The Marked Tiers</a> <!-- NEW tab -->
+      <a href="tiers.html">The Marked Tiers</a>
       <a href="social.html">Social Media</a>
       <a href="login.html">Login</a>
       <a href="signup.html">Signup</a>
@@ -238,6 +280,20 @@
       <img class="side-img" src="panther.png" alt="Panther">
     </div>
   </main>
+
+  <!-- NEW: Sports Cards & Collectibles anchor -->
+  <section class="hobby-section">
+    <h2>Sports Cards • Collectibles • Breaks</h2>
+    <p>
+      Claw Mark Cards is built for collectors who live the hobby. From NFL, NBA, MLB, and beyond —
+      sealed wax, raw singles, and slabbed grails — every rip is part of the story.
+      We break, we trade, we collect, and we take care of our community.
+    </p>
+    <div class="cta-row">
+      <a class="btn" href="tiers.html">Explore The Marked Tiers →</a>
+      <a class="btn alt" href="signup.html">Join The Marked</a>
+    </div>
+  </section>
 
   <footer>
     <p>© 2025 Claw Mark Cards • Powered by the Hobby</p>
