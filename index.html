@@ -203,6 +203,22 @@
     @media (max-width: 640px) {
       .badge-large { width: 120px; height: 120px; }
     }
+
+    /* === Minimal styles for eye toggles & inline error (safe globally) === */
+    .pw-wrap { position: relative; }
+    .pw-toggle {
+      position: absolute;
+      right: .5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: transparent;
+      border: 0;
+      cursor: pointer;
+      font-size: 0.95rem;
+      color: #ddd;
+    }
+    .pw-toggle:focus { outline: 2px solid #00c8ff; outline-offset: 2px; }
+    .cm-error { color: #ff6b6b; font-size: .9rem; min-height: 1.1rem; }
   </style>
 </head>
 <body>
@@ -330,6 +346,86 @@
         });
     });
   })();
+  </script>
+
+  <!-- 🔧 Site-wide auth UI enhancements (safe no-ops on pages without these fields) -->
+  <script>
+    (function () {
+      // Eye toggle for any button with .pw-toggle[data-target]
+      document.addEventListener('click', (e) => {
+        const btn = e.target.closest('.pw-toggle');
+        if (!btn) return;
+        const targetId = btn.getAttribute('data-target');
+        const input = document.getElementById(targetId);
+        if (!input) return;
+        const isPwd = input.getAttribute('type') === 'password';
+        input.setAttribute('type', isPwd ? 'text' : 'password');
+        btn.setAttribute('aria-label', isPwd ? 'Hide password' : 'Show password');
+      });
+
+      // Enhance SIGNUP (double password)
+      const signupForm = document.getElementById('signupForm');
+      const emailEl    = document.getElementById('signupEmail');
+      const pwEl       = document.getElementById('signupPassword');
+      const pw2El      = document.getElementById('signupPasswordConfirm');
+
+      // Optional inline error container
+      let mismatchEl = document.getElementById('signupMismatch');
+      if (!mismatchEl && signupForm) {
+        mismatchEl = document.createElement('div');
+        mismatchEl.id = 'signupMismatch';
+        mismatchEl.className = 'cm-error';
+        // Inject after confirm field if possible
+        const confirmWrap = pw2El ? pw2El.closest('.pw-wrap') || pw2El : null;
+        if (confirmWrap && confirmWrap.parentNode) confirmWrap.parentNode.appendChild(mismatchEl);
+        else signupForm.appendChild(mismatchEl);
+      }
+
+      // A "Sign up" button with id #signupBtn (if present) will be enabled/disabled
+      const signupBtn  = document.getElementById('signupBtn');
+
+      function validateSignup() {
+        if (!signupForm) return;
+        const emailOk = emailEl ? emailEl.validity.valid : true;
+        const p1 = pwEl ? (pwEl.value || '') : '';
+        const p2 = pw2El ? (pw2El.value || '') : '';
+
+        const ready = emailOk && p1.length > 0 && p2.length > 0;
+        const match = p1 === p2;
+
+        if (mismatchEl) mismatchEl.textContent = (ready && !match) ? 'Passwords do not match.' : '';
+
+        if (signupBtn) signupBtn.disabled = !(ready && match);
+      }
+
+      if (signupForm) {
+        ['input','change'].forEach(evt => {
+          if (emailEl) emailEl.addEventListener(evt, validateSignup);
+          if (pwEl)    pwEl.addEventListener(evt, validateSignup);
+          if (pw2El)   pw2El.addEventListener(evt, validateSignup);
+        });
+
+        signupForm.addEventListener('submit', (e) => {
+          if (!pwEl || !pw2El) return;
+          if (pwEl.value !== pw2El.value) {
+            e.preventDefault();
+            if (mismatchEl) mismatchEl.textContent = 'Passwords do not match.';
+            if (signupBtn) signupBtn.disabled = true;
+          }
+        });
+
+        // Initialize state
+        validateSignup();
+      }
+
+      // Enhance LOGIN (single field eye toggle if present)
+      const loginPw = document.getElementById('loginPassword');
+      if (loginPw && !document.querySelector('[data-target="loginPassword"]')) {
+        // If the login page didn't add one, we won't inject DOM here—just exposing pattern.
+        // Add a button next to the input in that page for best layout:
+        // <button type="button" class="pw-toggle" data-target="loginPassword">👁</button>
+      }
+    })();
   </script>
 </body>
 </html>
