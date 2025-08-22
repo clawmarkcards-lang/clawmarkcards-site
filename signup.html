@@ -10,7 +10,7 @@
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
-  <!-- Your Logic File (after SDKs) -->
+  <!-- Your Logic File -->
   <script src="auth.js" defer></script>
 
   <style>
@@ -33,7 +33,6 @@
       width: 320px;
     }
     h2 { text-align: center; margin-bottom: 1rem; }
-
     .row { margin: 0.8rem 0; }
     input {
       display: block; width: 100%;
@@ -47,15 +46,11 @@
       cursor: pointer; transition: filter 0.15s ease-in-out; margin-top: .4rem;
     }
     button:hover { filter: brightness(1.1); }
-
     .msg { margin-top: .8rem; font-size: .95rem; min-height: 1.2rem; text-align:center; }
     .ok  { color: #7dff9e; }
     .err { color: #ff6b6b; }
     .muted { color: #bbb; font-size: .9rem; text-align: center; margin-top: .6rem; }
     a { color: #00c8ff; }
-
-    /* Failsafe: if any old eye buttons leak in, hide them */
-    .pw-toggle { display: none !important; }
   </style>
 </head>
 
@@ -72,6 +67,10 @@
     </div>
 
     <div class="row">
+      <input type="password" id="passwordConfirm" placeholder="Confirm Password" autocomplete="new-password" required />
+    </div>
+
+    <div class="row">
       <input type="text" id="favoriteTeam" placeholder="Favorite Sports Team" />
     </div>
 
@@ -84,15 +83,24 @@
     <div class="muted">Already marked? <a href="login.html">Login</a></div>
   </form>
 
-  <!-- Defensive: prevent page reload + remove any lingering eye elements if cached -->
+  <!-- Confirm password validation -->
   <script>
     (function () {
-      const form = document.getElementById('signup-form');
-      if (form) {
-        form.addEventListener('submit', function(e) { e.preventDefault(); }, { capture: true });
-      }
-      // Nuke any stray eye buttons injected by old cached markup/scripts
-      document.querySelectorAll('.pw-toggle').forEach(el => el.remove());
+      const form = document.getElementById("signup-form");
+      const pw1 = document.getElementById("password");
+      const pw2 = document.getElementById("passwordConfirm");
+      const msgEl = document.getElementById("signup-msg");
+
+      if (!form) return;
+
+      form.addEventListener("submit", function (e) {
+        if (pw1.value !== pw2.value) {
+          e.preventDefault();
+          msgEl.className = "msg err";
+          msgEl.textContent = "Passwords do not match.";
+          return false;
+        }
+      }, { capture: true });
     })();
   </script>
 </body>
