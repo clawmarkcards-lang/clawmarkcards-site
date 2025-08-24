@@ -37,11 +37,13 @@
       margin:8px auto 10px; filter: drop-shadow(0 0 10px rgba(0,0,0,.55));
     }
     .icon{ width:100%; height:100%; object-fit:contain; display:block }
-    /* Hover pulse: brighten the glow with a soft animated ring */
+
+    /* Hover pulse layer — ensure it never blocks clicks */
     .card::after{
       content:""; position:absolute; inset:12px; border-radius:14px;
       box-shadow:0 0 0 rgba(0,0,0,0);
       transition: box-shadow .18s ease;
+      pointer-events:none; /* FIX: prevent click interception */
     }
     .card:hover::after{
       box-shadow:0 0 18px rgba(0,200,255,.25), 0 0 26px rgba(255,106,0,.18);
@@ -53,19 +55,23 @@
       display:inline-block;background:var(--blue);color:#000;
       padding:10px 16px;border-radius:10px;font-weight:800;
       text-decoration:none; transition:filter .15s ease-in-out;
+      position:relative; z-index:1; /* ensure above any decorative layers */
     }
     .btn:hover{ filter:brightness(1.12) }
+
+    /* Decorative icons shouldn't capture clicks */
+    .icon-wrap, .icon-wrap * { pointer-events:none; }
   </style>
 </head>
 <body>
   <header>
     <h1>Claw Mark Cards</h1>
-    <nav>
+    <nav aria-label="Primary">
       <a href="index.html">Home</a>
       <a href="about.html">About Us</a>
       <a href="tiers.html">The Marked Tiers</a>
       <a href="rewards.html">Rewards</a>
-      <a href="social.html">Social Media</a>
+      <a href="social.html" aria-current="page">Social Media</a>
       <a href="login.html">Login</a>
       <a href="signup.html">Signup</a>
       <a href="#">Cart</a>
@@ -79,8 +85,8 @@
     <section class="grid" aria-label="Social platforms">
       <!-- Facebook -->
       <article class="card">
-        <div class="icon-wrap">
-          <img class="icon" src="social_fb_clawmark.png" alt="Facebook icon with Claw Mark glow">
+        <div class="icon-wrap" aria-hidden="true">
+          <img class="icon" src="social_fb_clawmark.png" alt="" />
         </div>
         <div class="title">Facebook</div>
         <p class="handle">/ClawMarkCards</p>
@@ -90,8 +96,8 @@
 
       <!-- TikTok -->
       <article class="card">
-        <div class="icon-wrap">
-          <img class="icon" src="social_tiktok_clawmark.png" alt="TikTok icon with Claw Mark dual glow">
+        <div class="icon-wrap" aria-hidden="true">
+          <img class="icon" src="social_tiktok_clawmark.png" alt="" />
         </div>
         <div class="title">TikTok</div>
         <p class="handle">@cmc_n_h</p>
@@ -101,8 +107,8 @@
 
       <!-- Snapchat -->
       <article class="card">
-        <div class="icon-wrap">
-          <img class="icon" src="social_snap_clawmark.png" alt="Snapchat icon with Claw Mark gold/orange glow">
+        <div class="icon-wrap" aria-hidden="true">
+          <img class="icon" src="social_snap_clawmark.png" alt="" />
         </div>
         <div class="title">Snapchat</div>
         <p class="handle">@clawmarkcards</p>
