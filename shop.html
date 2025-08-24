@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Claw Mark Cards | Shop</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Theme (mirrors your pages) -->
+  <style>
+    :root{
+      --bg:#0d0d0d; --text:#f2f2f2; --muted:#bbbbbb;
+      --orange:#ff6a00; --blue:#00c8ff; --gold:#ffcc00;
+      --card:#151515; --edge:#252525; --border:#007bff;
+    }
+    *{box-sizing:border-box}
+    body{font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);margin:0}
+    header{background:var(--orange);padding:20px;text-align:center;border-bottom:3px solid var(--border)}
+    header h1{margin:0;font-size:2.5em;color:#fff}
+    nav a{margin:0 15px;color:#fff;text-decoration:none;font-weight:bold}
+    nav a:hover{color:var(--blue)}
+    footer{background:#1e1e1e;text-align:center;padding:15px;font-size:.9em;color:#aaa;margin-top:40px}
+
+    .container{max-width:1200px;margin:24px auto;padding:0 18px}
+
+    /* Toolbar */
+    .toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-bottom:12px}
+    .left, .right{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .search{display:flex;gap:8px;align-items:center}
+    input[type="text"], select{
+      background:#0f0f0f;color:#fff;border:1px solid #333;border-radius:10px;padding:10px 12px;min-width:200px
+    }
+    .btn{display:inline-block;background:var(--blue);color:#000;padding:10px 16px;border-radius:10px;font-weight:800;text-decoration:none;cursor:pointer;transition:filter .15s}
+    .btn:hover{filter:brightness(1.12)}
+    .btn-ghost{background:transparent;color:#f2f2f2;border:1px solid #333}
+
+    /* Filters row (mobile-first) */
+    .filters{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+    .chip{border:1px solid #333;background:#101010;color:#ddd;border-radius:999px;padding:8px 10px;cursor:pointer;font-size:.95em}
+    .chip.active{border-color:var(--blue);box-shadow:0 0 10px rgba(0,200,255,.25)}
+    .price-range{display:flex;gap:8px;align-items:center}
+    .price-range input{width:120px}
+
+    /* Layout: filters sidebar (desktop) + grid */
+    .layout{display:grid;grid-template-columns:260px 1fr;gap:16px}
+    @media (max-width:980px){.layout{grid-template-columns:1fr}}
+
+    .panel{background:var(--card);border:1px solid var(--edge);border-radius:14px;padding:14px;box-shadow:0 0 16px rgba(0,0,0,.35)}
+    .panel h3{margin:0 0 10px;color:var(--gold);font-size:1.1em}
+
+    /* Sidebar filter groups */
+    .group{margin-bottom:12px}
+    .group label{display:block;margin:6px 0;color:#ddd;font-size:.95em}
+    .group select, .group input{width:100%}
+
+    /* Product grid */
+    .grid{display:grid;gap:14px;grid-template-columns:repeat(4,1fr)}
+    @media (max-width:1200px){.grid{grid-template-columns:repeat(3,1fr)}}
+    @media (max-width:860px){.grid{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:560px){.grid{grid-template-columns:1fr}}
+
+    .card{
+      position:relative;background:var(--card);border:1px solid var(--edge);border-radius:14px;padding:12px;
+      box-shadow:0 0 16px rgba(0,0,0,.35);transition:transform .18s ease, box-shadow .18s ease
+    }
+    .card:hover{transform:translateY(-2px);box-shadow:0 0 22px rgba(0,0,0,.5)}
+    .thumb{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:10px;background:#0f0f0f}
+    .title{margin:8px 0 4px;font-weight:800;font-size:1em;line-height:1.35}
+    .meta{color:#bbb;font-size:.9em;margin:0 0 6px}
+    .badges{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}
+    .b{border:1px solid #333;background:#101010;color:#ddd;border-radius:999px;padding:2px 8px;font-size:.8em}
+    .price{font-weight:800}
+    .price .old{color:#bbb;text-decoration:line-through;margin-right:6px;font-weight:600}
+    .row{display:flex;gap:8px;align-items:center;justify-content:space-between;margin-top:8px}
+    .btn-sm{padding:8px 10px;border-radius:8px;font-weight:800}
+
+    /* Empty state */
+    .empty{padding:20px;text-align:center;color:#bbb}
+
+    /* Load more */
+    .load-wrap{display:flex;justify-content:center;margin:18px 0}
+
+    /* Cart drawer */
+    #cartBtn{position:relative}
+    #cartCount{
+      position:absolute;top:-8px;right:-8px;background:#ff5757;color:#fff;border-radius:999px;padding:2px 6px;font-size:.8em;font-weight:800;display:none
+    }
+    .drawer{position:fixed;inset:0 0 0 auto;width:min(420px,92vw);background:#101010;border-left:1px solid #333;transform:translateX(100%);transition:transform .2s ease;z-index:9999;display:flex;flex-direction:column}
+    .drawer.open{transform:translateX(0)}
+    .drawer header{background:#141414;border-bottom:1px solid #222;padding:12px 14px;text-align:left}
+    .drawer main{flex:1;overflow:auto;padding:12px}
+    .drawer footer{padding:12px;border-top:1px solid #222;background:#141414}
+    .cart-item{display:grid;grid-template-columns:64px 1fr auto;gap:10px;align-items:center;border-bottom:1px solid #222;padding:10px 0}
+    .cart-item img{width:64px;height:64px;object-fit:cover;border-radius:8px;background:#0f0f0f}
+    .qty{display:flex;gap:6px;align-items:center}
+    .qty button{width:28px;height:28px;border-radius:6px;border:1px solid #333;background:#0f0f0f;color:#fff;cursor:pointer}
+    .total{display:flex;justify-content:space-between;margin:10px 0;font-weight:800}
+    .muted{color:#9aa0a6}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Claw Mark Cards</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="tiers.html">The Marked Tiers</a>
+      <a href="rewards.html">Rewards</a>
+      <a href="social.html">Social Media</a>
+      <a href="login.html">Login</a>
+      <a href="signup.html">Signup</a>
+      <a id="cartBtn" href="javascript:void(0)">Cart<span id="cartCount"></span></a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <!-- Toolbar -->
+    <div class="panel toolbar">
+      <div class="left">
+        <div class="search">
+          <input id="q" type="text" placeholder="Search (e.g., 'Donruss', 'Panthers', 'PSA 10', 'Cam Newton')" />
+          <button id="apply" class="btn">Search</button>
+        </div>
+      </div>
+      <div class="right">
+        <label class="muted" for="sort">Sort</label>
+        <select id="sort">
+          <option value="newest">Newest</option>
+          <option value="priceAsc">Price ↑</option>
+          <option value="priceDesc">Price ↓</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Layout: Sidebar + Grid -->
+    <div class="layout">
+      <!-- Sidebar Filters -->
+      <aside class="panel">
+        <h3>Filters</h3>
+        <div class="group">
+          <label for="cat">Category</label>
+          <select id="cat">
+            <option value="">All</option>
+            <option value="sealed">Sealed Wax</option>
+            <option value="singles">Singles</option>
+            <option value="slabs">Slabs</option>
+            <option value="break">Break Spots</option>
+          </select>
+        </div>
+        <div class="group">
+          <label for="sport">Sport</label>
+          <select id="sport">
+            <option value="">All</option>
+            <option>NFL</option><option>NBA</option><option>MLB</option><option>NHL</option><option>Soccer</option><option>TCG</option>
+          </select>
+        </div>
+        <div class="group">
+          <label for="brand">Brand</label>
+          <select id="brand">
+            <option value="">All</option>
+            <option>Panini</option><option>Topps</option><option>Upper Deck</option><option>Pokémon</option>
+          </select>
+        </div>
+        <div class="group">
+          <label for="year">Year</label>
+          <select id="year">
+            <option value="">All</option>
+            <!-- Simple spread; expand as needed -->
+            <option>2025</option><option>2024</option><option>2023</option><option>2022</option><option>2021</option>
+            <option>2020</option><option>2019</option><option>2018</option><option>2017</option><option>2016</option>
+          </select>
+        </div>
+        <div class="group">
+          <label for="grade">Grade</label>
+          <select id="grade">
+            <option value="">All</option>
+            <option>PSA 10</option><option>PSA 9</option><option>SGC 10</option><option>BGS 9.5</option>
+          </select>
+        </div>
+        <div class="group">
+          <label>Price</label>
+          <div class="price-range">
+            <input id="minPrice" type="number" step="1" placeholder="Min" />
+            <span class="muted">–</span>
+            <input id="maxPrice" type="number" step="1" placeholder="Max" />
+          </div>
+        </div>
+        <div class="group">
+          <button id="clear" class="btn-ghost" style="width:100%;">Clear Filters</button>
+        </div>
+      </aside>
+
+      <!-- Grid -->
+      <section class="panel">
+        <div id="resultMeta" class="muted" style="margin-bottom:8px;"></div>
+        <div id="grid" class="grid"></div>
+        <div id="empty" class="empty" style="display:none;">No products match that search. Try clearing filters.</div>
+        <div class="load-wrap">
+          <button id="loadMore" class="btn-ghost">Load More</button>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- Cart Drawer -->
+  <aside id="drawer" class="drawer" aria-hidden="true">
+    <header>
+      <h2 style="margin:0;">Your Cart</h2>
+    </header>
+    <main id="cartItems"></main>
+    <footer>
+      <div class="total"><span>Subtotal</span><span id="subtotal">$0.00</span></div>
+      <div class="muted" style="margin-bottom:8px;">Taxes & shipping calculated at checkout.</div>
+      <button id="checkout" class="btn" style="width:100%;">Checkout</button>
+      <div class="muted" style="margin-top:8px;">(Stripe Checkout integration to be wired.)</div>
+    </footer>
+  </aside>
+
+  <footer>
+    <p>© 2025 Claw Mark Cards • Every Rip Leaves Its Mark</p>
+  </footer>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+  <!-- Shop logic -->
+  <script>
+  (function(){
+    // --- Firebase (mirrors your other pages) ---
+    const firebaseConfig = {
+      apiKey: "AIzaSyCM5La0C7dKpWgQUpAxVQguDcEV1D4Vmms",
+      authDomain: "clawmark-login.firebaseapp.com",
+      projectId: "clawmark-login",
+      storageBucket: "clawmark-login.firebasestorage.app",
+      messagingSenderId: "334338665183",
+      appId: "1:334338665183:web:eb179b820393234c74576a",
+      measurementId: "G-JE64ZQ56T5"
+    };
+    if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    // --- DOM ---
+    const grid = document.getElementById('grid');
+    const empty = document.getElementById('empty');
+    const resultMeta = document.getElementById('resultMeta');
+    const loadMoreBtn = document.getElementById('loadMore');
+
+    const q = document.getElementById('q');
+    const sort = document.getElementById('sort');
+    const cat = document.getElementById('cat');
+    const sport = document.getElementById('sport');
+    const brand = document.getElementById('brand');
+    const year = document.getElementById('year');
+    const grade = document.getElementById('grade');
+    const minPrice = document.getElementById('minPrice');
+    const maxPrice = document.getElementById('maxPrice');
+    const applyBtn = document.getElementById('apply');
+    const clearBtn = document.getElementById('clear');
+
+    // Cart
+    const drawer = document.getElementById('drawer');
+    const cartBtn = document.getElementById('cartBtn');
+    const cartItems = document.getElementById('cartItems');
+    const subtotalEl = document.getElementById('subtotal');
+    const checkoutBtn = document.getElementById('checkout');
+    const cartCount = document.getElementById('cartCount');
+
+    // --- State ---
+    let lastDoc = null;       // for pagination
+    let pageSize = 20;
+    let cache = [];           // current page's fetched docs (client-side filter)
+    let cart = loadCart();
+
+    // --- Utils ---
+    function fmt(n){ return '$' + (Number(n||0)).toFixed(2); }
+    function textMatch(needle, ...hay){
+      if(!needle) return true;
+      const n = needle.toLowerCase();
+      return hay.some(h => (h||'').toString().toLowerCase().includes(n));
+    }
+    function loadCart(){
+      try{ return JSON.parse(localStorage.getItem('cmc_cart')||'[]'); }catch(_){ return []; }
+    }
+    function saveCart(){
+      localStorage.setItem('cmc_cart', JSON.stringify(cart));
+      renderCart();
+    }
+    function setCartCount(){
+      const count = cart.reduce((a,i)=>a+Number(i.qty||1),0);
+      if(count>0){ cartCount.style.display='inline-block'; cartCount.textContent = count; }
+      else{ cartCount.style.display='none'; cartCount.textContent=''; }
+    }
+
+    // --- Render product card ---
+    function cardHtml(p){
+      const img = (p.images && p.images[0]) || 'placeholder.png';
+      const price = Number(p.price||0);
+      const cmp = Number(p.compareAtPrice||0);
+      const qty = Number.isFinite(p.quantity)? p.quantity : 1;
+      const featureBadges = [];
+      if(p.features){
+        if(p.features.rookie) featureBadges.push('Rookie');
+        if(p.features.auto) featureBadges.push('Auto');
+        if(p.features.relic) featureBadges.push('Relic');
+        if(p.features.numbered) featureBadges.push('Numbered');
+        if(p.features.sp) featureBadges.push('SP');
+        if(p.features.ssp) featureBadges.push('SSP');
+      }
+      const gradeStr = p.grade && p.grade.company ? `${p.grade.company} ${p.grade.grade||''}`.trim() : '';
+
+      return `
+        <article class="card" data-sku="${p.sku||p.id}">
+          <img class="thumb" src="${img}" alt="${(p.title||'Card')}" onerror="this.src='placeholder.png'">
+          <div class="title">${p.title||'Untitled'}</div>
+          <div class="meta">
+            ${(p.category||'').toUpperCase()}${p.sport?', '+p.sport:''}${p.year?' • '+p.year:''}${gradeStr?' • '+gradeStr:''}
+          </div>
+          <div class="badges">
+            ${featureBadges.map(b=>`<span class="b">${b}</span>`).join('')}
+            ${qty===1?'<span class="b">1 of 1 here</span>':''}
+          </div>
+          <div class="row">
+            <div class="price">
+              ${cmp>price?`<span class="old">${fmt(cmp)}</span>`:''}
+              <span>${fmt(price)}</span>
+            </div>
+            <div>
+              <button class="btn btn-sm add">Add</button>
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
+    function render(products, append=false){
+      if(!append){ grid.innerHTML=''; }
+      const html = products.map(cardHtml).join('');
+      grid.insertAdjacentHTML('beforeend', html);
+      empty.style.display = products.length? 'none':'block';
+      resultMeta.textContent = `${products.length ? products.length : 0} item(s) shown${append?' (added)':''}`;
+    }
+
+    // --- Client-side filter on cache ---
+    function filterLocal(list){
+      const s = (q.value||'').trim();
+      const fcat = cat.value||'';
+      const fsport = sport.value||'';
+      const fbrand = brand.value||'';
+      const fyear = year.value||'';
+      const fgrade = grade.value||'';
+      const min = Number(minPrice.value||'');
+      const max = Number(maxPrice.value||'');
+
+      let out = list.filter(p=>{
+        if(fcat && p.category !== fcat) return false;
+        if(fsport && p.sport !== fsport) return false;
+        if(fbrand && p.brand !== fbrand) return false;
+        if(fyear && String(p.year) !== fyear) return false;
+        if(fgrade){
+          const g = p.grade && p.grade.company ? `${p.grade.company} ${p.grade.grade||''}`.trim() : '';
+          if(g !== fgrade) return false;
+        }
+        if(Number.isFinite(min) && min>0 && Number(p.price||0) < min) return false;
+        if(Number.isFinite(max) && max>0 && Number(p.price||0) > max) return false;
+        if(!textMatch(s, p.title, p.team, p.player, p.brand, p.sport, String(p.year))) return false;
+        return true;
+      });
+
+      // Sort
+      const mode = sort.value;
+      if(mode==='priceAsc') out.sort((a,b)=>Number(a.price||0)-Number(b.price||0));
+      else if(mode==='priceDesc') out.sort((a,b)=>Number(b.price||0)-Number(a.price||0));
+      else /* newest */ out.sort((a,b)=> (b.createdAt?.seconds||0) - (a.createdAt?.seconds||0));
+
+      return out;
+    }
+
+    // --- Fetch page from Firestore (status=active, ordered by createdAt desc) ---
+    async function fetchPage(){
+      try{
+        let q = db.collection('products')
+          .where('status','==','active')
+          .orderBy('createdAt','desc')
+          .limit(pageSize);
+
+        if(lastDoc) q = q.startAfter(lastDoc);
+
+        const snap = await q.get();
+        lastDoc = snap.docs[snap.docs.length-1] || null;
+
+        const docs = snap.docs.map(d => ({ id:d.id, ...d.data() }));
+        cache = cache.concat(docs); // accumulate
+        const filtered = filterLocal(cache);
+        render(filtered, /*append*/ true);
+        if(!lastDoc) loadMoreBtn.style.display='none';
+      }catch(err){
+        console.error('Fetch error', err);
+        // If index missing for orderBy+where, suggest fallback
+        render([], false);
+        loadMoreBtn.style.display='none';
+        empty.style.display='block';
+        empty.textContent = 'No products yet or Firestore index missing. Add items, then reload.';
+      }
+    }
+
+    // --- Apply (reset + fetch fresh) ---
+    async function applyAll(){
+      // Reset pagination & cache, refetch first page
+      lastDoc = null;
+      cache = [];
+      grid.innerHTML = '';
+      loadMoreBtn.style.display='inline-block';
+      await fetchPage();
+      // After first fetch, apply filter to what we have
+      const filtered = filterLocal(cache);
+      render(filtered, false);
+    }
+
+    // --- Events ---
+    applyBtn.addEventListener('click', applyAll);
+    sort.addEventListener('change', ()=> render(filterLocal(cache), false));
+    [cat,sport,brand,year,grade,minPrice,maxPrice].forEach(el=>{
+      el.addEventListener('change', ()=> render(filterLocal(cache), false));
+    });
+    document.getElementById('clear').addEventListener('click', ()=>{
+      q.value=''; cat.value=''; sport.value=''; brand.value=''; year.value=''; grade.value='';
+      minPrice.value=''; maxPrice.value='';
+      render(filterLocal(cache), false);
+    });
+    loadMoreBtn.addEventListener('click', fetchPage);
+
+    // Delegate Add buttons
+    grid.addEventListener('click', e=>{
+      const btn = e.target.closest('.add'); if(!btn) return;
+      const card = e.target.closest('.card'); if(!card) return;
+      const sku = card.getAttribute('data-sku');
+      const item = cache.find(p => (p.sku===sku || p.id===sku));
+      if(!item) return;
+
+      const qtyAvail = Number.isFinite(item.quantity) ? item.quantity : 99;
+      const existing = cart.find(ci=>ci.sku=== (item.sku||item.id));
+      const newQty = (existing? existing.qty:0) + 1;
+      if(newQty > qtyAvail){
+        alert('Not enough inventory.');
+        return;
+      }
+      if(existing){ existing.qty = newQty; }
+      else{
+        cart.push({
+          sku: item.sku||item.id,
+          title: item.title,
+          price: Number(item.price||0),
+          img: (item.images && item.images[0]) || 'placeholder.png',
+          qty: 1
+        });
+      }
+      saveCart();
+      openDrawer();
+    });
+
+    // --- Cart drawer ---
+    cartBtn.addEventListener('click', ()=> { drawer.classList.toggle('open'); drawer.setAttribute('aria-hidden', drawer.classList.contains('open')?'false':'true'); });
+    function openDrawer(){ drawer.classList.add('open'); drawer.setAttribute('aria-hidden','false'); }
+    function renderCart(){
+      if(!cart.length){ cartItems.innerHTML = '<div class="muted">Your cart is empty.</div>'; subtotalEl.textContent = fmt(0); setCartCount(); return; }
+      let html = '';
+      let subtotal = 0;
+      cart.forEach((it, idx)=>{
+        subtotal += (it.price||0) * (it.qty||1);
+        html += `
+          <div class="cart-item" data-i="${idx}">
+            <img src="${it.img}" alt="">
+            <div>
+              <div style="font-weight:800">${it.title||'Item'}</div>
+              <div class="muted">${it.sku||''}</div>
+              <div>${fmt(it.price||0)}</div>
+            </div>
+            <div class="qty">
+              <button class="dec">-</button>
+              <span>${it.qty||1}</span>
+              <button class="inc">+</button>
+            </div>
+          </div>
+        `;
+      });
+      cartItems.innerHTML = html;
+      subtotalEl.textContent = fmt(subtotal);
+      setCartCount();
+    }
+    cartItems.addEventListener('click', (e)=>{
+      const row = e.target.closest('.cart-item'); if(!row) return;
+      const i = Number(row.getAttribute('data-i'));
+      if(e.target.classList.contains('inc')){ cart[i].qty++; saveCart(); }
+      if(e.target.classList.contains('dec')){
+        cart[i].qty--; if(cart[i].qty<=0){ cart.splice(i,1); } saveCart();
+      }
+    });
+    checkoutBtn.addEventListener('click', ()=>{
+      alert('Checkout will redirect to Stripe Checkout (to be wired).');
+    });
+
+    // --- Init ---
+    renderCart();
+    applyAll(); // fetch + render
+
+  })();
+  </script>
+</body>
+</html>
