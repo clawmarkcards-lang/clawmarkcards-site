@@ -1,0 +1,14 @@
+{
+  "hosting": {
+    "rewrites": [
+      {
+        "source": "/createCheckoutSession",
+        "function": "createCheckoutSession"
+      },
+      {
+        "source": "/stripeWebhook",
+        "function": "stripeWebhook"
+      }
+    ]
+  }
+}
