@@ -242,7 +242,8 @@
 
     // --- DOM ---
     const grid = document.getElementById('grid');
-    const empty = document.getElementById('empty');
+    theEmpty = document.getElementById('empty'); // keep logged var name short in console
+    const empty = theEmpty;
     const resultMeta = document.getElementById('resultMeta');
     const loadMoreBtn = document.getElementById('loadMore');
 
@@ -353,7 +354,7 @@
       const max = Number(maxPrice.value||'');
 
       let out = list.filter(p=>{
-        if (p.status !== 'active') return false;            // <-- enforce ACTIVE ONLY
+        if (p.status !== 'active') return false;            // enforce ACTIVE ONLY
         if(fcat && p.category !== fcat) return false;
         if(fsport && p.sport !== fsport) return false;
         if(fbrand && p.brand !== fbrand) return false;
@@ -377,29 +378,61 @@
       return out;
     }
 
-    // --- Fetch page from Firestore (order by createdAt desc; filter active client-side) ---
+    // --- Fetch page from Firestore (robust with fallback) ---
     async function fetchPage(){
       try{
-        let q = db.collection('products')
-          .orderBy('createdAt','desc')     // no where() to avoid index requirement
+        // Primary query: order by createdAt desc (best UX)
+        let q1 = db.collection('products')
+          .orderBy('createdAt','desc')
           .limit(pageSize);
 
-        if(lastDoc) q = q.startAfter(lastDoc);
+        if (lastDoc) q1 = q1.startAfter(lastDoc);
 
-        const snap = await q.get();
+        let snap = await q1.get();
+
+        // If nothing came back, try a fallback query without orderBy
+        if (snap.empty) {
+          console.warn('[Shop] Primary query returned 0. Fallback query will try without orderBy(createdAt).');
+          snap = await db.collection('products').limit(pageSize).get();
+        }
+
+        if (snap.empty) {
+          console.warn('[Shop] No documents returned by fallback either. Check Firestore: collection `products`, field `status` equals "active", and `createdAt` is a Timestamp when possible.');
+          render([], false);
+          loadMoreBtn.style.display='none';
+          empty.style.display='block';
+          empty.textContent = 'No products yet. Verify products exist with status "active".';
+          return;
+        }
+
+        // Normal pagination handling (only for the primary ordered query)
         lastDoc = snap.docs[snap.docs.length-1] || null;
+        if (!lastDoc) {
+          // If using fallback (no orderBy), we can't paginate safely
+          loadMoreBtn.style.display = 'none';
+        }
 
         const docs = snap.docs.map(d => ({ id:d.id, ...d.data() }));
-        cache = cache.concat(docs); // accumulate
+
+        // Debug print first doc fields so you can verify status/createdAt
+        console.debug('[Shop] Fetched docs:', docs.map(d => ({
+          id: d.id,
+          title: d.title,
+          status: d.status,
+          createdAt: d.createdAt,
+        })));
+
+        cache = cache.concat(docs);
         const filtered = filterLocal(cache);
         render(filtered, /*append*/ true);
-        if(!lastDoc) loadMoreBtn.style.display='none';
-      }catch(err){
-        console.error('Fetch error', err);
+        if (!lastDoc) loadMoreBtn.style.display='none';
+
+      } catch(err){
+        console.error('[Shop] Fetch error', err);
         render([], false);
         loadMoreBtn.style.display='none';
         empty.style.display='block';
-        empty.textContent = 'No products yet.';
+        empty.textContent = 'Unable to load products. Open DevTools console for details.';
       }
     }
 
