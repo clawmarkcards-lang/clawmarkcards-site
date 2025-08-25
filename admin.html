@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Claw Mark — Admin</title>
 
   <style>
@@ -32,6 +32,7 @@
     <div class="row">
       <a class="btn-ghost" href="index.html">Home</a>
       <a class="btn-ghost" href="admin-products.html">Products Admin</a>
+      <a class="btn-ghost" href="admin-engagement.html">Offers & Watchers</a>
       <button id="logout" class="btn-danger">Log Out</button>
     </div>
   </header>
@@ -40,7 +41,6 @@
     <div id="gate" class="panel"></div>
 
     <div id="admin-ui" style="display:none;">
-      <!-- Controls -->
       <section class="panel">
         <div class="row">
           <input type="text" id="searchEmail" placeholder="Search by email…"/>
@@ -50,7 +50,6 @@
         <div class="muted" style="margin-top:8px;">Tip: Leave search blank and click Refresh to list recent members.</div>
       </section>
 
-      <!-- Table -->
       <section class="panel">
         <table>
           <thead>
@@ -77,7 +76,6 @@
 
   <script>
   (function () {
-    // -------- Firebase init --------
     const firebaseConfig = {
       apiKey: "AIzaSyCM5La0C7dKpWgQUpAxVQguDcEV1D4Vmms",
       authDomain: "clawmark-login.firebaseapp.com",
@@ -91,7 +89,6 @@
     const auth = firebase.auth();
     const db = firebase.firestore();
 
-    // -------- DOM refs --------
     const gate = document.getElementById("gate");
     const adminUI = document.getElementById("admin-ui");
     const adminEmail = document.getElementById("admin-email");
@@ -102,15 +99,9 @@
     const refreshBtn = document.getElementById("refreshBtn");
     const statusEl = document.getElementById("status");
 
-    // -------- helpers --------
-    function setGate(msg, isError=false) {
-      gate.innerHTML = msg;
-      gate.className = "panel" + (isError ? " danger" : "");
-    }
+    function setGate(msg, isError=false) { gate.innerHTML = msg; gate.className = "panel" + (isError ? " danger" : ""); }
     function setStatus(msg) { statusEl.textContent = msg || ""; }
-    function opt(val, selected) {
-      return `<option value="${val}" ${selected===val ? "selected":""}>${val}</option>`;
-    }
+    function opt(val, selected) { return `<option value="${val}" ${selected===val ? "selected":""}>${val}</option>`; }
     function safe(val, d="") { return (val===undefined || val===null) ? d : val; }
 
     function renderRow(doc) {
@@ -152,10 +143,8 @@
       try {
         let snap;
         if (queryEmail && queryEmail.trim()) {
-          // simple email search (exact match); you can expand to index prefix later
           snap = await db.collection("users").where("email", "==", queryEmail.trim()).limit(50).get();
         } else {
-          // recent users (createdAt is ISO string; lexicographically sortable)
           snap = await db.collection("users").orderBy("createdAt", "desc").limit(50).get();
         }
         if (snap.empty) {
@@ -207,7 +196,6 @@
       });
     }
 
-    // -------- gate + auth --------
     auth.onAuthStateChanged(async (user) => {
       if (!user) {
         setGate(`Please <a href="login.html">log in</a> with an admin account.`, true);
@@ -224,7 +212,6 @@
           adminUI.style.display = "none";
           return;
         }
-        // Open admin
         setGate(`<span class="badge">Admin mode enabled</span> — manage tiers, points, and member info.`);
         adminUI.style.display = "block";
         delegateTableEvents();
@@ -236,13 +223,10 @@
       }
     });
 
-    // -------- controls --------
     logoutBtn.addEventListener("click", () => auth.signOut());
     searchBtn.addEventListener("click", () => loadUsers(searchEmail.value));
     refreshBtn.addEventListener("click", () => loadUsers(""));
-
   })();
   </script>
 </body>
 </html>
-
