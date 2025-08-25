@@ -119,23 +119,44 @@
       .values{grid-template-columns:1fr}
     }
   </style>
+<!-- Claw Mark Cards header fonts & styles -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rock+Salt&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  .cmc-header--orange{background:#ff6a00;color:#fff;border-bottom:none}
+  .cmc-header{position:sticky;top:0;z-index:50;text-align:center;padding:16px 16px 10px 16px}
+  .cmc-header .brand{line-height:1}
+  .cmc-header .site-title{font-family:"Rock Salt", system-ui, sans-serif;font-size:36px;margin:0;color:#fff}
+  .cmc-header .site-motto{font-family:"Rock Salt", system-ui, sans-serif;font-size:16px;margin:6px 0 14px 0;color:#ffe6d5}
+  @media (min-width:768px){
+    .cmc-header .site-title{font-size:44px}
+    .cmc-header .site-motto{font-size:18px}
+  }
+  .cmc-nav{display:flex;gap:28px;padding:10px 16px 14px 16px;align-items:center;justify-content:center;flex-wrap:wrap;font-family:"Inter",system-ui,sans-serif;font-weight:600}
+  .cmc-nav a{text-decoration:none;color:#fff;opacity:.95}
+  .cmc-nav a:hover{text-decoration:underline;opacity:1}
+</style>
+
 </head>
 <body>
-  <header>
-    <h1>Claw Mark Cards</h1>
-    <p class="tagline">Every Rip Leaves Its Mark</p>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="shop.html">Shop</a>
-      <a href="about.html">About Us</a>
-      <a href="tiers.html">The Marked Tiers</a>
-      <a href="rewards.html">Rewards</a>
-      <a href="social.html">Social Media</a>
-      <a href="login.html">Login</a>
-      <a href="signup.html">Signup</a>
-      <a href="#">Cart</a>
-    </nav>
-  </header>
+<header class="cmc-header cmc-header--orange">
+  <div class="brand">
+    <h1 class="site-title">Claw Mark Cards</h1>
+    <p class="site-motto">Every Rip Leaves Its Mark</p>
+  </div>
+  <nav class="cmc-nav">
+    <a href="/index.html">Home</a>
+    <a href="/shop.html">Shop</a>
+    <a href="/about.html">About Us</a>
+    <a href="/tiers.html">The Marked Tiers</a>
+    <a href="/rewards.html">Rewards</a>
+    <a href="/social.html">Social Media</a>
+    <a href="/login.html">Login</a>
+    <a href="/signup.html">Signup</a>
+    <a href="/cart.html">Cart</a>
+  </nav>
+</header>
 
   <!-- HERO: Bear + Logo + Panther with matching glow effect -->
   <section class="hero" aria-label="Our identity">
