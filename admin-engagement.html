@@ -66,6 +66,8 @@
   </nav>
 </header>
 
+
+
 <style>
   .cmc-header{position:sticky;top:0;background:#fff;z-index:50;border-bottom:1px solid #eee}
   .cmc-nav{display:flex;gap:16px;padding:12px 16px;align-items:center;justify-content:center;flex-wrap:wrap;font-weight:600}
@@ -285,5 +287,102 @@
 
   })();
   </script>
+
+<section style="max-width:1100px;margin:20px auto;padding:0 16px">
+  <h2>Offer Inbox</h2>
+  <div id="offerStatus">Loading…</div>
+  <table id="offerTable" border="1" cellspacing="0" cellpadding="6" style="width:100%;border-collapse:collapse;display:none">
+    <thead><tr>
+      <th>When</th><th>Product</th><th>SKU</th><th>Listed</th><th>Offer</th><th>User</th><th>Status</th><th>Action</th>
+    </tr></thead>
+    <tbody></tbody>
+  </table>
+</section>
+
+<dialog id="decisionDialog" style="border:none;border-radius:12px;max-width:480px;width:95%">
+  <form method="dialog" id="decisionForm" style="padding:16px;display:grid;gap:10px">
+    <h3 id="decisionTitle">Decide Offer</h3>
+    <label>Note to record (optional)
+      <textarea id="decisionNote" rows="3" placeholder="Internal note…"></textarea>
+    </label>
+    <div style="display:flex;gap:10px;justify-content:flex-end">
+      <button value="cancel">Cancel</button>
+      <button id="decisionSubmit" value="default">Submit</button>
+    </div>
+  </form>
+</dialog>
+
+<script type="module">
+  import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+  import { getFirestore, collection, query, orderBy, getDocs, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+  const auth = getAuth(); const db = getFirestore();
+
+  let actionChoice = null; // 'accept' | 'reject'
+  let actingOfferId = null;
+
+  async function isAdmin(uid){
+    const snap = await getDoc(doc(db,'admins', uid)); return snap.exists();
+  }
+  function tsToLocal(ts){
+    if(!ts) return '';
+    const d = ts.toDate ? ts.toDate() : new Date(ts);
+    return d.toLocaleString();
+  }
+  async function loadOffers(){
+    const q = query(collection(db,'offers'), orderBy('createdAt','desc'));
+    const snap = await getDocs(q);
+    const rows = snap.docs.map(d=>({ id:d.id, ...d.data() }));
+    const tb = document.querySelector('#offerTable tbody');
+    tb.innerHTML = rows.map(r=>`<tr data-id="${r.id}">
+      <td>${tsToLocal(r.createdAt)}</td>
+      <td>${(r.productName||'')}</td>
+      <td>${(r.sku||'')}</td>
+      <td>$${Number(r.listedPrice||0).toFixed(2)}</td>
+      <td><strong>$${Number(r.offerPrice||0).toFixed(2)}</strong></td>
+      <td>${(r.userEmail||r.userId||'')}</td>
+      <td>${r.status||'pending'}</td>
+      <td>${
+        (r.status==='pending')
+        ? '<button class="btn-accept">Accept</button> <button class="btn-reject">Reject</button>'
+        : (r.status==='accepted' ? 'Accepted' : 'Rejected')
+      }</td>
+    </tr>`).join('');
+    document.getElementById('offerTable').style.display = 'table';
+    document.getElementById('offerStatus').textContent = '';
+    // add events
+    tb.querySelectorAll('.btn-accept').forEach(b=>b.addEventListener('click', ()=> openDecision(b, 'accept')));
+    tb.querySelectorAll('.btn-reject').forEach(b=>b.addEventListener('click', ()=> openDecision(b, 'reject')));
+  }
+  function openDecision(btn, action){
+    const tr = btn.closest('tr');
+    actingOfferId = tr?.dataset?.id || null;
+    actionChoice = action;
+    const dlg = document.getElementById('decisionDialog');
+    const title = document.getElementById('decisionTitle');
+    title.textContent = (action==='accept') ? 'Accept Offer' : 'Reject Offer';
+    dlg?.showModal();
+  }
+  async function submitDecision(){
+    const u = auth.currentUser; if(!u) return alert('Sign in first.');
+    const tok = await u.getIdToken();
+    const note = document.getElementById('decisionNote').value;
+    const resp = await fetch('/moderateOffer', {
+      method:'POST',
+      headers:{ 'Content-Type':'application/json', Authorization:'Bearer '+tok },
+      body: JSON.stringify({ offerId: actingOfferId, action: actionChoice, note })
+    });
+    if(!resp.ok){ alert('Action failed.'); return; }
+    document.getElementById('decisionDialog')?.close();
+    await loadOffers();
+  }
+  document.getElementById('decisionSubmit').addEventListener('click', (e)=>{ e.preventDefault(); submitDecision(); });
+
+  auth.onAuthStateChanged(async (u)=>{
+    if(!u){ document.getElementById('offerStatus').textContent='Please sign in.'; return; }
+    if(!(await isAdmin(u.uid))){ document.getElementById('offerStatus').textContent='Forbidden (admin only).'; return; }
+    await loadOffers();
+  });
+</script>
+
 </body>
 </html>
