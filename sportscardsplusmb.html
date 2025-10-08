@@ -17,24 +17,27 @@
     .section{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:18px;margin:18px 0;box-shadow:0 10px 26px rgba(0,0,0,.25)}
     h2{margin:10px 0 10px;font-size:1.4rem;border-bottom:2px solid rgba(255,255,255,.15);padding-bottom:8px}
     h3{margin:8px 0 6px;font-size:1.1rem}
-    ul{margin:8px 0 0 18px;padding:0}li{margin:8px 0}
+    ul{margin:8px 0 0 18px;padding:0}li{margin:6px 0}
     .grid{display:grid;gap:16px}
     .cols-2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
-    .left-img{display:grid;grid-template-columns:minmax(260px,1fr) 2fr;gap:16px;align-items:start}
-    .left-img img{width:100%;height:auto;border-radius:12px;box-shadow:0 12px 26px rgba(0,0,0,.35)}
+    /* Symmetrical guest layout */
+    .guest-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+    .guest-left img.main{width:100%;height:auto;border-radius:12px;box-shadow:0 12px 26px rgba(0,0,0,.35);margin-bottom:12px}
+    .guest-left img.logo{width:70%;max-width:260px;height:auto;border-radius:12px;box-shadow:0 8px 22px rgba(0,0,0,.3);display:block;margin:0 auto}
     .small{font-size:.95rem;opacity:.95}
     .muted{opacity:.85}
     .bullet-tight li{margin:6px 0}
     .cta-row{display:flex;gap:10px;flex-wrap:wrap}
     a.badge{display:inline-block;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);padding:8px 12px;border-radius:10px;color:#fff;text-decoration:none}
-    .logo-card{display:grid;justify-items:center;gap:10px;margin-top:8px}
-    .logo-card img{max-width:220px;height:auto;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.35)}
     .btn{display:inline-block;padding:10px 14px;border-radius:10px;text-decoration:none;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);color:#fff}
     .btn:hover{background:rgba(255,255,255,.14)}
     .raffle-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
     .raffle-card{border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:14px;text-align:center;background:rgba(0,0,0,.25);box-shadow:0 12px 24px rgba(0,0,0,.25)}
     .raffle-card img{width:100%;height:auto;border-radius:10px;display:block}
     .caption{font-size:.95rem;opacity:.9;margin-top:8px}
+    @media (max-width: 780px){
+      .guest-left img.logo{width:60%}
+    }
   </style>
 </head>
 <body>
@@ -65,9 +68,12 @@
 
     <section class="section">
       <h2>Special Guests</h2>
-      <div class="left-img">
-        <img src="orlando.jpg" alt="Orlando Hudson diving fielding play">
-        <div>
+      <div class="guest-grid">
+        <div class="guest-left">
+          <img class="main" src="orlando.jpg" alt="Orlando Hudson diving fielding play">
+          <img class="logo" src="logo.png" alt="Claw Mark Cards logo">
+        </div>
+        <div class="guest-right">
           <p class="small"><strong>Orlando Hudson</strong> — former MLB star, signing autographs during opening weekend.</p>
           <p class="muted">Orlando Hudson's MLB career achievements include being a two-time All-Star (2007, 2009) and a four-time Gold Glove winner for elite defense at second base (2005–2007, 2009). He set career-highs in batting average and home runs in 2006, and is one of only six infielders in major league history to win Gold Gloves in both the American and National Leagues.</p>
           <div class="grid cols-2">
@@ -94,11 +100,7 @@
 
           <h3 class="small" style="margin-top:14px">Claw Mark Cards — Live at Sports Cards Plus</h3>
           <p class="small">Claw Mark Cards WhatNot Live Streamers <strong>Hunter</strong> and <strong>Nick</strong> will be <strong>live in-store running card breaks</strong> throughout the opening weekend!</p>
-
-          <div class="logo-card" style="margin-top:6px">
-            <img src="logo.png" alt="Claw Mark Cards logo">
-            <a class="btn" href="index.html">Find out more about Claw Mark Cards</a>
-          </div>
+          <a class="btn" href="index.html">Find out more about Claw Mark Cards</a>
         </div>
       </div>
     </section>
