@@ -1,7 +1,7 @@
 {
   "name": "functions",
   "engines": {
-    "node": "22"
+    "node": "22.x"
   },
   "main": "index.js",
   "scripts": {
