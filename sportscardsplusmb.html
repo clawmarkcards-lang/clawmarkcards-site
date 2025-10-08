@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>SportsCardsPlusMB — Grand Opening</title>
   <meta name="description" content="Sports Cards Plus Myrtle Beach — Grand Opening details, special guests, giveaways, and Claw Mark Cards live breaks." />
   <style>
@@ -24,19 +24,36 @@
     .guest-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
     .guest-left img.main{width:100%;height:auto;border-radius:12px;box-shadow:0 12px 26px rgba(0,0,0,.35);margin-bottom:12px}
     .guest-left img.logo{width:70%;max-width:260px;height:auto;border-radius:12px;box-shadow:0 8px 22px rgba(0,0,0,.3);display:block;margin:0 auto}
-    .small{font-size:.95rem;opacity:.95}
+    .small{font-size:1rem;opacity:.95;line-height:1.5}
     .muted{opacity:.85}
     .bullet-tight li{margin:6px 0}
     .cta-row{display:flex;gap:10px;flex-wrap:wrap}
-    a.badge{display:inline-block;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);padding:8px 12px;border-radius:10px;color:#fff;text-decoration:none}
-    .btn{display:inline-block;padding:10px 14px;border-radius:10px;text-decoration:none;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);color:#fff}
+    a.badge{display:inline-block;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);padding:10px 14px;border-radius:10px;color:#fff;text-decoration:none}
+    .btn{display:inline-block;padding:12px 16px;border-radius:10px;text-decoration:none;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);color:#fff}
     .btn:hover{background:rgba(255,255,255,.14)}
     .raffle-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
     .raffle-card{border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:14px;text-align:center;background:rgba(0,0,0,.25);box-shadow:0 12px 24px rgba(0,0,0,.25)}
     .raffle-card img{width:100%;height:auto;border-radius:10px;display:block}
     .caption{font-size:.95rem;opacity:.9;margin-top:8px}
-    @media (max-width: 780px){
-      .guest-left img.logo{width:60%}
+
+    /* Mobile-first improvements */
+    @media (max-width: 880px){
+      .hero{grid-template-columns:1fr;gap:12px;text-align:center}
+      .guest-grid{grid-template-columns:1fr;gap:14px}
+      .guest-left img.main{max-width:520px;margin:0 auto 14px auto}
+      .guest-left img.logo{width:78%;max-width:300px;margin:6px auto 0 auto}
+      .small{font-size:1.05rem}
+      h2{font-size:1.35rem}
+      h3{font-size:1.05rem}
+      .section{padding:16px}
+      .raffle-grid{grid-template-columns:1fr 1fr}
+    }
+    @media (max-width: 520px){
+      .guest-left img.main{max-width:100%}
+      .guest-left img.logo{width:86%;max-width:340px}
+      .raffle-grid{grid-template-columns:1fr}
+      .wrap{padding:16px 14px}
+      .btn, .badge{width:100%;text-align:center}
     }
   </style>
 </head>
@@ -75,7 +92,7 @@
         </div>
         <div class="guest-right">
           <p class="small"><strong>Orlando Hudson</strong> — former MLB star, signing autographs during opening weekend.</p>
-          <p class="muted">Orlando Hudson's MLB career achievements include being a two-time All-Star (2007, 2009) and a four-time Gold Glove winner for elite defense at second base (2005–2007, 2009). He set career-highs in batting average and home runs in 2006, and is one of only six infielders in major league history to win Gold Gloves in both the American and National Leagues.</p>
+          <p class="small">Orlando Hudson's MLB career achievements include being a two-time All-Star (2007, 2009) and a four-time Gold Glove winner for elite defense at second base (2005–2007, 2009). He set career-highs in batting average and home runs in 2006, and is one of only six infielders in major league history to win Gold Gloves in both the American and National Leagues.</p>
           <div class="grid cols-2">
             <div>
               <h3 class="small">Key Career Achievements</h3>
