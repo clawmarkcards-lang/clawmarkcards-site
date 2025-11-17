@@ -14,6 +14,7 @@
 
     body {
       margin: 0;
+      padding: 0;
       font-family: Arial, sans-serif;
       background: radial-gradient(circle at top, #1a1a1a 0, #050505 55%, #000 100%);
       color: #ffffff;
@@ -23,16 +24,15 @@
       color: #00c8ff;
     }
 
+    /* Header styling */
     .cmc-header--orange {
       background: #ff6a00;
       border-bottom: 3px solid #007bff;
     }
-
     .cmc-header {
       padding: 20px;
       text-align: center;
     }
-
     .cmc-header .site-title {
       margin: 0;
       font-size: 2.6em;
@@ -42,7 +42,6 @@
       color: #ffffff;
       text-shadow: 0 0 10px rgba(0,0,0,0.6);
     }
-
     .cmc-header .site-motto {
       margin: 4px 0 0;
       font-size: 0.95em;
@@ -53,7 +52,6 @@
     .cmc-nav {
       margin-top: 10px;
     }
-
     .cmc-nav a {
       margin: 0 12px;
       color: #ffffff;
@@ -61,154 +59,42 @@
       font-weight: bold;
       font-size: 0.95em;
     }
-
     .cmc-nav a:hover {
       color: #00c8ff;
     }
 
-    .hero {
+    /* Announcement bar */
+    #announcement {
+      margin: 12px auto 8px;
       max-width: 1100px;
-      margin: 20px auto;
-      padding: 20px;
-      display: grid;
-      grid-template-columns: 1fr 1.2fr 1fr;
-      gap: 20px;
-      align-items: center;
-    }
-
-    .hero-left,
-    .hero-right {
-      text-align: center;
-    }
-
-    .hero-center {
-      text-align: center;
-    }
-
-    .hero-left img,
-    .hero-right img {
-      max-width: 100%;
-      border-radius: 10px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.7);
-    }
-
-    /* Glowing logo section */
-    #logo-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: radial-gradient(circle at top, #141414 0, #050505 60%, #000 100%);
-      border-radius: 20px;
-      padding: 30px 20px;
-      box-shadow:
-        0 0 40px rgba(0, 200, 255, 0.35),
-        0 0 70px rgba(255, 106, 0, 0.35);
-      position: relative;
-      overflow: hidden;
-    }
-
-    #logo-glow-ring {
-      position: absolute;
-      inset: 0;
-      border-radius: 20px;
-      pointer-events: none;
-      border: 2px solid rgba(0, 200, 255, 0.3);
-      box-shadow:
-        0 0 35px rgba(0, 200, 255, 0.4),
-        inset 0 0 30px rgba(255, 106, 0, 0.4);
-      opacity: 0.9;
-      animation: ringPulse 6s ease-in-out infinite;
-    }
-
-    @keyframes ringPulse {
-      0% { opacity: 0.4; box-shadow: 0 0 15px #00c8ff, inset 0 0 10px #ff6a00; }
-      50% { opacity: 1; box-shadow: 0 0 30px #00c8ff, inset 0 0 18px #ff6a00; }
-      100% { opacity: 0.4; box-shadow: 0 0 15px #00c8ff, inset 0 0 10px #ff6a00; }
-    }
-
-    #logo {
-      max-width: 300px;
-      margin: 0 20px;
-      display: block;
-      animation: fadeIn 2s ease-out, rotateShadow 5s linear infinite;
-    }
-
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-    @keyframes rotateShadow {
-      0% { box-shadow: 0 0 15px #00c8ff; }
-      25% { box-shadow: 0 0 25px #00c8ff; }
-      50% { box-shadow: 0 0 40px #00c8ff; }
-      75% { box-shadow: 0 0 25px #00c8ff; }
-      100% { box-shadow: 0 0 15px #00c8ff; }
-    }
-
-    main {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-
-    /* Info bar */
-    .info-bar {
-      background: #101010;
-      border-radius: 10px;
-      padding: 12px 16px;
+      padding: 10px 14px;
+      border-radius: 14px;
+      background: linear-gradient(90deg, #222, #101010);
       border: 1px solid #333;
-      box-shadow: 0 0 16px rgba(0,0,0,0.6);
-      margin-bottom: 10px;
-      font-size: 0.95em;
+      font-size: 0.92em;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.7);
     }
 
-    .info-bar strong {
-      color: #ffcc00;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-    }
-
-    .info-bar a {
-      color: #00c8ff;
-      font-weight: bold;
-      text-decoration: none;
-    }
-
-    .info-bar a:hover {
-      text-decoration: underline;
-    }
-
-    /* Status line */
-    #cm-status-line {
-      font-size: 0.9em;
-      color: #dddddd;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: baseline;
-      gap: 6px;
-    }
-
-    #cm-status-label {
-      font-weight: bold;
-      color: #ffcc00;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
+    /* 🔥 Status line */
     #cm-user-status {
-      font-weight: bold;
+      margin: 12px auto 4px;
+      text-align: center;
+      font-weight: 800;
+      font-size: 1.1em;
+      padding: 0 12px;
+      max-width: 1100px;
     }
-
     #cm-user-status.cm-not { color: #ff5757; }
     #cm-user-status.cm-yes  { color: #00c8ff; }
     #cm-user-status a { color: #00c8ff; text-decoration: underline; }
     #cm-user-status a:hover { filter: brightness(1.2); }
 
-    /* Badge block */
+    /* 🛡️ BIG badge block (separate from status line) */
     #cm-badge-block {
-      display: none;
+      display: none; /* shown when logged in */
       margin: 6px auto 14px;
       text-align: center;
     }
-
     .badge-large {
       width: 180px;
       height: 180px;
@@ -218,7 +104,6 @@
       box-shadow: 0 0 18px rgba(0,0,0,0.5);
       display: inline-block;
     }
-
     .badge-caption {
       margin-top: 8px;
       font-weight: 800;
@@ -227,7 +112,8 @@
     }
 
     #logout-btn {
-      margin-top: 8px;
+      display: none;
+      margin: 0 auto 10px;
       padding: 6px 14px;
       border-radius: 14px;
       border: 1px solid #ff6a00;
@@ -237,74 +123,67 @@
       cursor: pointer;
       text-transform: uppercase;
       letter-spacing: 0.8px;
+      display: block;
     }
-
     #logout-btn:hover {
       background: rgba(255, 106, 0, 0.15);
     }
 
-    /* LIVE banner */
-    .live-banner {
-      margin-top: 10px;
-      padding: 10px 14px;
-      border-radius: 14px;
-      background: linear-gradient(90deg, #222, #101010);
-      border: 1px solid #333;
+    /* Main glow / logo section */
+    .main-container {
+      max-width: 1100px;
+      margin: 10px auto 20px;
       display: flex;
-      flex-wrap: wrap;
+      justify-content: center;
       align-items: center;
-      gap: 10px;
-      font-size: 0.92em;
+      gap: 14px;
+      padding: 0 12px;
     }
 
-    .live-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: #ff3b3b;
-      box-shadow: 0 0 8px #ff3b3b;
-      animation: livePulse 1.5s infinite;
+    .glow-container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .glow-container.right {
+      justify-content: center;
     }
 
-    @keyframes livePulse {
-      0% { transform: scale(1); opacity: 0.7; }
-      50% { transform: scale(1.3); opacity: 1; }
-      100% { transform: scale(1); opacity: 0.7; }
+    .side-img {
+      max-width: 100%;
+      max-height: 260px;
+      border-radius: 16px;
+      box-shadow:
+        0 0 20px rgba(0, 200, 255, 0.4),
+        0 0 40px rgba(255, 106, 0, 0.4);
+      background: #111;
     }
 
-    .live-label {
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: #ffcc00;
-      font-weight: bold;
+    #logo {
+      max-width: 320px;
+      width: 100%;
+      height: auto;
+      display: block;
+      animation: fadeIn 2s ease-out, rotateShadow 5s linear infinite;
     }
 
-    .live-text {
-      color: #e0e0e0;
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes rotateShadow {
+      0%   { filter: drop-shadow(0 0 10px #00c8ff); }
+      25%  { filter: drop-shadow(0 0 20px #00c8ff); }
+      50%  { filter: drop-shadow(0 0 28px #00c8ff); }
+      75%  { filter: drop-shadow(0 0 20px #00c8ff); }
+      100% { filter: drop-shadow(0 0 10px #00c8ff); }
     }
 
-    .live-text a {
-      color: #00c8ff;
-      text-decoration: none;
-    }
-
-    .live-text a:hover {
-      text-decoration: underline;
-    }
-
-    .live-tag {
-      margin-left: auto;
-      padding: 4px 10px;
-      border-radius: 999px;
-      border: 1px solid #00c8ff;
-      font-size: 0.75em;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-      color: #00c8ff;
-    }
-
+    /* Content section */
     .hobby-section {
-      margin-top: 30px;
+      max-width: 1100px;
+      margin: 0 auto 25px;
       padding: 18px 16px 20px;
       border-radius: 12px;
       background: #111111;
@@ -546,44 +425,28 @@
     </div>
   </div>
 
-<main>
-  <section class="hero">
-    <div class="hero-left">
-      <img src="badgesfresh.png" alt="Fresh Mark Badge" />
-    </div>
-    <div class="hero-center">
-      <div id="logo-container">
-        <div id="logo-glow-ring"></div>
-        <img id="logo" src="bear.png" alt="Claw Mark Cards Logo" />
-      </div>
-    </div>
-    <div class="hero-right">
-      <img src="badgesfull.png" alt="Full Claw Badge" />
-    </div>
-  </section>
+  <!-- 🔔 LIVE banner -->
+  <div id="announcement">
+    ⚡ We’re active and ready to engage — follow us on <b>Facebook</b>, <b>TikTok</b>, and
+    <b>Snapchat</b>. Tap <a href="social.html" style="color:#00c8ff; text-decoration:underline;">Social</a> to join The Marked.
+  </div>
 
-  <section class="info-bar">
-    <div id="cm-status-line">
-      <span id="cm-status-label">Account:</span>
-      <span id="cm-user-status" class="cm-not">Checking status…</span>
-    </div>
-    <div id="cm-badge-block">
-      <img id="cm-badge-img" class="badge-large" src="badgesfresh.png" alt="Tier Badge" />
-      <div class="badge-caption" id="cm-badge-caption">Fresh Mark</div>
-      <button id="logout-btn" type="button">Logout</button>
-    </div>
-  </section>
+  <!-- Status + big badge + logout -->
+  <div id="cm-user-status">Loading status...</div>
+  <div id="cm-badge-block"></div>
+  <button id="logout-btn">Log Out</button>
 
-  <section class="live-banner">
-    <div class="live-dot"></div>
-    <div class="live-label">Live & Active</div>
-    <div class="live-text">
-      We’re active and ready to engage — check our shop, breaks, and in-person booth for what’s live now.
-      Follow our socials to see when we go live!
+  <main class="main-container">
+    <div class="glow-container">
+      <img class="side-img" src="bear.png" alt="Bear">
     </div>
-    <div class="live-tag">Hobby • Breaks • Singles</div>
-  </section>
+    <img id="logo" src="logo.png" alt="Claw Mark Cards Logo">
+    <div class="glow-container right">
+      <img class="side-img" src="panther.png" alt="Panther">
+    </div>
+  </main>
 
+  <!-- Sports Cards & Collectibles anchor -->
   <section class="hobby-section">
     <h2>Sports Cards • Collectibles • Breaks</h2>
     <p>
@@ -597,167 +460,174 @@
       <a class="btn alt" href="signup.html">Join The Marked</a>
     </div>
   </section>
-</main>
 
-<footer>
-  <p>© 2025 Claw Mark Cards • Every Rip Leaves Its Mark</p>
-</footer>
+  <footer>
+    <p>© 2025 Claw Mark Cards • Every Rip Leaves Its Mark</p>
+  </footer>
 
-<!-- Firebase SDKs -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
-<script>
-(function () {
-  const firebaseConfig = {
-    apiKey: "AIzaSyCM5La0C7dKpWgQUpAxVQguDcEV1D4Vmms",
-    authDomain: "clawmark-login.firebaseapp.com",
-    projectId: "clawmark-login",
-    storageBucket: "clawmark-login.firebasestorage.app",
-    messagingSenderId: "334338665183",
-    appId: "1:334338665183:web:eb179b820393234c74576a",
-    measurementId: "G-WPW21P13VJ"
-  };
+  <script>
+  (function () {
+    const firebaseConfig = {
+      apiKey: "AIzaSyCM5La0C7dKpWgQUpAxVQguDcEV1D4Vmms",
+      authDomain: "clawmark-login.firebaseapp.com",
+      projectId: "clawmark-login",
+      storageBucket: "clawmark-login.firebasestorage.app",
+      messagingSenderId: "334338665183",
+      appId: "1:334338665183:web:eb179b820393234c74576a",
+      measurementId: "G-WPW21P13VJ"
+    };
 
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-  const db = firebase.firestore();
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
 
-  const elStatus = document.getElementById("cm-user-status");
-  const elBadge  = document.getElementById("cm-badge-block");
-  const badgeImg = document.getElementById("cm-badge-img");
-  const badgeCaption = document.getElementById("cm-badge-caption");
-  const logoutBtn = document.getElementById("logout-btn");
+    const elStatus = document.getElementById("cm-user-status");
+    const elBadge  = document.getElementById("cm-badge-block");
+    const logoutBtn = document.getElementById("logout-btn");
 
-  const BADGE_MAP = {
-    "Fresh Mark": "badgesfresh.png",
-    "Deep Scar":  "badgesdeep.png",
-    "Full Claw":  "badgesfull.png"
-  };
+    const BADGE_MAP = {
+      "Fresh Mark": "badgesfresh.png",
+      "Deep Scar":  "badgesdeep.png",
+      "Full Claw":  "badgesfull.png"
+    };
 
-  const cleanTier = (t) => (t || "Fresh Mark").trim();
-  const getBadgeSrc = (tier) => BADGE_MAP[cleanTier(tier)] || BADGE_MAP["Fresh Mark"];
+    const cleanTier = (t) => (t || "Fresh Mark").trim();
+    const getBadgeSrc = (tier) => BADGE_MAP[cleanTier(tier)] || BADGE_MAP["Fresh Mark"];
 
-  function showNot() {
-    elStatus.className = "cm-not";
-    elStatus.innerHTML = 'Not logged in. <a href="login.html">Login</a> or <a href="signup.html">Sign up</a> to start climbing the Marked Tiers.';
-    elBadge.style.display = "none";
-  }
-
-  function showYes(email, tier, points) {
-    elStatus.className = "cm-yes";
-    elStatus.textContent = email + " • " + tier + " • " + points + " pts";
-    elBadge.style.display = "block";
-    badgeImg.src = getBadgeSrc(tier);
-    badgeCaption.textContent = cleanTier(tier);
-  }
-
-  auth.onAuthStateChanged((user) => {
-    if (!user) {
-      showNot();
-      return;
+    function showNot() {
+      elStatus.className = "cm-not";
+      elStatus.innerHTML =
+        'Not logged in. <a href="login.html">Login</a> or <a href="signup.html">Sign up</a> to start climbing the Marked Tiers.';
+      elBadge.style.display = "none";
+      elBadge.innerHTML = "";
+      logoutBtn.style.display = "none";
     }
 
-    db.collection("users").doc(user.uid).get()
-      .then((doc) => {
-        const data = doc.exists ? doc.data() : {};
-        showYes(
-          (data.email || user.email),
-          (data.tier || "Fresh Mark"),
-          (typeof data.points === "number" ? data.points : 0)
-        );
+    function showYes(email, tier, points) {
+      const safeTier = cleanTier(tier);
+      const pts = (typeof points === "number" ? points : 0);
+
+      elStatus.className = "cm-yes";
+      elStatus.innerHTML = `🔐 Logged in as: ${email} • 🏆 Tier: ${safeTier}`;
+
+      const badgeSrc = getBadgeSrc(safeTier);
+      elBadge.style.display = "block";
+      elBadge.innerHTML = `
+        <img class="badge-large" src="${badgeSrc}" alt="${safeTier} badge"
+             onerror="this.style.display='none'">
+        <div class="badge-caption">Points: ${pts}</div>
+      `;
+
+      logoutBtn.style.display = "block";
+    }
+
+    auth.onAuthStateChanged((user) => {
+      if (!user) {
+        showNot();
+        return;
+      }
+
+      db.collection("users").doc(user.uid).get()
+        .then((doc) => {
+          const data = doc.exists ? doc.data() : {};
+          showYes(
+            (data.email || user.email),
+            (data.tier || "Fresh Mark"),
+            (typeof data.points === "number" ? data.points : 0)
+          );
+        })
+        .catch(() => showYes(user.email, "Fresh Mark", 0));
+    });
+
+    logoutBtn.addEventListener("click", () => {
+      auth.signOut().then(() => showNot())
+        .catch((err) => {
+          console.error("Logout error:", err);
+          alert("Logout failed: " + err.message);
+        });
+    });
+  })();
+  </script>
+
+  <script>
+    // Load shared navigation from nav.html
+    fetch("nav.html")
+      .then(response => response.text())
+      .then(html => {
+        const container = document.getElementById("main-nav");
+        if (container) container.innerHTML = html;
       })
-      .catch((err) => {
-        console.error("Error fetching user doc:", err);
-        showYes(user.email, "Fresh Mark", 0);
+      .catch(err => {
+        console.error("Navigation failed to load:", err);
       });
-  });
+  </script>
 
-  logoutBtn.addEventListener("click", () => {
-    auth.signOut().then(() => showNot())
-      .catch((err) => {
-        console.error("Logout error:", err);
-        alert("Logout failed: " + err.message);
-      });
-  });
-})();
-</script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const overlay = document.getElementById("store-modal-overlay");
+      if (!overlay) return;
 
-<script>
-  // Load shared navigation
-  fetch("nav.html")
-    .then(response => response.text())
-    .then(html => {
-      const container = document.getElementById("main-nav");
-      if (container) container.innerHTML = html;
-    })
-    .catch(err => {
-      console.error("Navigation failed to load:", err);
-    });
-</script>
+      const closeBtn = overlay.querySelector(".cm-store-modal-close");
+      const ctaBtn = document.getElementById("store-modal-cta");
+      const FLAG_KEY = "cmStorePopupShown";
 
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const overlay = document.getElementById("store-modal-overlay");
-    if (!overlay) return;
-
-    const closeBtn = overlay.querySelector(".cm-store-modal-close");
-    const ctaBtn = document.getElementById("store-modal-cta");
-    const FLAG_KEY = "cmStorePopupShown";
-
-    function showModal() {
-      overlay.classList.add("cm-show");
-      overlay.setAttribute("aria-hidden", "false");
-      document.body.style.overflow = "hidden";
-    }
-
-    function hideModal() {
-      overlay.classList.remove("cm-show");
-      overlay.setAttribute("aria-hidden", "true");
-      document.body.style.overflow = "";
-      try {
-        sessionStorage.setItem(FLAG_KEY, "1");
-      } catch (e) {
-        console.warn("Session storage not available", e);
+      function showModal() {
+        overlay.classList.add("cm-show");
+        overlay.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
       }
-    }
 
-    let alreadyShown = false;
-    try {
-      alreadyShown = sessionStorage.getItem(FLAG_KEY) === "1";
-    } catch (e) {
-      alreadyShown = false;
-    }
-
-    if (!alreadyShown) {
-      setTimeout(showModal, 500);
-    }
-
-    if (closeBtn) {
-      closeBtn.addEventListener("click", hideModal);
-    }
-
-    overlay.addEventListener("click", function (e) {
-      if (e.target === overlay) {
-        hideModal();
-      }
-    });
-
-    if (ctaBtn) {
-      ctaBtn.addEventListener("click", function () {
+      function hideModal() {
+        overlay.classList.remove("cm-show");
+        overlay.setAttribute("aria-hidden", "true");
+        document.body.style.overflow = "";
         try {
           sessionStorage.setItem(FLAG_KEY, "1");
-        } catch (e) {}
-      });
-    }
-
-    document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" && overlay.classList.contains("cm-show")) {
-        hideModal();
+        } catch (e) {
+          console.warn("Session storage not available", e);
+        }
       }
+
+      let alreadyShown = false;
+      try {
+        alreadyShown = sessionStorage.getItem(FLAG_KEY) === "1";
+      } catch (e) {
+        alreadyShown = false;
+      }
+
+      if (!alreadyShown) {
+        setTimeout(showModal, 500);
+      }
+
+      if (closeBtn) {
+        closeBtn.addEventListener("click", hideModal);
+      }
+
+      overlay.addEventListener("click", function (e) {
+        if (e.target === overlay) {
+          hideModal();
+        }
+      });
+
+      if (ctaBtn) {
+        ctaBtn.addEventListener("click", function () {
+          try {
+            sessionStorage.setItem(FLAG_KEY, "1");
+          } catch (e) {}
+        });
+      }
+
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && overlay.classList.contains("cm-show")) {
+          hideModal();
+        }
+      });
     });
-  });
-</script>
+  </script>
 </body>
 </html>
