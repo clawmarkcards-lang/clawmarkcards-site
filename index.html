@@ -14,74 +14,201 @@
 
     body {
       margin: 0;
-      padding: 0;
       font-family: Arial, sans-serif;
-      background-color: #0d0d0d;
-      color: #f2f2f2;
+      background: radial-gradient(circle at top, #1a1a1a 0, #050505 55%, #000 100%);
+      color: #ffffff;
     }
 
-    header {
-      background-color: #ff6a00;
-      padding: 20px;
-      text-align: center;
+    a {
+      color: #00c8ff;
+    }
+
+    .cmc-header--orange {
+      background: #ff6a00;
       border-bottom: 3px solid #007bff;
     }
 
-    header h1 {
+    .cmc-header {
+      padding: 20px;
+      text-align: center;
+    }
+
+    .cmc-header .site-title {
       margin: 0;
-      font-size: 2.5em;
+      font-size: 2.6em;
+      font-family: 'Workout', Arial, sans-serif;
+      letter-spacing: 1px;
+      text-transform: uppercase;
       color: #ffffff;
-      font-family: 'Workout', sans-serif;
+      text-shadow: 0 0 10px rgba(0,0,0,0.6);
     }
 
-    .tagline {
-      font-style: italic;
-      margin-top: 5px;
-      color: #f8d382;
-      font-size: 1.3em;
-      font-family: 'Workout', sans-serif;
+    .cmc-header .site-motto {
+      margin: 4px 0 0;
+      font-size: 0.95em;
+      color: #fff4e6;
+      letter-spacing: 0.5px;
     }
 
-    nav a {
-      margin: 0 15px;
+    .cmc-nav {
+      margin-top: 10px;
+    }
+
+    .cmc-nav a {
+      margin: 0 12px;
       color: #ffffff;
       text-decoration: none;
       font-weight: bold;
+      font-size: 0.95em;
     }
 
-    nav a:hover { color: #00c8ff; }
-
-    /* ✅ LIVE announcement */
-    #announcement {
-      background-color: #1a1a1a;
-      text-align: center;
-      padding: 15px;
-      font-size: 1.05em;
-      color: #ffcc00;
-      border-bottom: 2px solid #ff6a00;
+    .cmc-nav a:hover {
+      color: #00c8ff;
     }
-    #announcement b { color:#00c8ff; }
 
-    /* 🔥 Status line */
-    #cm-user-status {
-      margin: 12px auto 4px;
-      text-align: center;
-      font-weight: 800;
-      font-size: 1.1em;
-      padding: 0 12px;
+    .hero {
       max-width: 1100px;
+      margin: 20px auto;
+      padding: 20px;
+      display: grid;
+      grid-template-columns: 1fr 1.2fr 1fr;
+      gap: 20px;
+      align-items: center;
     }
+
+    .hero-left,
+    .hero-right {
+      text-align: center;
+    }
+
+    .hero-center {
+      text-align: center;
+    }
+
+    .hero-left img,
+    .hero-right img {
+      max-width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.7);
+    }
+
+    /* Glowing logo section */
+    #logo-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle at top, #141414 0, #050505 60%, #000 100%);
+      border-radius: 20px;
+      padding: 30px 20px;
+      box-shadow:
+        0 0 40px rgba(0, 200, 255, 0.35),
+        0 0 70px rgba(255, 106, 0, 0.35);
+      position: relative;
+      overflow: hidden;
+    }
+
+    #logo-glow-ring {
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      pointer-events: none;
+      border: 2px solid rgba(0, 200, 255, 0.3);
+      box-shadow:
+        0 0 35px rgba(0, 200, 255, 0.4),
+        inset 0 0 30px rgba(255, 106, 0, 0.4);
+      opacity: 0.9;
+      animation: ringPulse 6s ease-in-out infinite;
+    }
+
+    @keyframes ringPulse {
+      0% { opacity: 0.4; box-shadow: 0 0 15px #00c8ff, inset 0 0 10px #ff6a00; }
+      50% { opacity: 1; box-shadow: 0 0 30px #00c8ff, inset 0 0 18px #ff6a00; }
+      100% { opacity: 0.4; box-shadow: 0 0 15px #00c8ff, inset 0 0 10px #ff6a00; }
+    }
+
+    #logo {
+      max-width: 300px;
+      margin: 0 20px;
+      display: block;
+      animation: fadeIn 2s ease-out, rotateShadow 5s linear infinite;
+    }
+
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    @keyframes rotateShadow {
+      0% { box-shadow: 0 0 15px #00c8ff; }
+      25% { box-shadow: 0 0 25px #00c8ff; }
+      50% { box-shadow: 0 0 40px #00c8ff; }
+      75% { box-shadow: 0 0 25px #00c8ff; }
+      100% { box-shadow: 0 0 15px #00c8ff; }
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    /* Info bar */
+    .info-bar {
+      background: #101010;
+      border-radius: 10px;
+      padding: 12px 16px;
+      border: 1px solid #333;
+      box-shadow: 0 0 16px rgba(0,0,0,0.6);
+      margin-bottom: 10px;
+      font-size: 0.95em;
+    }
+
+    .info-bar strong {
+      color: #ffcc00;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .info-bar a {
+      color: #00c8ff;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .info-bar a:hover {
+      text-decoration: underline;
+    }
+
+    /* Status line */
+    #cm-status-line {
+      font-size: 0.9em;
+      color: #dddddd;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 6px;
+    }
+
+    #cm-status-label {
+      font-weight: bold;
+      color: #ffcc00;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    #cm-user-status {
+      font-weight: bold;
+    }
+
     #cm-user-status.cm-not { color: #ff5757; }
     #cm-user-status.cm-yes  { color: #00c8ff; }
     #cm-user-status a { color: #00c8ff; text-decoration: underline; }
     #cm-user-status a:hover { filter: brightness(1.2); }
 
-    /* 🛡️ BIG badge block (separate from status line) */
+    /* Badge block */
     #cm-badge-block {
-      display: none; /* shown when logged in */
+      display: none;
       margin: 6px auto 14px;
       text-align: center;
     }
+
     .badge-large {
       width: 180px;
       height: 180px;
@@ -91,6 +218,7 @@
       box-shadow: 0 0 18px rgba(0,0,0,0.5);
       display: inline-block;
     }
+
     .badge-caption {
       margin-top: 8px;
       font-weight: 800;
@@ -98,164 +226,145 @@
       color: #ffcc00;
     }
 
-    /* Logout button */
     #logout-btn {
-      display: none;
-      margin: 4px auto 18px;
-      padding: 8px 16px;
-      font-weight: bold;
-      border: none;
-      border-radius: 6px;
-      background: #ff5757;
-      color: white;
-      cursor: pointer;
-      display: block;
-    }
-    #logout-btn:hover { background: #ff4040; }
-
-    /* Hero row */
-    .main-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
-      padding: 30px 20px;
-      gap: 20px;
-    }
-
-    .glow-container {
-      position: relative;
-      width: 240px;
-      height: 240px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .glow-container::before {
-      content: "";
-      position: absolute;
-      width: 240px;
-      height: 240px;
-      border-radius: 50%;
-      z-index: 0;
-      animation: glowOrange 5s linear infinite;
-    }
-    .glow-container.right::before { animation: glowBlue 5s linear infinite; }
-
-    .side-img {
-      width: 100%;
-      height: auto;
-      position: relative;
-      z-index: 1;
-      filter: drop-shadow(0 0 12px rgba(0,0,0,0.7));
-    }
-
-    @keyframes glowOrange {
-      0% { box-shadow: 0 0 15px #ff6a00; }
-      25% { box-shadow: 0 0 25px #ff6a00; }
-      50% { box-shadow: 0 0 40px #ff6a00; }
-      75% { box-shadow: 0 0 25px #ff6a00; }
-      100% { box-shadow: 0 0 15px #ff6a00; }
-    }
-    @keyframes glowBlue {
-      0% { box-shadow: 0 0 15px #00c8ff; }
-      25% { box-shadow: 0 0 25px #00c8ff; }
-      50% { box-shadow: 0 0 40px #00c8ff; }
-      75% { box-shadow: 0 0 25px #00c8ff; }
-      100% { box-shadow: 0 0 15px #00c8ff; }
-    }
-
-    #logo {
-      max-width: 300px;
-      margin: 0 20px;
-      display: block;
-      animation: fadeIn 2s ease-out, rotateShadow 5s linear infinite;
-    }
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-    @keyframes rotateShadow {
-      0%   { filter: drop-shadow(4px 0 10px #ff6a00); }
-      25%  { filter: drop-shadow(0 4px 10px #00c8ff); }
-      50%  { filter: drop-shadow(-4px 0 10px #ff6a00); }
-      75%  { filter: drop-shadow(0 -4px 10px #00c8ff); }
-      100% { filter: drop-shadow(4px 0 10px #ff6a00); }
-    }
-
-    /* Sports cards / collectibles section */
-    .hobby-section {
-      max-width: 900px;
-      margin: 20px auto 20px;
-      padding: 0 16px;
-      text-align: center;
-    }
-    .hobby-section h2 {
-      color: #ffcc00;
-      font-size: 1.6em;
-      margin-bottom: 10px;
-      text-shadow: 0 0 8px rgba(255, 204, 0, 0.2);
-    }
-    .hobby-section p {
-      font-size: 1.05em;
-      color: #ddd;
-      line-height: 1.6;
-      margin: 0 auto;
-    }
-    .cta-row {
-      margin-top: 14px;
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-    .btn {
-      display: inline-block;
-      background: #00c8ff;
-      color: #000;
-      padding: 10px 16px;
-      border-radius: 10px;
-      font-weight: 800;
-      text-decoration: none;
-      transition: filter .15s ease-in-out;
-    }
-    .btn.alt { background: #ff6a00; color: #000; }
-    .btn:hover { filter: brightness(1.12); }
-
-    /* Social CTA strip */
-    .social-strip {
-      max-width: 980px;
-      margin: 14px auto 40px;
-      padding: 0 16px;
-      text-align: center;
-    }
-    .social-strip h3 { margin: 0 0 10px; color: #ffcc00; font-size: 1.3em; }
-    .social-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-      align-items: stretch;
-    }
-    @media (max-width: 860px) { .social-grid { grid-template-columns: 1fr; } }
-    .soc-card {
-      background: #151515;
-      border: 1px solid #252525;
+      margin-top: 8px;
+      padding: 6px 14px;
       border-radius: 14px;
-      padding: 14px;
-      box-shadow: 0 0 14px rgba(0,0,0,.35);
-      text-align: center;
-      transition: transform .18s ease, box-shadow .18s ease;
+      border: 1px solid #ff6a00;
+      background: transparent;
+      color: #ff9a3a;
+      font-size: 0.85em;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
     }
-    .soc-card:hover { transform: translateY(-2px); box-shadow: 0 0 22px rgba(0,0,0,.5); }
-    .soc-icon-wrap {
-      position: relative;
-      width: 110px; height: 110px;
-      margin: 6px auto 8px;
-      filter: drop-shadow(0 0 10px rgba(0,0,0,.55));
+
+    #logout-btn:hover {
+      background: rgba(255, 106, 0, 0.15);
     }
-    .soc-icon { width: 100%; height: 100%; object-fit: contain; }
-    .soc-title { font-weight: 800; margin: 4px 0 2px; }
-    .soc-handle { color: #bbb; font-size: .95em; margin: 0 0 8px; }
-    .soc-btn { display: inline-block; background: #00c8ff; color: #000; padding: 8px 14px; border-radius: 10px; font-weight: 800; text-decoration: none; transition: filter .15s; }
-    .soc-btn:hover { filter: brightness(1.12); }
+
+    /* LIVE banner */
+    .live-banner {
+      margin-top: 10px;
+      padding: 10px 14px;
+      border-radius: 14px;
+      background: linear-gradient(90deg, #222, #101010);
+      border: 1px solid #333;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.92em;
+    }
+
+    .live-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #ff3b3b;
+      box-shadow: 0 0 8px #ff3b3b;
+      animation: livePulse 1.5s infinite;
+    }
+
+    @keyframes livePulse {
+      0% { transform: scale(1); opacity: 0.7; }
+      50% { transform: scale(1.3); opacity: 1; }
+      100% { transform: scale(1); opacity: 0.7; }
+    }
+
+    .live-label {
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #ffcc00;
+      font-weight: bold;
+    }
+
+    .live-text {
+      color: #e0e0e0;
+    }
+
+    .live-text a {
+      color: #00c8ff;
+      text-decoration: none;
+    }
+
+    .live-text a:hover {
+      text-decoration: underline;
+    }
+
+    .live-tag {
+      margin-left: auto;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid #00c8ff;
+      font-size: 0.75em;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #00c8ff;
+    }
+
+    .hobby-section {
+      margin-top: 30px;
+      padding: 18px 16px 20px;
+      border-radius: 12px;
+      background: #111111;
+      border: 1px solid #222;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+    }
+
+    .hobby-section h2 {
+      margin-top: 0;
+      font-size: 1.4em;
+      color: #ff6a00;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .hobby-section p {
+      color: #dddddd;
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+
+    .cta-row {
+      margin-top: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .btn,
+    .btn.alt {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 20px;
+      font-size: 0.95em;
+      text-decoration: none;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+    }
+
+    .btn {
+      background: #ff6a00;
+      color: #ffffff;
+      border: 1px solid #ff9a3a;
+      box-shadow: 0 0 14px rgba(255, 106, 0, 0.6);
+    }
+
+    .btn:hover {
+      background: #ff812e;
+      box-shadow: 0 0 16px rgba(255, 129, 46, 0.9);
+    }
+
+    .btn.alt {
+      background: transparent;
+      color: #00c8ff;
+      border: 1px solid #00c8ff;
+    }
+
+    .btn.alt:hover {
+      background: rgba(0, 200, 255, 0.1);
+    }
 
     footer {
       background-color: #1e1e1e;
@@ -265,29 +374,122 @@
       color: #aaaaaa;
     }
 
-    /* 📱 Responsive badge sizing */
-    @media (max-width: 1024px) { .badge-large { width: 160px; height: 160px; } }
-    @media (max-width: 640px)   { .badge-large { width: 120px; height: 120px; } }
-  </style>
-<!-- Claw Mark Cards header fonts & styles -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Rock+Salt&family=Inter:wght@400;600&display=swap" rel="stylesheet">
-<style>
-  .cmc-header--orange{background:#ff6a00;color:#fff;border-bottom:none}
-  .cmc-header{position:sticky;top:0;z-index:50;text-align:center;padding:16px 16px 10px 16px}
-  .cmc-header .brand{line-height:1}
-  .cmc-header .site-title{font-family:"Rock Salt", system-ui, sans-serif;font-size:36px;margin:0;color:#fff}
-  .cmc-header .site-motto{font-family:"Rock Salt", system-ui, sans-serif;font-size:16px;margin:6px 0 14px 0;color:#ffe6d5}
-  @media (min-width:768px){
-    .cmc-header .site-title{font-size:44px}
-    .cmc-header .site-motto{font-size:18px}
-  }
-  .cmc-nav{display:flex;gap:28px;padding:10px 16px 14px 16px;align-items:center;justify-content:center;flex-wrap:wrap;font-family:"Inter",system-ui,sans-serif;font-weight:600}
-  .cmc-nav a{text-decoration:none;color:#fff;opacity:.95}
-  .cmc-nav a:hover{text-decoration:underline;opacity:1}
-</style>
+    /* ============================
+       Store Announcement Popup
+       ============================ */
 
+    .cm-store-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.78);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 2000;
+    }
+
+    .cm-store-modal-overlay.cm-show {
+      display: flex;
+    }
+
+    .cm-store-modal {
+      max-width: 420px;
+      width: 100%;
+      background: radial-gradient(circle at top, #222 0, #111 60%, #050505 100%);
+      border-radius: 14px;
+      border: 1px solid #333;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.85);
+      padding: 18px 18px 16px;
+      position: relative;
+    }
+
+    .cm-store-modal-kicker {
+      font-size: 0.78em;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #ffcc00;
+      margin: 0 0 4px;
+    }
+
+    .cm-store-modal h2 {
+      margin: 0 0 8px;
+      font-size: 1.4em;
+      color: #ff6a00;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .cm-store-modal p {
+      margin: 0 0 10px;
+      font-size: 0.95em;
+      color: #dddddd;
+      line-height: 1.4;
+    }
+
+    .cm-store-modal-address {
+      font-size: 0.9em;
+      color: #bbbbbb;
+      margin-bottom: 10px;
+    }
+
+    .cm-store-modal-hours {
+      font-size: 0.9em;
+      color: #bbbbbb;
+      margin-bottom: 12px;
+    }
+
+    .cm-store-modal-btn {
+      display: inline-block;
+      padding: 9px 18px;
+      border-radius: 999px;
+      background: #ff6a00;
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 0.95em;
+      font-weight: bold;
+      border: 1px solid #ff9a3a;
+      box-shadow: 0 0 14px rgba(255,106,0,0.7);
+      transition: background 0.15s, box-shadow 0.15s, transform 0.15s;
+    }
+
+    .cm-store-modal-btn:hover {
+      background: #ff812e;
+      box-shadow: 0 0 18px rgba(255,129,46,0.9);
+      transform: translateY(-1px);
+    }
+
+    .cm-store-modal-close {
+      position: absolute;
+      top: 8px;
+      right: 10px;
+      background: transparent;
+      border: none;
+      color: #888888;
+      font-size: 1.4em;
+      cursor: pointer;
+      padding: 2px 4px;
+    }
+
+    .cm-store-modal-close:hover {
+      color: #ffffff;
+    }
+
+    .cm-store-modal-footer {
+      margin-top: 6px;
+      font-size: 0.8em;
+      color: #888888;
+    }
+
+    @media (max-width: 480px) {
+      .cm-store-modal {
+        padding: 16px 14px 14px;
+      }
+      .cm-store-modal h2 {
+        font-size: 1.2em;
+      }
+    }
+  </style>
 </head>
 <body>
 <header class="cmc-header cmc-header--orange">
@@ -295,43 +497,93 @@
     <h1 class="site-title">Claw Mark Cards</h1>
     <p class="site-motto">Every Rip Leaves Its Mark</p>
   </div>
-  <nav class="cmc-nav">
-    <a href="/index.html">Home</a>
-    <a href="/shop.html">Shop</a>
-    <a href="/about.html">About Us</a>
-    <a href="/tiers.html">The Marked Tiers</a>
-    <a href="/rewards.html">Rewards</a>
-    <a href="/social.html">Social Media</a>
-    <a href="/login.html">Login</a>
-    <a href="/signup.html">Signup</a>
-    <a href="/cart.html">Cart</a>
-      <a href="sportscardsplusmb.html">SportsCardsPlusMB</a>
-  </nav>
+  <div id="main-nav"></div>
 </header>
 
+  <!-- Store Popup Modal -->
+  <div
+    id="store-modal-overlay"
+    class="cm-store-modal-overlay"
+    aria-hidden="true"
+  >
+    <div
+      class="cm-store-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="store-modal-title"
+    >
+      <button
+        type="button"
+        class="cm-store-modal-close"
+        aria-label="Close announcement"
+      >&times;</button>
 
+      <p class="cm-store-modal-kicker">New In-Person Location</p>
+      <h2 id="store-modal-title">Now Open in North Myrtle Beach</h2>
+      <p>
+        Come see Claw Mark Cards inside <strong>Everything Under The Sun Flea Market</strong> —
+        dig through value boxes, rip in person, and see what's new each week.
+      </p>
+      <p class="cm-store-modal-address">
+        811 Hwy 17 South<br />
+        North Myrtle Beach, SC 29582
+      </p>
+      <p class="cm-store-modal-hours">
+        <strong>Hours:</strong> Wednesday – Sunday, 10:00 AM – 5:00 PM
+      </p>
 
-  <!-- 🔔 LIVE banner -->
-  <div id="announcement">
-    ⚡ We’re active and ready to engage — follow us on <b>Facebook</b>, <b>TikTok</b>, and <b>Snapchat</b>. Tap <a href="social.html" style="color:#00c8ff; text-decoration:underline;">Social</a> to join The Marked.
+      <a
+        href="/north-myrtle-store.html"
+        class="cm-store-modal-btn"
+        id="store-modal-cta"
+      >
+        View Store Details
+      </a>
+
+      <div class="cm-store-modal-footer">
+        You'll only see this once per session.
+      </div>
+    </div>
   </div>
 
-  <!-- Status + big badge + logout -->
-  <div id="cm-user-status">Loading status...</div>
-  <div id="cm-badge-block"></div>
-  <button id="logout-btn">Log Out</button>
-
-  <main class="main-container">
-    <div class="glow-container">
-      <img class="side-img" src="bear.png" alt="Bear">
+<main>
+  <section class="hero">
+    <div class="hero-left">
+      <img src="badgesfresh.png" alt="Fresh Mark Badge" />
     </div>
-    <img id="logo" src="logo.png" alt="Claw Mark Cards Logo">
-    <div class="glow-container right">
-      <img class="side-img" src="panther.png" alt="Panther">
+    <div class="hero-center">
+      <div id="logo-container">
+        <div id="logo-glow-ring"></div>
+        <img id="logo" src="bear.png" alt="Claw Mark Cards Logo" />
+      </div>
     </div>
-  </main>
+    <div class="hero-right">
+      <img src="badgesfull.png" alt="Full Claw Badge" />
+    </div>
+  </section>
 
-  <!-- Sports Cards & Collectibles anchor -->
+  <section class="info-bar">
+    <div id="cm-status-line">
+      <span id="cm-status-label">Account:</span>
+      <span id="cm-user-status" class="cm-not">Checking status…</span>
+    </div>
+    <div id="cm-badge-block">
+      <img id="cm-badge-img" class="badge-large" src="badgesfresh.png" alt="Tier Badge" />
+      <div class="badge-caption" id="cm-badge-caption">Fresh Mark</div>
+      <button id="logout-btn" type="button">Logout</button>
+    </div>
+  </section>
+
+  <section class="live-banner">
+    <div class="live-dot"></div>
+    <div class="live-label">Live & Active</div>
+    <div class="live-text">
+      We’re active and ready to engage — check our shop, breaks, and in-person booth for what’s live now.
+      Follow our socials to see when we go live!
+    </div>
+    <div class="live-tag">Hobby • Breaks • Singles</div>
+  </section>
+
   <section class="hobby-section">
     <h2>Sports Cards • Collectibles • Breaks</h2>
     <p>
@@ -343,144 +595,169 @@
       <a class="btn" href="tiers.html">Explore The Marked Tiers →</a>
       <a class="btn" href="rewards.html">View Rewards</a>
       <a class="btn alt" href="signup.html">Join The Marked</a>
-      <a class="btn alt" href="shop.html">Shop Now</a>
     </div>
   </section>
+</main>
 
-  <!-- Social CTA strip -->
-  <section class="social-strip" aria-label="Follow Claw Mark Cards">
-    <h3>Follow the Hunt</h3>
-    <div class="social-grid">
-      <!-- Facebook -->
-      <article class="soc-card">
-        <div class="soc-icon-wrap">
-          <img class="soc-icon" src="social_fb_clawmark.png" alt="Facebook icon with Claw Mark glow">
-        </div>
-        <div class="soc-title">Facebook</div>
-        <p class="soc-handle">/ClawMarkCards</p>
-        <a class="soc-btn" target="_blank" rel="noopener noreferrer"
-           href="https://www.facebook.com/share/1C6kEvsdoy/?mibextid=wwXIfr">Visit Page →</a>
-      </article>
+<footer>
+  <p>© 2025 Claw Mark Cards • Every Rip Leaves Its Mark</p>
+</footer>
 
-      <!-- TikTok -->
-      <article class="soc-card">
-        <div class="soc-icon-wrap">
-          <img class="soc-icon" src="social_tiktok_clawmark.png" alt="TikTok icon with Claw Mark dual glow">
-        </div>
-        <div class="soc-title">TikTok</div>
-        <p class="soc-handle">@cmc_n_h</p>
-        <a class="soc-btn" target="_blank" rel="noopener noreferrer"
-           href="https://www.tiktok.com/@cmc_n_h?_t=ZP-8z6DNe4C5j4&_r=1">Visit Page →</a>
-      </article>
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
-      <!-- Snapchat -->
-      <article class="soc-card">
-        <div class="soc-icon-wrap">
-          <img class="soc-icon" src="social_snap_clawmark.png" alt="Snapchat icon with Claw Mark gold/orange glow">
-        </div>
-        <div class="soc-title">Snapchat</div>
-        <p class="soc-handle">@clawmarkcards</p>
-        <a class="soc-btn" target="_blank" rel="noopener noreferrer"
-           href="https://www.snapchat.com/add/clawmarkcards?sender_web_id=71c05044-1b4b-468c-84af-32e21ba4b364&device_type=ios&is_copy_url=true">Visit Page →</a>
-      </article>
-    </div>
-    <div class="cta-row" style="margin-top:12px;">
-      <a class="btn" href="social.html">All Platforms</a>
-    </div>
-  </section>
+<script>
+(function () {
+  const firebaseConfig = {
+    apiKey: "AIzaSyCM5La0C7dKpWgQUpAxVQguDcEV1D4Vmms",
+    authDomain: "clawmark-login.firebaseapp.com",
+    projectId: "clawmark-login",
+    storageBucket: "clawmark-login.firebasestorage.app",
+    messagingSenderId: "334338665183",
+    appId: "1:334338665183:web:eb179b820393234c74576a",
+    measurementId: "G-WPW21P13VJ"
+  };
 
-  <footer>
-    <p>© 2025 Claw Mark Cards • Every Rip Leaves Its Mark</p>
-  </footer>
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.firestore();
 
-  <!-- Firebase SDKs -->
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  const elStatus = document.getElementById("cm-user-status");
+  const elBadge  = document.getElementById("cm-badge-block");
+  const badgeImg = document.getElementById("cm-badge-img");
+  const badgeCaption = document.getElementById("cm-badge-caption");
+  const logoutBtn = document.getElementById("logout-btn");
 
-  <!-- Status + badge logic -->
-  <script>
-  (function () {
-    const firebaseConfig = {
-      apiKey: "AIzaSyCM5La0C7dKpWgQUpAxVQguDcEV1D4Vmms",
-      authDomain: "clawmark-login.firebaseapp.com",
-      projectId: "clawmark-login",
-      storageBucket: "clawmark-login.firebasestorage.app",
-      messagingSenderId: "334338665183",
-      appId: "1:334338665183:web:eb179b820393234c74576a",
-      measurementId: "G-JE64ZQ56T5"
-    };
+  const BADGE_MAP = {
+    "Fresh Mark": "badgesfresh.png",
+    "Deep Scar":  "badgesdeep.png",
+    "Full Claw":  "badgesfull.png"
+  };
 
-    if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    const db   = firebase.firestore();
+  const cleanTier = (t) => (t || "Fresh Mark").trim();
+  const getBadgeSrc = (tier) => BADGE_MAP[cleanTier(tier)] || BADGE_MAP["Fresh Mark"];
 
-    const elStatus = document.getElementById("cm-user-status");
-    const elBadge  = document.getElementById("cm-badge-block");
-    const logoutBtn = document.getElementById("logout-btn");
+  function showNot() {
+    elStatus.className = "cm-not";
+    elStatus.innerHTML = 'Not logged in. <a href="login.html">Login</a> or <a href="signup.html">Sign up</a> to start climbing the Marked Tiers.';
+    elBadge.style.display = "none";
+  }
 
-    // Map tiers to your actual filenames
-    const BADGE_MAP = {
-      "Fresh Mark": "badgesfresh.png",
-      "Deep Scar":  "badgesdeep.png",
-      "Full Claw":  "badgesfull.png"
-    };
+  function showYes(email, tier, points) {
+    elStatus.className = "cm-yes";
+    elStatus.textContent = email + " • " + tier + " • " + points + " pts";
+    elBadge.style.display = "block";
+    badgeImg.src = getBadgeSrc(tier);
+    badgeCaption.textContent = cleanTier(tier);
+  }
 
-    const cleanTier = (t) => (t || "Fresh Mark").trim();
-    const getBadgeSrc = (tier) => BADGE_MAP[cleanTier(tier)] || BADGE_MAP["Fresh Mark"];
-
-    function showNot() {
-      elStatus.className = "cm-not";
-      elStatus.innerHTML = "❌ You are not marked. <a href='signup.html'>Get Marked now — Sign up</a>.";
-      elBadge.style.display = "none";
-      elBadge.innerHTML = "";
-      logoutBtn.style.display = "none";
+  auth.onAuthStateChanged((user) => {
+    if (!user) {
+      showNot();
+      return;
     }
 
-    function showYes(email, tier, points) {
-      const safeTier = cleanTier(tier);
-      const pts = Number.isFinite(points) ? points : 0;
+    db.collection("users").doc(user.uid).get()
+      .then((doc) => {
+        const data = doc.exists ? doc.data() : {};
+        showYes(
+          (data.email || user.email),
+          (data.tier || "Fresh Mark"),
+          (typeof data.points === "number" ? data.points : 0)
+        );
+      })
+      .catch((err) => {
+        console.error("Error fetching user doc:", err);
+        showYes(user.email, "Fresh Mark", 0);
+      });
+  });
 
-      // Status line
-      elStatus.className = "cm-yes";
-      elStatus.innerHTML = `🔐 Logged in as: ${email} • 🏆 Tier: ${safeTier}`;
+  logoutBtn.addEventListener("click", () => {
+    auth.signOut().then(() => showNot())
+      .catch((err) => {
+        console.error("Logout error:", err);
+        alert("Logout failed: " + err.message);
+      });
+  });
+})();
+</script>
 
-      // Big badge block
-      const badgeSrc = getBadgeSrc(safeTier);
-      elBadge.style.display = "block";
-      elBadge.innerHTML = `
-        <img class="badge-large" src="${badgeSrc}" alt="${safeTier} badge"
-             onerror="this.style.display='none'">
-        <div class="badge-caption">Points: ${pts}</div>
-      `;
+<script>
+  // Load shared navigation
+  fetch("nav.html")
+    .then(response => response.text())
+    .then(html => {
+      const container = document.getElementById("main-nav");
+      if (container) container.innerHTML = html;
+    })
+    .catch(err => {
+      console.error("Navigation failed to load:", err);
+    });
+</script>
 
-      logoutBtn.style.display = "block";
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const overlay = document.getElementById("store-modal-overlay");
+    if (!overlay) return;
+
+    const closeBtn = overlay.querySelector(".cm-store-modal-close");
+    const ctaBtn = document.getElementById("store-modal-cta");
+    const FLAG_KEY = "cmStorePopupShown";
+
+    function showModal() {
+      overlay.classList.add("cm-show");
+      overlay.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
     }
 
-    auth.onAuthStateChanged((user) => {
-      if (!user) { showNot(); return; }
+    function hideModal() {
+      overlay.classList.remove("cm-show");
+      overlay.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+      try {
+        sessionStorage.setItem(FLAG_KEY, "1");
+      } catch (e) {
+        console.warn("Session storage not available", e);
+      }
+    }
 
-      db.collection("users").doc(user.uid).get()
-        .then((doc) => {
-          const data = doc.exists ? doc.data() : {};
-          showYes(
-            (data.email || user.email),
-            (data.tier || "Fresh Mark"),
-            (typeof data.points === "number" ? data.points : 0)
-          );
-        })
-        .catch(() => showYes(user.email, "Fresh Mark", 0));
+    let alreadyShown = false;
+    try {
+      alreadyShown = sessionStorage.getItem(FLAG_KEY) === "1";
+    } catch (e) {
+      alreadyShown = false;
+    }
+
+    if (!alreadyShown) {
+      setTimeout(showModal, 500);
+    }
+
+    if (closeBtn) {
+      closeBtn.addEventListener("click", hideModal);
+    }
+
+    overlay.addEventListener("click", function (e) {
+      if (e.target === overlay) {
+        hideModal();
+      }
     });
 
-    // Logout
-    logoutBtn.addEventListener("click", () => {
-      auth.signOut().then(() => showNot())
-        .catch((err) => {
-          console.error("Logout error:", err);
-          alert("Logout failed: " + err.message);
-        });
+    if (ctaBtn) {
+      ctaBtn.addEventListener("click", function () {
+        try {
+          sessionStorage.setItem(FLAG_KEY, "1");
+        } catch (e) {}
+      });
+    }
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && overlay.classList.contains("cm-show")) {
+        hideModal();
+      }
     });
-  })();
-  </script>
+  });
+</script>
 </body>
 </html>
