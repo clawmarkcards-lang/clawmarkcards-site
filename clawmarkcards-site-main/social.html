@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Claw Mark Cards — Social & Contact</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Follow Claw Mark Cards across TikTok, Facebook, Snapchat, and more. Stay plugged into breaks, drops, and live events." />
+
+  <style>
+    :root{
+      --bg:#050505;--text:#f2f2f2;--muted:#bbbbbb;
+      --orange:#ff6a00; --blue:#00c8ff; --gold:#ffcc00;
+      --card:#101010; --border:#007bff;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Arial,Helvetica,sans-serif;
+      background:radial-gradient(circle at top,#1a1a1a 0,#050505 55%,#000 100%);
+      color:var(--text);
+    }
+    header{
+      background:var(--orange);
+      padding:20px;
+      text-align:center;
+      border-bottom:3px solid var(--border);
+    }
+    .brand{margin-bottom:10px}
+    .site-title{
+      margin:0;
+      font-size:2.4em;
+      color:#fff;
+      text-transform:uppercase;
+      letter-spacing:1px;
+    }
+    .site-motto{
+      margin:4px 0 0;
+      color:#fff;
+      font-size:.95em;
+      letter-spacing:.5px;
+    }
+    .cmc-nav{margin-top:10px}
+    .cmc-nav a{margin:0 12px;color:#fff;text-decoration:none;font-weight:bold;font-size:.95em}
+    .cmc-nav a:hover{color:var(--blue)}
+
+    main{
+      max-width:1000px;
+      margin:0 auto;
+      padding:20px 16px 40px;
+    }
+
+    .intro-card{
+      background:radial-gradient(circle at top,#222 0,#111 60%,#050505 100%);
+      border-radius:10px;
+      padding:16px 14px 18px;
+      border:1px solid #222;
+      box-shadow:0 10px 30px rgba(0,0,0,.7);
+      margin-bottom:24px;
+    }
+    .intro-card h1{
+      margin:0 0 8px;
+      font-size:1.9em;
+      text-transform:uppercase;
+      letter-spacing:1px;
+    }
+    .intro-card p{margin:6px 0;color:var(--muted);font-size:.96em}
+
+    .social-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:16px;
+    }
+    .social-card{
+      background:var(--card);
+      border-radius:10px;
+      padding:14px;
+      border:1px solid #222;
+      box-shadow:0 6px 18px rgba(0,0,0,.7);
+      text-align:center;
+    }
+    .social-card img{
+      width:80px;
+      height:80px;
+      object-fit:contain;
+      margin-bottom:8px;
+      border-radius:10px;
+    }
+    .social-card .platform{
+      font-size:1.1em;
+      margin:4px 0;
+      font-weight:bold;
+    }
+    .social-card .handle{
+      font-size:.95em;
+      color:var(--muted);
+      margin:4px 0 8px;
+    }
+    .btn{
+      display:inline-block;
+      padding:8px 14px;
+      border-radius:999px;
+      border:1px solid var(--blue);
+      color:var(--blue);
+      font-size:.9em;
+      text-decoration:none;
+      font-weight:bold;
+    }
+    .btn:hover{
+      background:rgba(0,200,255,.12);
+    }
+
+    footer{
+      text-align:center;
+      padding:14px;
+      border-top:1px solid #222;
+      color:var(--muted);
+      font-size:.85em;
+      background:#050505;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <h1 class="site-title">Claw Mark Cards</h1>
+      <p class="site-motto">Every Rip Leaves Its Mark</p>
+    </div>
+    <div id="main-nav"></div>
+  </header>
+
+  <main>
+    <section class="intro-card">
+      <h1>Stay Plugged In</h1>
+      <p>
+        All the live breaks, booth updates, inventory drops, and hobby chaos hit social first.
+        Tap in so you never miss what&apos;s coming out of the next box.
+      </p>
+      <p>
+        Follow, share, and tag us when you hit something crazy. We&apos;re building this with the people who show up.
+      </p>
+    </section>
+
+    <section class="social-grid">
+      <article class="social-card">
+        <img src="social_tiktok_clawmark.png" alt="TikTok logo for Claw Mark Cards">
+        <div class="platform">TikTok</div>
+        <p class="handle">@clawmarkcards</p>
+        <a class="btn" target="_blank" rel="noopener noreferrer"
+           href="https://www.tiktok.com/@clawmarkcards">Visit Page →</a>
+      </article>
+
+      <article class="social-card">
+        <img src="social_fb_clawmark.png" alt="Facebook logo for Claw Mark Cards">
+        <div class="platform">Facebook</div>
+        <p class="handle">Claw Mark Cards</p>
+        <a class="btn" target="_blank" rel="noopener noreferrer"
+           href="https://www.facebook.com/profile.php?id=61566919973440">Visit Page →</a>
+      </article>
+
+      <article class="social-card">
+        <img src="social_snap_clawmark.png" alt="Snapchat logo for Claw Mark Cards">
+        <div class="platform">Snapchat</div>
+        <p class="handle">@clawmarkcards</p>
+        <a class="btn" target="_blank" rel="noopener noreferrer"
+           href="https://www.snapchat.com/add/clawmarkcards?send_source=QRCode&share_id=rie98qBqQxGkfVnV-32e21ba4b364&device_type=ios&is_copy_url=true">Visit Page →</a>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 Claw Mark Cards • Every Rip Leaves Its Mark</p>
+  </footer>
+
+  <script>
+    fetch("nav.html")
+      .then(response => response.text())
+      .then(html => {
+        const container = document.getElementById("main-nav");
+        if (container) container.innerHTML = html;
+      })
+      .catch(err => {
+        console.error("Navigation failed to load:", err);
+      });
+  </script>
+</body>
+</html>

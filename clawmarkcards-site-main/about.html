@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Claw Mark Cards — About</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Claw Mark Cards — built on competition, brotherhood, and the thrill of the chase. Learn our story and join The Marked." />
+
+  <style>
+    :root{
+      --bg:#0d0d0d; --text:#f2f2f2; --muted:#aaaaaa;
+      --orange:#ff6a00; --blue:#00c8ff; --gold:#ffcc00;
+      --card:#1a1a1a; --border:#007bff;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text)}
+
+    header{background:var(--orange);padding:20px;text-align:center;border-bottom:3px solid var(--border)}
+    .brand{margin-bottom:10px}
+    .site-title{margin:0;font-size:2.5em;color:#fff}
+    .site-motto{margin:4px 0 0;color:#fff;font-size:.95em;letter-spacing:.5px}
+    .cmc-nav{margin-top:10px}
+    .cmc-nav a{margin:0 12px;color:#fff;text-decoration:none;font-weight:bold;font-size:.95em}
+    .cmc-nav a:hover{color:var(--blue)}
+
+    main{max-width:960px;margin:0 auto;padding:24px 16px 40px}
+
+    .hero{
+      display:grid;
+      grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);
+      gap:18px;
+      margin-bottom:28px;
+    }
+    @media(max-width:800px){
+      .hero{grid-template-columns:1fr}
+    }
+    .hero-card{
+      background:radial-gradient(circle at top,#222 0,#111 55%,#050505 100%);
+      border-radius:10px;
+      padding:16px 14px 18px;
+      border:1px solid #222;
+      box-shadow:0 10px 30px rgba(0,0,0,.7);
+    }
+    .hero-card h1{
+      margin:0 0 8px;
+      font-size:2.1em;
+      text-transform:uppercase;
+      letter-spacing:1px;
+    }
+    .hero-card p{margin:6px 0;color:var(--muted);font-size:.96em}
+
+    .pill{
+      display:inline-block;
+      background:rgba(0,200,255,.12);
+      border-radius:999px;
+      border:1px solid var(--blue);
+      padding:3px 10px;
+      font-size:.8em;
+      color:#ccefff;
+      margin-bottom:6px;
+    }
+
+    .stack{
+      background:var(--card);
+      border-radius:10px;
+      border:1px solid #222;
+      padding:14px;
+      box-shadow:0 6px 20px rgba(0,0,0,.7);
+      margin-bottom:18px;
+    }
+    .stack h2{
+      margin:0 0 6px;
+      color:var(--orange);
+      font-size:1.3em;
+    }
+    .stack p{margin:4px 0;color:var(--text);font-size:.95em}
+    .stack ul{margin:6px 0 0 18px}
+    .stack li{margin-bottom:4px;font-size:.95em;color:var(--text)}
+
+    footer{
+      text-align:center;
+      padding:16px;
+      border-top:1px solid #222;
+      color:var(--muted);
+      font-size:.85em;
+      background:#050505;
+    }
+  </style>
+</head>
+<body>
+<header class="cmc-header cmc-header--orange">
+  <div class="brand">
+    <h1 class="site-title">Claw Mark Cards</h1>
+    <p class="site-motto">Every Rip Leaves Its Mark</p>
+  </div>
+  <div id="main-nav"></div>
+</header>
+
+<main>
+  <section class="hero">
+    <article class="hero-card">
+      <span class="pill">Built By Rippers • For Rippers</span>
+      <h1>About Claw Mark Cards</h1>
+      <p>
+        Claw Mark Cards was built out of the same energy that keeps you ripping &mdash; the rush of the hit,
+        the sweat of the sweat, and the stories that come from the chase.
+      </p>
+      <p>
+        We&apos;re not a faceless storefront. We&apos;re collectors, competitors, and grinders who love the hobby and treat it like
+        the ecosystem it really is.
+      </p>
+    </article>
+
+    <article class="stack">
+      <h2>The Mission</h2>
+      <p>
+        Turn every rip into something that leaves a mark &mdash; on your PC, on your bankroll, or on the experiences you have
+        with other collectors.
+      </p>
+      <ul>
+        <li>Respect the money people put into the hobby.</li>
+        <li>Keep the product real, the breaks fair, and the energy high.</li>
+        <li>Reward loyalty and consistency with real perks and real value.</li>
+      </ul>
+    </article>
+  </section>
+
+  <section class="stack">
+    <h2>The People Behind The Mark</h2>
+    <p>
+      Claw Mark Cards is built on competition, brotherhood, and that constant itch to outwork, out-think, and out-hustle.
+      It&apos;s not corporate. It&apos;s not sanitized. It&apos;s real-life grinders pushing for something bigger than just flipping wax.
+    </p>
+    <p>
+      Every decision &mdash; from what hits the shelf, to how breaks are run, to how rewards are structured &mdash; is made through
+      the lens of: <em>Would we respect this if we were the customer?</em>
+    </p>
+  </section>
+
+  <section class="stack">
+    <h2>The Marked Tiers & Rewards</h2>
+    <p>
+      As we build out Claw Mark Cards, the long game is simple: if you rock with us, we&apos;re going to make sure it pays off.
+    </p>
+    <ul>
+      <li><strong>Fresh Mark</strong> &mdash; getting your feet wet, starting your story.</li>
+      <li><strong>Deep Mark</strong> &mdash; consistent rippers putting in volume.</li>
+      <li><strong>Full Mark</strong> &mdash; the top tier, with the strongest perks and priority.</li>
+    </ul>
+    <p>
+      Check out the <a href="/tiers.html">Marked Tiers</a> and <a href="/rewards.html">Rewards</a> pages for how the system works,
+      how to climb, and what you unlock along the way.
+    </p>
+  </section>
+
+  <section class="stack">
+    <h2>Booth • Online • Future Plans</h2>
+    <p>
+      Claw Mark Cards isn&apos;t locked into just one lane. We&apos;re building a setup that can hit from multiple angles:
+    </p>
+    <ul>
+      <li>Live streams and breaks that actually respect the viewer.</li>
+      <li>In-person booth inside Everything Under The Sun Flea Market in North Myrtle Beach.</li>
+      <li>Online shop inventory that will keep scaling with the vision.</li>
+    </ul>
+    <p>
+      The end game is simple: a full ecosystem where cards, content, and community all feed each other.
+    </p>
+  </section>
+</main>
+
+<footer>
+  <p>© 2025 Claw Mark Cards • Every Rip Leaves Its Mark</p>
+</footer>
+
+<script>
+  fetch("nav.html")
+    .then(response => response.text())
+    .then(html => {
+      const container = document.getElementById("main-nav");
+      if (container) container.innerHTML = html;
+    })
+    .catch(err => {
+      console.error("Navigation failed to load:", err);
+    });
+</script>
+</body>
+</html>

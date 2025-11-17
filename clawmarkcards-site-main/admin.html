@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Claw Mark Cards — Admin</title>
+
+  <style>
+    body { margin:0; font-family: Arial, sans-serif; background:#0d0d0d; color:#f2f2f2; }
+    header { background:#111; border-bottom:1px solid #222; padding:14px 18px; display:flex; justify-content:space-between; align-items:center; }
+    .badge { font-weight:800; color:#00f0ff; }
+    .danger { color:#ff5757; }
+    main { max-width:1100px; margin:20px auto; padding:0 18px 40px; }
+    .panel { background:#151515; border:1px solid #222; border-radius:10px; padding:14px; margin-bottom:16px; }
+    .row { display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+    input[type="text"], input[type="number"], select { background:#0f0f0f; color:#fff; border:1px solid #333; border-radius:8px; padding:8px; }
+    button { border:none; border-radius:8px; padding:8px 12px; font-weight:800; cursor:pointer; }
+    .btn { background:#00f0ff; color:#000; }
+    .btn:hover { filter:brightness(1.1); }
+    .btn-ghost { background:transparent; color:#f2f2f2; border:1px solid #333; }
+    .btn-danger { background:#ff5757; color:#fff; }
+    table { width:100%; border-collapse:collapse; margin-top:12px; }
+    th, td { border-bottom:1px solid #222; padding:10px 8px; text-align:left; }
+    th { color:#9aa0a6; font-weight:700; }
+    .right { text-align:right; }
+    .muted { color:#9aa0a6; }
+  </style>
+<!-- Claw Mark Cards header fonts & styles -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rock+Salt&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  .cmc-header--orange{background:#ff6a00;color:#fff;border-bottom:none}
+  .cmc-header{position:sticky;top:0;z-index:50;text-align:center;padding:16px 16px 10px 16px}
+  .cmc-header .brand{line-height:1}
+  .cmc-header .site-title{font-family:"Rock Salt", system-ui, sans-serif;font-size:36px;margin:0;color:#fff}
+  .cmc-header .site-motto{font-family:"Rock Salt", system-ui, sans-serif;font-size:16px;margin:6px 0 14px 0;color:#ffe6d5}
+  @media (min-width:768px){
+    .cmc-header .site-title{font-size:44px}
+    .cmc-header .site-motto{font-size:18px}
+  }
+  .cmc-nav{display:flex;gap:28px;padding:10px 16px 14px 16px;align-items:center;justify-content:center;flex-wrap:wrap;font-family:"Inter",system-ui,sans-serif;font-weight:600}
+  .cmc-nav a{text-decoration:none;color:#fff;opacity:.95}
+  .cmc-nav a:hover{text-decoration:underline;opacity:1}
+</style>
+
+</head>
+<body>
+<header class="cmc-header cmc-header--orange">
+  <div class="brand">
+    <h1 class="site-title">Claw Mark Cards</h1>
+    <p class="site-motto">Every Rip Leaves Its Mark</p>
+  </div>
+  <nav class="cmc-nav">
+    <a href="/index.html">Home</a>
+    <a href="/shop.html">Shop</a>
+    <a href="/about.html">About Us</a>
+    <a href="/tiers.html">The Marked Tiers</a>
+    <a href="/rewards.html">Rewards</a>
+    <a href="/social.html">Social Media</a>
+    <a href="/login.html">Login</a>
+    <a href="/signup.html">Signup</a>
+    <a href="/cart.html">Cart</a>
+      <a href="sportscardsplusmb.html">SportsCardsPlusMB</a>
+  </nav>
+</header>
+
+
+
+<style>
+  .cmc-header{position:sticky;top:0;background:#fff;z-index:50;border-bottom:1px solid #eee}
+  .cmc-nav{display:flex;gap:16px;padding:12px 16px;align-items:center;justify-content:center;flex-wrap:wrap;font-weight:600}
+  .cmc-nav a{text-decoration:none;color:#111}
+  .cmc-nav a:hover{text-decoration:underline}
+</style>
+
+  <header>
+    <div><strong>Claw Mark Admin</strong> <span class="badge" id="admin-email"></span></div>
+    <div class="row">
+      <a class="btn-ghost" href="index.html">Home</a>
+      <a class="btn-ghost" href="admin-products.html">Products Admin</a>
+      <a class="btn-ghost" href="admin-engagement.html">Offers & Watchers</a>
+      <button id="logout" class="btn-danger">Log Out</button>
+    </div>
+  </header>
+
+  <main>
+    <div id="gate" class="panel"></div>
+
+    <div id="admin-ui" style="display:none;">
+      <section class="panel">
+        <div class="row">
+          <input type="text" id="searchEmail" placeholder="Search by email…"/>
+          <button id="searchBtn" class="btn">Search</button>
+          <button id="refreshBtn" class="btn-ghost">Refresh</button>
+        </div>
+        <div class="muted" style="margin-top:8px;">Tip: Leave search blank and click Refresh to list recent members.</div>
+      </section>
+
+      <section class="panel">
+        <table>
+          <thead>
+            <tr>
+              <th>Email</th>
+              <th>Tier</th>
+              <th class="right">Points</th>
+              <th>Team</th>
+              <th>Player</th>
+              <th class="right">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="usersBody"></tbody>
+        </table>
+        <div id="status" class="muted" style="margin-top:10px;"></div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Firebase SDKs (Compat) -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+  <script>
+  (function () {
+    const firebaseConfig = {
+      apiKey: "AIzaSyCM5La0C7dKpWgQUpAxVQguDcEV1D4Vmms",
+      authDomain: "clawmark-login.firebaseapp.com",
+      projectId: "clawmark-login",
+      storageBucket: "clawmark-login.firebasestorage.app",
+      messagingSenderId: "334338665183",
+      appId: "1:334338665183:web:eb179b820393234c74576a",
+      measurementId: "G-JE64ZQ56T5"
+    };
+    if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    const gate = document.getElementById("gate");
+    const adminUI = document.getElementById("admin-ui");
+    const adminEmail = document.getElementById("admin-email");
+    const logoutBtn = document.getElementById("logout");
+    const usersBody = document.getElementById("usersBody");
+    const searchEmail = document.getElementById("searchEmail");
+    const searchBtn = document.getElementById("searchBtn");
+    const refreshBtn = document.getElementById("refreshBtn");
+    const statusEl = document.getElementById("status");
+
+    function setGate(msg, isError=false) { gate.innerHTML = msg; gate.className = "panel" + (isError ? " danger" : ""); }
+    function setStatus(msg) { statusEl.textContent = msg || ""; }
+    function opt(val, selected) { return `<option value="${val}" ${selected===val ? "selected":""}>${val}</option>`; }
+    function safe(val, d="") { return (val===undefined || val===null) ? d : val; }
+
+    function renderRow(doc) {
+      const d = doc.data() || {};
+      const uid = doc.id;
+      const email = safe(d.email, "(no email)");
+      const tier = safe(d.tier, "Fresh Mark");
+      const points = Number.isFinite(d.points) ? d.points : 0;
+      const team = safe(d.favoriteTeam, "");
+      const player = safe(d.favoritePlayer, "");
+
+      return `
+        <tr data-uid="${uid}">
+          <td>${email}</td>
+          <td>
+            <select class="tier">
+              ${opt("Fresh Mark", tier)}
+              ${opt("Deep Scar", tier)}
+              ${opt("Full Claw", tier)}
+            </select>
+          </td>
+          <td class="right">
+            <input type="number" class="points" value="${points}" style="width:90px; text-align:right;" />
+          </td>
+          <td><input type="text" class="team" value="${team}" placeholder="Team" /></td>
+          <td><input type="text" class="player" value="${player}" placeholder="Player" /></td>
+          <td class="right">
+            <button class="btn save">Save</button>
+            <button class="btn-ghost add10">+10</button>
+            <button class="btn-ghost add50">+50</button>
+          </td>
+        </tr>
+      `;
+    }
+
+    async function loadUsers(queryEmail) {
+      setStatus("Loading…");
+      usersBody.innerHTML = "";
+      try {
+        let snap;
+        if (queryEmail && queryEmail.trim()) {
+          snap = await db.collection("users").where("email", "==", queryEmail.trim()).limit(50).get();
+        } else {
+          snap = await db.collection("users").orderBy("createdAt", "desc").limit(50).get();
+        }
+        if (snap.empty) {
+          usersBody.innerHTML = `<tr><td colspan="6" class="muted">No users found.</td></tr>`;
+          setStatus("");
+          return;
+        }
+        let html = "";
+        snap.forEach(doc => { html += renderRow(doc); });
+        usersBody.innerHTML = html;
+        setStatus("Loaded " + snap.size + " user(s).");
+      } catch (e) {
+        console.error(e);
+        setStatus("Failed to load users.");
+      }
+    }
+
+    function delegateTableEvents() {
+      usersBody.addEventListener("click", async (e) => {
+        const tr = e.target.closest("tr[data-uid]");
+        if (!tr) return;
+        const uid = tr.getAttribute("data-uid");
+        const tierSel = tr.querySelector(".tier");
+        const pointsInput = tr.querySelector(".points");
+        const teamInput = tr.querySelector(".team");
+        const playerInput = tr.querySelector(".player");
+
+        if (e.target.classList.contains("save")) {
+          try {
+            const payload = {
+              tier: tierSel.value,
+              points: parseInt(pointsInput.value || "0", 10),
+              favoriteTeam: teamInput.value || "",
+              favoritePlayer: playerInput.value || ""
+            };
+            await db.collection("users").doc(uid).update(payload);
+            setStatus("Saved.");
+          } catch (err) {
+            console.error(err);
+            setStatus("Save failed.");
+          }
+        }
+
+        if (e.target.classList.contains("add10") || e.target.classList.contains("add50")) {
+          const delta = e.target.classList.contains("add50") ? 50 : 10;
+          const current = parseInt(pointsInput.value || "0", 10);
+          pointsInput.value = current + delta;
+        }
+      });
+    }
+
+    auth.onAuthStateChanged(async (user) => {
+      if (!user) {
+        setGate(`Please <a href="login.html">log in</a> with an admin account.`, true);
+        adminUI.style.display = "none";
+        adminEmail.textContent = "";
+        return;
+      }
+      adminEmail.textContent = user.email || "";
+
+      try {
+        const adminDoc = await db.collection("admins").doc(user.uid).get();
+        if (!adminDoc.exists) {
+          setGate(`Forbidden (403): Your account is not an admin.`, true);
+          adminUI.style.display = "none";
+          return;
+        }
+        setGate(`<span class="badge">Admin mode enabled</span> — manage tiers, points, and member info.`);
+        adminUI.style.display = "block";
+        delegateTableEvents();
+        await loadUsers("");
+      } catch (e) {
+        console.error(e);
+        setGate("Error checking admin access.", true);
+        adminUI.style.display = "none";
+      }
+    });
+
+    logoutBtn.addEventListener("click", () => auth.signOut());
+    searchBtn.addEventListener("click", () => loadUsers(searchEmail.value));
+    refreshBtn.addEventListener("click", () => loadUsers(""));
+  })();
+  </script>
+
+<section style="max-width:1100px;margin:20px auto;padding:0 16px">
+  <h2>Users</h2>
+  <div id="usersStatus">Loading…</div>
+  <table id="usersTable" border="1" cellspacing="0" cellpadding="6" style="width:100%;border-collapse:collapse;display:none">
+    <thead><tr><th>Email</th><th>Name</th><th>UID</th></tr></thead>
+    <tbody></tbody>
+  </table>
+</section>
+<script type="module">
+  import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+  import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+  const auth = getAuth(); const db = getFirestore();
+  async function isAdmin(uid){
+    const snap = await getDoc(doc(db,'admins', uid));
+    return snap.exists();
+  }
+  auth.onAuthStateChanged(async (u)=>{
+    if(!u){ document.getElementById('usersStatus').textContent='Please sign in.'; return; }
+    if(!(await isAdmin(u.uid))){ document.getElementById('usersStatus').textContent='Forbidden (admin only).'; return; }
+    const tok = await u.getIdToken();
+    const resp = await fetch('/listUsers', { headers:{ Authorization:'Bearer '+tok } });
+    if(!resp.ok){ document.getElementById('usersStatus').textContent='Failed to load users.'; return; }
+    const data = await resp.json();
+    const tb = document.querySelector('#usersTable tbody');
+    tb.innerHTML = (data.users||[]).map(ux=>`<tr><td>${ux.email||''}</td><td>${ux.displayName||''}</td><td>${ux.uid}</td></tr>`).join('');
+    document.getElementById('usersTable').style.display = 'table';
+    document.getElementById('usersStatus').textContent = '';
+  });
+</script>
+
+</body>
+</html>

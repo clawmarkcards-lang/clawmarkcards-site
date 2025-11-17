@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Claw Mark Cards — Home</title>
+  <style>
+    @font-face {
+      font-family: 'Workout';
+      src: url('workout.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: radial-gradient(circle at top, #1a1a1a 0, #050505 55%, #000 100%);
+      color: #ffffff;
+    }
+
+    a {
+      color: #00c8ff;
+    }
+
+    .cmc-header {
+      background: #ff6a00;
+      padding: 20px;
+      text-align: center;
+      border-bottom: 3px solid #007bff;
+    }
+
+    .cmc-header .site-title {
+      margin: 0;
+      font-size: 2.6em;
+      font-family: 'Workout', Arial, sans-serif;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #ffffff;
+      text-shadow: 0 0 10px rgba(0,0,0,0.6);
+    }
+
+    .cmc-header .site-motto {
+      margin: 4px 0 0;
+      font-size: 0.95em;
+      color: #fff4e6;
+      letter-spacing: 0.5px;
+    }
+
+    .cmc-nav {
+      margin-top: 10px;
+    }
+
+    .cmc-nav a {
+      margin: 0 12px;
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 0.95em;
+    }
+
+    .cmc-nav a:hover {
+      color: #00c8ff;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    /* Hero section */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 24px;
+      align-items: center;
+      margin-bottom: 40px;
+    }
+
+    .hero-text h1 {
+      font-size: 2.2em;
+      margin: 0 0 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .hero-text p {
+      margin: 0 0 12px;
+      color: #dddddd;
+      font-size: 0.98em;
+      line-height: 1.5;
+    }
+
+    .hero-text .btn-row {
+      margin-top: 12px;
+    }
+
+    .btn,
+    .btn.alt {
+      display: inline-block;
+      margin: 4px 8px 4px 0;
+      padding: 10px 18px;
+      border-radius: 20px;
+      font-size: 0.95em;
+      text-decoration: none;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+    }
+
+    .btn {
+      background: #ff6a00;
+      color: #ffffff;
+      border: 1px solid #ff9a3a;
+      box-shadow: 0 0 14px rgba(255, 106, 0, 0.6);
+    }
+
+    .btn:hover {
+      background: #ff812e;
+      box-shadow: 0 0 16px rgba(255, 129, 46, 0.9);
+    }
+
+    .btn.alt {
+      background: transparent;
+      color: #00c8ff;
+      border: 1px solid #00c8ff;
+    }
+
+    .btn.alt:hover {
+      background: rgba(0, 200, 255, 0.1);
+    }
+
+    .hero-card {
+      background: radial-gradient(circle at top, #222 0, #111 60%, #050505 100%);
+      border-radius: 12px;
+      padding: 18px 16px;
+      border: 1px solid #333;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+    }
+
+    .hero-card h2 {
+      margin-top: 0;
+      font-size: 1.3em;
+      color: #00c8ff;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hero-pill {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(0, 200, 255, 0.12);
+      border: 1px solid #00c8ff;
+      font-size: 0.8em;
+      color: #ccefff;
+      margin-bottom: 6px;
+    }
+
+    .hero-card ul {
+      list-style: none;
+      padding-left: 18px;
+      margin: 0;
+    }
+
+    .hero-card li {
+      margin-bottom: 6px;
+      font-size: 0.95em;
+      color: #f0f0f0;
+    }
+
+    .hero-card li::marker {
+      content: "• ";
+      color: #ff6a00;
+    }
+
+    /* Announcement bar */
+    #announcement {
+      background-color: #1a1a1a;
+      text-align: center;
+      padding: 15px 12px;
+      border-radius: 10px;
+      border: 1px solid #333;
+      margin-bottom: 24px;
+      box-shadow: 0 0 16px rgba(0,0,0,0.6);
+      font-size: 0.95em;
+    }
+
+    #announcement strong {
+      color: #ffcc00;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    #announcement a {
+      color: #00c8ff;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    #announcement a:hover {
+      text-decoration: underline;
+    }
+
+    /* Sections */
+    .section {
+      margin-bottom: 40px;
+      background: rgba(10,10,10,0.86);
+      border-radius: 12px;
+      border: 1px solid #222;
+      padding: 18px 16px 20px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+    }
+
+    .section h2 {
+      margin-top: 0;
+      color: #ff6a00;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      font-size: 1.3em;
+    }
+
+    .section p {
+      color: #dddddd;
+      line-height: 1.5;
+      font-size: 0.96em;
+    }
+
+    .section ul {
+      margin: 8px 0 0 18px;
+    }
+
+    .section li {
+      margin-bottom: 6px;
+      font-size: 0.96em;
+      color: #f5f5f5;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 18px;
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    footer {
+      text-align: center;
+      padding: 16px;
+      border-top: 1px solid #222;
+      color: #bbbbbb;
+      font-size: 0.85em;
+      background: #050505;
+    }
+
+    /* Logged-in badge panel (from rewards/dashboard logic) */
+    .status-panel {
+      margin-top: 16px;
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px solid #333;
+      background: #101010;
+      font-size: 0.9em;
+    }
+
+    .status-panel strong {
+      color: #ffcc00;
+    }
+
+    .status-panel .label {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid #00c8ff;
+      color: #00c8ff;
+      margin-left: 4px;
+      font-size: 0.8em;
+    }
+
+    .status-actions {
+      margin-top: 8px;
+    }
+
+    .status-actions button {
+      background: transparent;
+      color: #00c8ff;
+      border: 1px solid #00c8ff;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.82em;
+      cursor: pointer;
+      margin-right: 8px;
+    }
+
+    .status-actions button:hover {
+      background: rgba(0,200,255,0.1);
+    }
+  </style>
+</head>
+<body>
+  <header class="cmc-header cmc-header--orange">
+    <div class="brand">
+      <h1 class="site-title">Claw Mark Cards</h1>
+      <p class="site-motto">Every Rip Leaves Its Mark</p>
+    </div>
+    <div id="main-nav"></div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-text">
+        <h1>The Hobby. The Hunt. The Mark.</h1>
+        <p>
+          Claw Mark Cards is built for collectors who live this. Singles, slabs, wax, and live breaks —
+          we bring the energy online and in-person so every rip leaves its mark.
+        </p>
+        <p>
+          Build your stack, climb the Marked Tiers, and earn rewards just for doing what you already do:
+          ripping packs and chasing grails.
+        </p>
+        <div class="btn-row">
+          <a class="btn" href="/shop.html">Shop Singles & Sealed</a>
+          <a class="btn alt" href="/tiers.html">Explore The Marked Tiers</a>
+          <a class="btn alt" href="/signup.html">Join The Marked</a>
+        </div>
+
+        <div id="status-panel" class="status-panel" style="display:none;">
+          <div id="status-content"></div>
+          <div class="status-actions">
+            <button id="to-rewards">View Rewards</button>
+            <button id="to-tiers">See Tiers</button>
+            <button id="logout-btn">Logout</button>
+          </div>
+        </div>
+
+        <div id="status-logged-out" class="status-panel" style="display:none;">
+          <p>
+            <strong>Not logged in.</strong> Create a free account, climb tiers, and earn points every time you rip.
+          </p>
+          <div class="status-actions">
+            <button id="to-login">Login</button>
+            <button id="to-signup">Sign Up</button>
+          </div>
+        </div>
+      </div>
+
+      <aside class="hero-card">
+        <span class="hero-pill">Live • Online • In-Person</span>
+        <h2>Where Packs Get Ripped</h2>
+        <ul>
+          <li>Whatnot & live-stream breaks featuring NFL, NBA, MLB & more.</li>
+          <li>In-person booth at Everything Under The Sun Flea Market (North Myrtle Beach).</li>
+          <li>Value boxes, dollar boxes, mid-end and high-end displays.</li>
+          <li>Rewards program that tracks your rip history and stacks your points.</li>
+          <li>Future in-store events, trade days, and hobby meetups.</li>
+        </ul>
+      </aside>
+    </section>
+
+    <!-- Sports Cards & Collectibles anchor -->
+    <section id="announcement">
+      <p>
+        <strong>Now Open • North Myrtle Beach</strong><br />
+        Visit us inside Everything Under The Sun Flea Market — 
+        <a href="/north-myrtle-store.html">see full store details & hours here →</a>
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Breaks, Singles, and Sealed Product</h2>
+      <div class="grid-2">
+        <div>
+          <p>
+            We move everything from dollar-box sleepers to chase-card grails. Whether you’re hunting
+            PC pieces or quick flips, Claw Mark Cards keeps the inventory fresh and the action moving.
+          </p>
+          <ul>
+            <li>💥 Live breaks with real-time chat, giveaways, and bounties.</li>
+            <li>📦 Sealed product: blasters, hobby, retail — as allocations and market supply allow.</li>
+            <li>🃏 Singles across NFL, NBA, MLB, and more — raw, graded, and everything in between.</li>
+          </ul>
+        </div>
+        <div>
+          <p>
+            Our goal is to be the spot where you always have something worth ripping — online or at the booth.
+          </p>
+          <p>
+            Check the shop for current singles and sealed listings, and keep an eye on social for live break schedules.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Climb The Marked Tiers</h2>
+      <p>
+        Every dollar you spend with Claw Mark Cards helps you climb through our Marked Tiers. Higher tiers unlock better perks,
+        priority access to breaks, and special giveaways.
+      </p>
+      <ul>
+        <li>Fresh Mark → entry-level tier for new rippers.</li>
+        <li>Deep Mark → consistent rippers who keep the breaks flowing.</li>
+        <li>Full Mark → the die-hards who live in the hobby.</li>
+      </ul>
+      <p>
+        You can view the full tier breakdown and perks on the
+        <a href="/tiers.html">Marked Tiers page</a>.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Rewards That Actually Matter</h2>
+      <p>
+        Points aren’t just numbers on a screen — they’re real value you can turn into credit, discounts, and special access.
+      </p>
+      <ul>
+        <li>Earn points on eligible purchases and breaks.</li>
+        <li>Redeem for credit, discount codes, or exclusive items.</li>
+        <li>Track everything through your account dashboard.</li>
+      </ul>
+      <p>
+        Already ripping with us? <a href="/login.html">Log in</a> to see your current tier and points.
+        New here? <a href="/signup.html">Create a free account</a> in seconds.
+      </p>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>© 2025 Claw Mark Cards • Every Rip Leaves Its Mark</p>
+  </footer>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+  <!-- Status + badge logic -->
+  <script>
+  (function () {
+    const firebaseConfig = {
+      apiKey: "AIzaSyCM5La0C7dKpWgQUpAxVQguDcEV1D4Vmms",
+      authDomain: "clawmark-login.firebaseapp.com",
+      projectId: "clawmark-login",
+      storageBucket: "clawmark-login.firebasestorage.app",
+      messagingSenderId: "334338665183",
+      appId: "1:334338665183:web:eb179b820393234c74576a",
+      measurementId: "G-WPW21P13VJ"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    const statusPanel = document.getElementById("status-panel");
+    const statusLoggedOut = document.getElementById("status-logged-out");
+    const statusContent = document.getElementById("status-content");
+    const toRewardsBtn = document.getElementById("to-rewards");
+    const toTiersBtn = document.getElementById("to-tiers");
+    const logoutBtn = document.getElementById("logout-btn");
+    const toLoginBtn = document.getElementById("to-login");
+    const toSignupBtn = document.getElementById("to-signup");
+
+    function showYes(email, tier, points) {
+      statusLoggedOut.style.display = "none";
+      statusPanel.style.display = "block";
+      statusContent.innerHTML =
+        "<p><strong>Logged in as:</strong> " + email + "</p>" +
+        "<p><strong>Tier:</strong> " + tier + " <span class='label'>Marked</span></p>" +
+        "<p><strong>Points:</strong> " + points + "</p>";
+    }
+
+    function showNot() {
+      statusPanel.style.display = "none";
+      statusLoggedOut.style.display = "block";
+    }
+
+    toRewardsBtn.addEventListener("click", () => {
+      window.location.href = "/rewards.html";
+    });
+
+    toTiersBtn.addEventListener("click", () => {
+      window.location.href = "/tiers.html";
+    });
+
+    toLoginBtn.addEventListener("click", () => {
+      window.location.href = "/login.html";
+    });
+
+    toSignupBtn.addEventListener("click", () => {
+      window.location.href = "/signup.html";
+    });
+
+    auth.onAuthStateChanged((user) => {
+      if (!user) { showNot(); return; }
+
+      db.collection("users").doc(user.uid).get()
+        .then((doc) => {
+          const data = doc.exists ? doc.data() : {};
+          showYes(
+            (data.email || user.email),
+            (data.tier || "Fresh Mark"),
+            (typeof data.points === "number" ? data.points : 0)
+          );
+        })
+        .catch(() => showYes(user.email, "Fresh Mark", 0));
+    });
+
+    logoutBtn.addEventListener("click", () => {
+      auth.signOut().then(() => showNot())
+        .catch((err) => {
+          console.error("Logout error:", err);
+          alert("Logout failed: " + err.message);
+        });
+    });
+  })();
+  </script>
+
+  <script>
+    fetch("nav.html")
+      .then(response => response.text())
+      .then(html => {
+        const container = document.getElementById("main-nav");
+        if (container) container.innerHTML = html;
+      })
+      .catch(err => {
+        console.error("Navigation failed to load:", err);
+      });
+  </script>
+</body>
+</html>

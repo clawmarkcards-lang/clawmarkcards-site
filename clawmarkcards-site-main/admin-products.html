@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Claw Mark Cards — Admin — Products</title>
+  <style>
+    body { margin:0; font-family: Arial, sans-serif; background:#0d0d0d; color:#f2f2f2; }
+    header { background:#111; border-bottom:1px solid #222; padding:14px 18px; display:flex; justify-content:space-between; align-items:center; }
+    .badge { font-weight:800; color:#00c8ff; }
+    .danger { color:#ff5757; }
+    main { max-width:1200px; margin:20px auto; padding:0 18px 40px; }
+    .panel { background:#151515; border:1px solid #222; border-radius:10px; padding:14px; margin-bottom:16px; }
+    .row { display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+    input[type="text"], input[type="number"], select, textarea { background:#0f0f0f; color:#fff; border:1px solid #333; border-radius:8px; padding:8px; }
+    input[type="text"], input[type="number"], select { height:38px; }
+    textarea { width:100%; min-height:90px; resize:vertical; }
+    button { border:none; border-radius:8px; padding:9px 12px; font-weight:800; cursor:pointer; }
+    .btn { background:#00c8ff; color:#000; }
+    .btn:hover { filter:brightness(1.1); }
+    .btn-ghost { background:transparent; color:#f2f2f2; border:1px solid #333; }
+    .btn-danger { background:#ff5757; color:#fff; }
+    .muted { color:#9aa0a6; }
+    .grid { display:grid; grid-template-columns: 1fr; gap:10px; }
+    table { width:100%; border-collapse:collapse; }
+    th, td { border-bottom:1px solid #222; padding:10px 8px; text-align:left; vertical-align:top; }
+    th { color:#9aa0a6; font-weight:700; }
+    .right { text-align:right; }
+    .thumb { width:64px; height:64px; object-fit:cover; border-radius:8px; background:#0f0f0f; }
+    .pill { display:inline-block; padding:2px 8px; border:1px solid #333; border-radius:999px; background:#101010; color:#ddd; font-size:.85em; margin-right:6px; }
+    .status-active { color:#7dff9e; font-weight:800; }
+    .status-draft { color:#ffcc00; font-weight:800; }
+    .status-archived { color:#ff5757; font-weight:800; }
+  </style>
+<!-- Claw Mark Cards header fonts & styles -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rock+Salt&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  .cmc-header--orange{background:#ff6a00;color:#fff;border-bottom:none}
+  .cmc-header{position:sticky;top:0;z-index:50;text-align:center;padding:16px 16px 10px 16px}
+  .cmc-header .brand{line-height:1}
+  .cmc-header .site-title{font-family:"Rock Salt", system-ui, sans-serif;font-size:36px;margin:0;color:#fff}
+  .cmc-header .site-motto{font-family:"Rock Salt", system-ui, sans-serif;font-size:16px;margin:6px 0 14px 0;color:#ffe6d5}
+  @media (min-width:768px){
+    .cmc-header .site-title{font-size:44px}
+    .cmc-header .site-motto{font-size:18px}
+  }
+  .cmc-nav{display:flex;gap:28px;padding:10px 16px 14px 16px;align-items:center;justify-content:center;flex-wrap:wrap;font-family:"Inter",system-ui,sans-serif;font-weight:600}
+  .cmc-nav a{text-decoration:none;color:#fff;opacity:.95}
+  .cmc-nav a:hover{text-decoration:underline;opacity:1}
+</style>
+
+</head>
+<body>
+<header class="cmc-header cmc-header--orange">
+  <div class="brand">
+    <h1 class="site-title">Claw Mark Cards</h1>
+    <p class="site-motto">Every Rip Leaves Its Mark</p>
+  </div>
+  <nav class="cmc-nav">
+    <a href="/index.html">Home</a>
+    <a href="/shop.html">Shop</a>
+    <a href="/about.html">About Us</a>
+    <a href="/tiers.html">The Marked Tiers</a>
+    <a href="/rewards.html">Rewards</a>
+    <a href="/social.html">Social Media</a>
+    <a href="/login.html">Login</a>
+    <a href="/signup.html">Signup</a>
+    <a href="/cart.html">Cart</a>
+      <a href="sportscardsplusmb.html">SportsCardsPlusMB</a>
+  </nav>
+</header>
+
+
+
+<style>
+  .cmc-header{position:sticky;top:0;background:#fff;z-index:50;border-bottom:1px solid #eee}
+  .cmc-nav{display:flex;gap:16px;padding:12px 16px;align-items:center;justify-content:center;flex-wrap:wrap;font-weight:600}
+  .cmc-nav a{text-decoration:none;color:#111}
+  .cmc-nav a:hover{text-decoration:underline}
+</style>
+
+  <header>
+    <div><strong>Claw Mark Admin</strong> <span class="badge" id="admin-email"></span></div>
+    <div class="row">
+      <a class="btn-ghost" href="index.html">Home</a>
+      <a class="btn-ghost" href="admin.html">Members Admin</a>
+      <a class="btn-ghost" href="admin-engagement.html">Offers & Watchers</a>
+      <button id="logout" class="btn-danger">Log Out</button>
+    </div>
+  </header>
+
+  <main>
+    <div id="gate" class="panel"></div>
+
+    <div id="admin-ui" style="display:none;">
+      <section class="panel">
+        <div class="row">
+          <strong>New / Edit Product</strong>
+          <span id="formMode" class="muted">(Create)</span>
+        </div>
+        <div class="grid" style="grid-template-columns: repeat(4, 1fr);">
+          <div class="col">
+            <label>Title</label>
+            <input type="text" id="p_title" placeholder="e.g., 2024 Donruss Football Hobby Box">
+          </div>
+          <div class="col">
+            <label>Category</label>
+            <select id="p_category">
+              <option value="sealed">Sealed</option>
+              <option value="singles">Singles</option>
+              <option value="slabs">Slabs</option>
+              <option value="break">Break</option>
+            </select>
+          </div>
+          <div class="col">
+            <label>Sport</label>
+            <select id="p_sport">
+              <option value="">—</option>
+              <option>NFL</option><option>NBA</option><option>MLB</option><option>NHL</option><option>Soccer</option><option>TCG</option>
+            </select>
+          </div>
+          <div class="col">
+            <label>Brand</label>
+            <select id="p_brand">
+              <option value="">—</option>
+              <option>Panini</option><option>Topps</option><option>Upper Deck</option><option>Pokémon</option>
+            </select>
+          </div>
+          <div class="col">
+            <label>Year</label>
+            <input type="number" id="p_year" placeholder="2024">
+          </div>
+          <div class="col">
+            <label>Price (USD)</label>
+            <input type="number" id="p_price" step="0.01" placeholder="199.99">
+          </div>
+          <div class="col">
+            <label>Compare At (USD)</label>
+            <input type="number" id="p_compare" step="0.01" placeholder="229.99">
+          </div>
+          <div class="col">
+            <label>Quantity</label>
+            <input type="number" id="p_qty" placeholder="1">
+          </div>
+          <div class="col">
+            <label>Status</label>
+            <select id="p_status">
+              <option value="active">active</option>
+              <option value="draft">draft</option>
+              <option value="archived">archived</option>
+            </select>
+          </div>
+          <div class="col">
+            <label>Team</label>
+            <input type="text" id="p_team" placeholder="e.g., CAR">
+          </div>
+          <div class="col">
+            <label>Player</label>
+            <input type="text" id="p_player" placeholder="e.g., Cam Newton">
+          </div>
+          <div class="col">
+            <label>Grade (Company Grade)</label>
+            <input type="text" id="p_grade" placeholder="PSA 10 / SGC 10 / BGS 9.5">
+          </div>
+          <div class="col" style="grid-column:1 / -1;">
+            <label>Features (comma separated)</label>
+            <input type="text" id="p_features" placeholder="rookie, auto, numbered, relic, sp, ssp">
+          </div>
+          <div class="col" style="grid-column:1 / -1;">
+            <label>Image URLs (comma separated; first is primary)</label>
+            <textarea id="p_images" placeholder="https://…/img1.jpg, https://…/img2.jpg"></textarea>
+          </div>
+          <div class="col" style="grid-column:1 / -1;">
+            <label>Description</label>
+            <textarea id="p_desc" placeholder="Key details, configuration, hits, etc."></textarea>
+          </div>
+        </div>
+        <div class="row" style="margin-top:10px;">
+          <button id="createBtn" class="btn">Create</button>
+          <button id="updateBtn" class="btn" style="display:none;">Update</button>
+          <button id="resetBtn" class="btn-ghost">Reset</button>
+          <span id="formStatus" class="muted"></span>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="row">
+          <input type="text" id="q" placeholder="Search title/team/player…">
+          <select id="f_cat">
+            <option value="">All Categories</option>
+            <option value="sealed">Sealed</option><option value="singles">Singles</option><option value="slabs">Slabs</option><option value="break">Break</option>
+          </select>
+          <select id="f_status">
+            <option value="">All Statuses</option>
+            <option value="active">active</option><option value="draft">draft</option><option value="archived">archived</option>
+          </select>
+          <button id="searchBtn" class="btn">Search</button>
+          <button id="refreshBtn" class="btn-ghost">Refresh</button>
+        </div>
+        <div class="muted" style="margin-top:6px;">Tip: Leave search empty and click Refresh to see recent products.</div>
+      </section>
+
+      <section class="panel">
+        <table>
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Meta</th>
+              <th>Price</th>
+              <th>Qty</th>
+              <th>Status</th>
+              <th class="right">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+        <div id="status" class="muted" style="margin-top:10px;"></div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Firebase SDKs (Compat) -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+  <script>
+  (function () {
+    const firebaseConfig = {
+      apiKey: "AIzaSyCM5La0C7dKpWgQUpAxVQguDcEV1D4Vmms",
+      authDomain: "clawmark-login.firebaseapp.com",
+      projectId: "clawmark-login",
+      storageBucket: "clawmark-login.firebasestorage.app",
+      messagingSenderId: "334338665183",
+      appId: "1:334338665183:web:eb179b820393234c74576a",
+      measurementId: "G-JE64ZQ56T5"
+    };
+    if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+    const FSV = firebase.firestore.FieldValue;
+
+    const gate = document.getElementById("gate");
+    const adminUI = document.getElementById("admin-ui");
+    const adminEmail = document.getElementById("admin-email");
+    const logoutBtn = document.getElementById("logout");
+
+    const formMode = document.getElementById("formMode");
+    const formStatus = document.getElementById("formStatus");
+    const createBtn = document.getElementById("createBtn");
+    const updateBtn = document.getElementById("updateBtn");
+    const resetBtn  = document.getElementById("resetBtn");
+
+    const titleEl = document.getElementById("p_title");
+    const categoryEl = document.getElementById("p_category");
+    const sportEl = document.getElementById("p_sport");
+    const brandEl = document.getElementById("p_brand");
+    const yearEl = document.getElementById("p_year");
+    const priceEl = document.getElementById("p_price");
+    const compareEl = document.getElementById("p_compare");
+    const qtyEl = document.getElementById("p_qty");
+    const statusEl = document.getElementById("p_status");
+    const teamEl = document.getElementById("p_team");
+    const playerEl = document.getElementById("p_player");
+    const gradeEl = document.getElementById("p_grade");
+    const featuresEl = document.getElementById("p_features");
+    const imagesEl = document.getElementById("p_images");
+    const descEl = document.getElementById("p_desc");
+
+    const qEl = document.getElementById("q");
+    const fCat = document.getElementById("f_cat");
+    const fStatus = document.getElementById("f_status");
+    const searchBtn = document.getElementById("searchBtn");
+    const refreshBtn = document.getElementById("refreshBtn");
+    const tbody = document.getElementById("tbody");
+    const statusLine = document.getElementById("status");
+
+    let editingId = null;
+
+    function setGate(msg, isError=false) { gate.innerHTML = msg; gate.className = "panel" + (isError ? " danger" : ""); }
+    function setStatus(msg) { statusLine.textContent = msg || ""; }
+    function safeNum(n){ const v = parseFloat(n); return Number.isFinite(v) ? v : 0; }
+    function toFeatures(csv){
+      const out = { rookie:false, auto:false, relic:false, numbered:false, sp:false, ssp:false };
+      (csv||"").split(",").map(s=>s.trim().toLowerCase()).forEach(k=>{ if(k && out.hasOwnProperty(k)) out[k] = true; });
+      return out;
+    }
+    function fromFeatures(obj){ return Object.keys(obj||{}).filter(k=>obj[k]).join(", "); }
+    function parseGrade(s){
+      s = (s||"").trim();
+      if(!s) return null;
+      const parts = s.split(/\\s+/);
+      return { company: parts[0], grade: parts.slice(1).join(" ") || "" };
+    }
+    function imagesFromCSV(csv){ return (csv||"").split(",").map(s=>s.trim()).filter(Boolean); }
+    function imagesToCSV(arr){ return (arr||[]).join(", "); }
+    function skuFromTitle(title){
+      const t = (title||"").toUpperCase().replace(/[^A-Z0-9]+/g, "-").replace(/^-+|-+$/g,"").slice(0,24);
+      const rand = Math.random().toString(36).slice(2,6).toUpperCase();
+      return t ? `${t}-${rand}` : `SKU-${rand}`;
+    }
+    function statusBadge(s){
+      if(s==="active") return '<span class="status-active">active</span>';
+      if(s==="draft") return '<span class="status-draft">draft</span>';
+      return '<span class="status-archived">archived</span>';
+    }
+
+    auth.onAuthStateChanged(async (user) => {
+      if (!user) {
+        setGate(`Please <a href="login.html">log in</a> with an admin account.`, true);
+        adminUI.style.display = "none"; adminEmail.textContent = ""; return;
+      }
+      adminEmail.textContent = user.email || "";
+      try {
+        const adminDoc = await db.collection("admins").doc(user.uid).get();
+        if (!adminDoc.exists) {
+          setGate(`Forbidden (403): Your account is not an admin.`, true);
+          adminUI.style.display = "none"; return;
+        }
+        setGate(`<span class="badge">Admin mode enabled</span> — manage products.`);
+        adminUI.style.display = "block";
+        await loadTable();
+      } catch (e) {
+        console.error(e);
+        setGate("Error checking admin access.", true);
+        adminUI.style.display = "none";
+      }
+    });
+    logoutBtn.addEventListener("click", () => auth.signOut());
+
+    function readForm(){
+      return {
+        title: titleEl.value.trim(),
+        category: categoryEl.value,
+        sport: sportEl.value || "",
+        brand: brandEl.value || "",
+        year: yearEl.value ? parseInt(yearEl.value,10) : null,
+        price: safeNum(priceEl.value),
+        compareAtPrice: safeNum(compareEl.value),
+        quantity: qtyEl.value ? parseInt(qtyEl.value,10) : 1,
+        status: statusEl.value,
+        team: teamEl.value.trim(),
+        player: playerEl.value.trim(),
+        grade: parseGrade(gradeEl.value),
+        features: toFeatures(featuresEl.value),
+        images: imagesFromCSV(imagesEl.value),
+        description: descEl.value.trim(),
+        updatedAt: FSV.serverTimestamp()
+      };
+    }
+    function writeForm(p){
+      titleEl.value = p.title || "";
+      categoryEl.value = p.category || "sealed";
+      sportEl.value = p.sport || "";
+      brandEl.value = p.brand || "";
+      yearEl.value = p.year || "";
+      priceEl.value = p.price ?? "";
+      compareEl.value = p.compareAtPrice ?? "";
+      qtyEl.value = p.quantity ?? 1;
+      statusEl.value = p.status || "draft";
+      teamEl.value = p.team || "";
+      playerEl.value = p.player || "";
+      gradeEl.value = p.grade ? `${p.grade.company||""} ${p.grade.grade||""}`.trim() : "";
+      featuresEl.value = fromFeatures(p.features);
+      imagesEl.value = imagesToCSV(p.images);
+      descEl.value = p.description || "";
+    }
+    function resetForm(){
+      editingId = null; formMode.textContent = "(Create)";
+      writeForm({ category:"sealed", status:"active", quantity:1 });
+      createBtn.style.display = "inline-block";
+      updateBtn.style.display = "none";
+      formStatus.textContent = "";
+    }
+
+    async function createProduct(){
+      const p = readForm();
+      if(!p.title){ formStatus.textContent = "Title is required."; return; }
+      const sku = skuFromTitle(p.title);
+      const doc = { ...p, sku, createdAt: FSV.serverTimestamp() };
+      await db.collection("products").add(doc);
+      formStatus.textContent = "Created.";
+      resetForm(); await loadTable();
+    }
+
+    async function updateProduct(){
+      if(!editingId) return;
+      const p = readForm();
+      await db.collection("products").doc(editingId).update(p);
+      formStatus.textContent = "Updated.";
+      resetForm(); await loadTable();
+    }
+
+    async function archiveProduct(id){ await db.collection("products").doc(id).update({ status:"archived", updatedAt: FSV.serverTimestamp() }); await loadTable(); }
+    async function unarchiveProduct(id){ await db.collection("products").doc(id).update({ status:"active", updatedAt: FSV.serverTimestamp() }); await loadTable(); }
+    async function deleteProduct(id){ if(confirm("Delete this product permanently?")){ await db.collection("products").doc(id).delete(); await loadTable(); } }
+
+    createBtn.addEventListener("click", createProduct);
+    updateBtn.addEventListener("click", updateProduct);
+    resetBtn.addEventListener("click", resetForm);
+
+    async function loadTable(){
+      setStatus("Loading…"); tbody.innerHTML = "";
+      try{
+        let ref = db.collection("products").orderBy("createdAt","desc").limit(100);
+        const qs = qEl.value.trim().toLowerCase();
+        const fc = fCat.value; const fs = fStatus.value;
+
+        const snap = await ref.get();
+        const rows = [];
+        snap.forEach(doc=>{
+          const d = doc.data() || {};
+          d.id = doc.id;
+          if(fc && d.category!==fc) return;
+          if(fs && d.status!==fs) return;
+          const hay = [d.title, d.team, d.player, d.brand, d.sport, String(d.year||"")].join(" ").toLowerCase();
+          if(qs && !hay.includes(qs)) return;
+          rows.push(d);
+        });
+
+        if(!rows.length){
+          tbody.innerHTML = `<tr><td colspan="6" class="muted">No products found.</td></tr>`;
+          setStatus(""); return;
+        }
+
+        const html = rows.map(r=>{
+          const img = (r.images && r.images[0]) || "placeholder.png";
+          const meta = [
+            (r.category||"").toUpperCase(),
+            r.sport, r.brand, r.year
+          ].filter(Boolean).join(" • ");
+          return `
+            <tr data-id="${r.id}">
+              <td>
+                <div style="display:flex;gap:10px;align-items:center;">
+                  <img class="thumb" src="${img}" alt="">
+                  <div>
+                    <div style="font-weight:800">${r.title||"(untitled)"}</div>
+                    <div class="muted">${r.sku||r.id||""}</div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div>${meta}</div>
+                ${(r.grade && r.grade.company) ? `<div class="pill">${r.grade.company} ${r.grade.grade||""}</div>` : ""}
+                ${Object.entries(r.features||{}).filter(([k,v])=>v).map(([k])=>`<span class="pill">${k}</span>`).join(" ")}
+              </td>
+              <td>$${Number(r.price||0).toFixed(2)}</td>
+              <td>${Number.isFinite(r.quantity)? r.quantity : 1}</td>
+              <td>${statusBadge(r.status||"draft")}</td>
+              <td class="right">
+                <button class="btn-ghost edit">Edit</button>
+                ${r.status==="archived"
+                  ? `<button class="btn-ghost unarchive">Unarchive</button>`
+                  : `<button class="btn-ghost archive">Archive</button>`}
+                <button class="btn-danger del">Delete</button>
+              </td>
+            </tr>
+          `;
+        }).join("");
+        tbody.innerHTML = html;
+        setStatus(`Loaded ${rows.length} product(s).`);
+      }catch(e){
+        console.error(e); setStatus("Failed to load products.");
+      }
+    }
+
+    tbody.addEventListener("click", async (e)=>{
+      const tr = e.target.closest("tr[data-id]"); if(!tr) return;
+      const id = tr.getAttribute("data-id");
+      if(e.target.classList.contains("edit")){
+        const doc = await db.collection("products").doc(id).get();
+        const d = doc.data()||{};
+        editingId = id; formMode.textContent = `(Editing: ${d.sku||id})`;
+        writeForm(d);
+        createBtn.style.display = "none";
+        updateBtn.style.display = "inline-block";
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+      if(e.target.classList.contains("archive")) await archiveProduct(id);
+      if(e.target.classList.contains("unarchive")) await unarchiveProduct(id);
+      if(e.target.classList.contains("del")) await deleteProduct(id);
+    });
+
+    document.getElementById("searchBtn").addEventListener("click", loadTable);
+    document.getElementById("refreshBtn").addEventListener("click", ()=>{ qEl.value=""; fCat.value=""; fStatus.value=""; loadTable(); });
+
+  })();
+  </script>
+</body>
+</html>

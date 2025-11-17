@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Claw Mark Cards — Shop</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Shop singles, sealed product, and more from Claw Mark Cards.">
+  <style>
+    :root{
+      --bg:#050505;--text:#f2f2f2;--muted:#bbbbbb;
+      --orange:#ff6a00; --blue:#00c8ff; --gold:#ffcc00;
+      --card:#111111; --border:#007bff;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Arial,Helvetica,sans-serif;
+      background:radial-gradient(circle at top,#1a1a1a 0,#050505 55%,#000 100%);
+      color:var(--text);
+    }
+    header{
+      background:var(--orange);
+      padding:20px;
+      text-align:center;
+      border-bottom:3px solid var(--border);
+    }
+    .brand{margin-bottom:10px}
+    .site-title{
+      margin:0;
+      font-size:2.4em;
+      color:#fff;
+      font-family:Arial,Helvetica,sans-serif;
+      text-transform:uppercase;
+      letter-spacing:1px;
+    }
+    .site-motto{
+      margin:4px 0 0;
+      color:#fff;
+      font-size:.95em;
+      letter-spacing:.5px;
+    }
+    .cmc-nav{margin-top:10px}
+    .cmc-nav a{margin:0 12px;color:#fff;text-decoration:none;font-weight:bold;font-size:.95em}
+    .cmc-nav a:hover{color:var(--blue)}
+
+    main{
+      max-width:1100px;
+      margin:0 auto;
+      padding:16px;
+      display:grid;
+      grid-template-columns:minmax(0,2fr) minmax(0,1fr);
+      gap:16px;
+    }
+    @media (max-width:900px){
+      main{grid-template-columns:1fr}
+    }
+
+    .product-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+      gap:12px;
+    }
+    .product-card{
+      background:var(--card);
+      border-radius:10px;
+      padding:10px;
+      border:1px solid #222;
+      box-shadow:0 4px 14px rgba(0,0,0,.7);
+      display:flex;
+      flex-direction:column;
+    }
+    .product-card img{
+      width:100%;height:auto;border-radius:8px;margin-bottom:8px;
+    }
+    .product-title{
+      font-size:.95em;
+      margin:0 0 4px;
+      font-weight:bold;
+    }
+    .product-meta{
+      font-size:.85em;
+      color:var(--muted);
+      margin-bottom:6px;
+    }
+    .product-price{
+      font-size:1em;
+      font-weight:bold;
+      color:var(--gold);
+      margin-bottom:6px;
+    }
+    .product-actions{
+      margin-top:auto;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:6px;
+    }
+    .btn{
+      display:inline-block;
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:.85em;
+      font-weight:bold;
+      text-decoration:none;
+      cursor:pointer;
+      border:1px solid transparent;
+    }
+    .btn.primary{
+      background:var(--orange);
+      border-color:#ff9a3a;
+      color:#fff;
+      box-shadow:0 0 10px rgba(255,106,0,.6);
+    }
+    .btn.primary:hover{
+      background:#ff812e;
+      box-shadow:0 0 14px rgba(255,129,46,.9);
+    }
+    .btn.outline{
+      background:transparent;
+      border-color:var(--blue);
+      color:var(--blue);
+    }
+    .btn.outline:hover{
+      background:rgba(0,200,255,.12);
+    }
+
+    aside{
+      background:#0b0b0b;
+      border-radius:10px;
+      padding:14px;
+      border:1px solid #222;
+      box-shadow:0 4px 14px rgba(0,0,0,.7);
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      height:fit-content;
+    }
+    aside h2{
+      margin:0 0 6px;
+      font-size:1.2em;
+      color:var(--orange);
+    }
+    aside p{margin:0 0 6px;font-size:.9em;color:var(--muted)}
+    .total{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      font-size:1em;
+      padding-top:6px;
+      border-top:1px solid #222;
+    }
+    .muted{
+      font-size:.85em;
+      color:var(--muted);
+    }
+
+    footer{
+      text-align:center;
+      padding:12px;
+      color:var(--muted);
+      font-size:.85em;
+      border-top:1px solid #222;
+      background:#050505;
+      margin-top:12px;
+    }
+
+    .shop-header-line{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:10px;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+    .shop-header-line h1{
+      margin:0;
+      font-size:1.6em;
+    }
+    .filters{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+    .filters select,.filters input{
+      padding:6px 8px;
+      border-radius:999px;
+      border:1px solid #333;
+      background:#050505;
+      color:#f2f2f2;
+      font-size:.85em;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <h1 class="site-title">Claw Mark Cards</h1>
+      <p class="site-motto">Every Rip Leaves Its Mark</p>
+    </div>
+    <div id="main-nav"></div>
+  </header>
+
+  <main>
+    <section>
+      <div class="shop-header-line">
+        <h1>Shop Singles & Sealed</h1>
+        <div class="filters">
+          <input type="text" id="searchInput" placeholder="Search by player, team, or product" />
+          <select id="sportFilter">
+            <option value="">All Sports</option>
+            <option value="NFL">NFL</option>
+            <option value="NBA">NBA</option>
+            <option value="MLB">MLB</option>
+            <option value="Other">Other</option>
+          </select>
+          <select id="priceFilter">
+            <option value="">All Prices</option>
+            <option value="low">Under $20</option>
+            <option value="mid">$20 - $100</option>
+            <option value="high">$100+</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="productGrid" class="product-grid">
+        <!-- Products rendered by JS -->
+      </div>
+    </section>
+
+    <aside>
+      <h2>Your Cart</h2>
+      <p class="muted">Track what you're ripping and what you're holding.</p>
+      <div id="cartItems" class="muted">
+        No items yet. Add some cards to get started.
+      </div>
+      <footer>
+        <div class="total"><span>Subtotal</span><span id="subtotal">$0.00</span></div>
+        <div class="muted" style="margin-bottom:8px;">Taxes & shipping calculated at checkout.</div>
+        <button id="checkout" class="btn primary" style="width:100%;">Checkout</button>
+        <div class="muted" style="margin-top:8px;">(Stripe Checkout integration to be wired.)</div>
+      </footer>
+    </aside>
+  </main>
+
+  <footer><p>© 2025 Claw Mark Cards • Every Rip Leaves Its Mark</p></footer>
+
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+  <script>
+  (function(){
+    const firebaseConfig = {
+      apiKey: "AIzaSyCM5La0C7dKpWgQUpAxVQguDcEV1D4Vmms",
+      authDomain: "clawmark-login.firebaseapp.com",
+      projectId: "clawmark-login",
+      storageBucket: "clawmark-login.firebasestorage.app",
+      messagingSenderId: "334338665183",
+      appId: "1:334338665183:web:eb179b820393234c74576a",
+      measurementId: "G-WPW21P13VJ"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    const productGrid = document.getElementById("productGrid");
+    const searchInput = document.getElementById("searchInput");
+    const sportFilter = document.getElementById("sportFilter");
+    const priceFilter = document.getElementById("priceFilter");
+    const cartItems = document.getElementById("cartItems");
+    const subtotalEl = document.getElementById("subtotal");
+    const checkoutBtn = document.getElementById("checkout");
+
+    let allProducts = [];
+    let cart = [];
+
+    function formatPrice(value){
+      return "$" + value.toFixed(2);
+    }
+
+    function renderProducts(){
+      const search = (searchInput.value || "").toLowerCase();
+      const sport = sportFilter.value;
+      const priceBand = priceFilter.value;
+
+      const filtered = allProducts.filter(p=>{
+        if (search &&
+          !String(p.name || "").toLowerCase().includes(search) &&
+          !String(p.player || "").toLowerCase().includes(search) &&
+          !String(p.team || "").toLowerCase().includes(search)) {
+          return false;
+        }
+        if (sport && String(p.sport || "") !== sport) return false;
+
+        const price = typeof p.price === "number" ? p.price : 0;
+        if (priceBand === "low" && price >= 20) return false;
+        if (priceBand === "mid" && (price < 20 || price > 100)) return false;
+        if (priceBand === "high" && price <= 100) return false;
+        return true;
+      });
+
+      productGrid.innerHTML = "";
+      if (!filtered.length){
+        productGrid.innerHTML = "<p>No products match your filters yet.</p>";
+        return;
+      }
+
+      filtered.forEach(p=>{
+        const card = document.createElement("article");
+        card.className = "product-card";
+
+        const img = document.createElement("img");
+        img.src = p.imageUrl || "placeholder.png";
+        img.alt = p.name || "Card";
+
+        const title = document.createElement("div");
+        title.className = "product-title";
+        title.textContent = p.name || "Card";
+
+        const meta = document.createElement("div");
+        meta.className = "product-meta";
+        meta.textContent = [
+          p.player ? ("Player: " + p.player) : null,
+          p.team ? ("Team: " + p.team) : null,
+          p.sport ? ("Sport: " + p.sport) : null
+        ].filter(Boolean).join(" • ");
+
+        const price = document.createElement("div");
+        price.className = "product-price";
+        price.textContent = formatPrice(typeof p.price === "number" ? p.price : 0);
+
+        const actions = document.createElement("div");
+        actions.className = "product-actions";
+
+        const addBtn = document.createElement("button");
+        addBtn.className = "btn primary";
+        addBtn.textContent = "Add to Cart";
+        addBtn.addEventListener("click", ()=> addToCart(p));
+
+        const viewBtn = document.createElement("a");
+        viewBtn.className = "btn outline";
+        viewBtn.textContent = "View";
+        viewBtn.href = "/product.html?id=" + encodeURIComponent(p.id || "");
+        viewBtn.target = "_blank";
+
+        actions.appendChild(addBtn);
+        actions.appendChild(viewBtn);
+
+        card.appendChild(img);
+        card.appendChild(title);
+        card.appendChild(meta);
+        card.appendChild(price);
+        card.appendChild(actions);
+
+        productGrid.appendChild(card);
+      });
+    }
+
+    function renderCart(){
+      if (!cart.length){
+        cartItems.textContent = "No items yet. Add some cards to get started.";
+        subtotalEl.textContent = "$0.00";
+        return;
+      }
+
+      let html = "<ul style='list-style:none;padding-left:0;margin:0;'>";
+      let total = 0;
+      cart.forEach((item,idx)=>{
+        const line = (item.name || "Card") + " — " + formatPrice(item.price || 0);
+        total += item.price || 0;
+        html += "<li style='margin-bottom:4px;font-size:.9em;'>" + line + "</li>";
+      });
+      html += "</ul>";
+      cartItems.innerHTML = html;
+      subtotalEl.textContent = formatPrice(total);
+    }
+
+    function addToCart(product){
+      cart.push({
+        id: product.id || "",
+        name: product.name || "Card",
+        price: typeof product.price === "number" ? product.price : 0
+      });
+      renderCart();
+    }
+
+    searchInput.addEventListener("input", renderProducts);
+    sportFilter.addEventListener("change", renderProducts);
+    priceFilter.addEventListener("change", renderProducts);
+
+    checkoutBtn.addEventListener("click", ()=>{
+      alert("Checkout flow will be wired to Stripe Checkout.");
+    });
+
+    db.collection("products").get()
+      .then(snapshot=>{
+        allProducts = snapshot.docs.map(doc=>({id:doc.id, ...doc.data()}));
+        renderProducts();
+      })
+      .catch(err=>{
+        console.error("Error loading products:", err);
+        productGrid.innerHTML = "<p>Failed to load products. Please try again later.</p>";
+      });
+  })();
+  </script>
+
+  <script>
+    fetch("nav.html")
+      .then(response => response.text())
+      .then(html => {
+        const container = document.getElementById("main-nav");
+        if (container) container.innerHTML = html;
+      })
+      .catch(err => {
+        console.error("Navigation failed to load:", err);
+      });
+  </script>
+</body>
+</html>

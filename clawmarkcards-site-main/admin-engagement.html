@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Claw Mark Cards — Admin — Engagement</title>
+  <style>
+    body{margin:0;font-family:Arial,sans-serif;background:#0d0d0d;color:#f2f2f2}
+    header{background:#111;border-bottom:1px solid #222;padding:14px 18px;display:flex;justify-content:space-between;align-items:center}
+    .badge{font-weight:800;color:#00c8ff}
+    main{max-width:1200px;margin:20px auto;padding:0 18px 40px}
+    .panel{background:#151515;border:1px solid #222;border-radius:10px;padding:14px;margin-bottom:16px}
+    .tabs{display:flex;gap:8px;margin-bottom:8px}
+    .tab{border:1px solid #333;border-radius:8px;padding:8px 12px;cursor:pointer}
+    .tab.active{border-color:#00c8ff;box-shadow:0 0 10px rgba(0,200,255,.2)}
+    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    input,select{background:#0f0f0f;color:#fff;border:1px solid #333;border-radius:8px;padding:8px;height:38px}
+    button{border:none;border-radius:8px;padding:9px 12px;font-weight:800;cursor:pointer}
+    .btn{background:#00c8ff;color:#000}
+    .btn-ghost{background:transparent;color:#f2f2f2;border:1px solid #333}
+    .btn-accept{background:#7dff9e;color:#000}
+    .btn-reject{background:#ff5757;color:#fff}
+    table{width:100%;border-collapse:collapse}
+    th,td{border-bottom:1px solid #222;padding:10px 8px;text-align:left;vertical-align:top}
+    th{color:#9aa0a6;font-weight:700}
+    .muted{color:#9aa0a6}
+    .thumb{width:48px;height:48px;object-fit:cover;border-radius:6px;background:#0f0f0f}
+    .status-pill{padding:2px 8px;border:1px solid #333;border-radius:999px;background:#101010}
+  </style>
+<!-- Claw Mark Cards header fonts & styles -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rock+Salt&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  .cmc-header--orange{background:#ff6a00;color:#fff;border-bottom:none}
+  .cmc-header{position:sticky;top:0;z-index:50;text-align:center;padding:16px 16px 10px 16px}
+  .cmc-header .brand{line-height:1}
+  .cmc-header .site-title{font-family:"Rock Salt", system-ui, sans-serif;font-size:36px;margin:0;color:#fff}
+  .cmc-header .site-motto{font-family:"Rock Salt", system-ui, sans-serif;font-size:16px;margin:6px 0 14px 0;color:#ffe6d5}
+  @media (min-width:768px){
+    .cmc-header .site-title{font-size:44px}
+    .cmc-header .site-motto{font-size:18px}
+  }
+  .cmc-nav{display:flex;gap:28px;padding:10px 16px 14px 16px;align-items:center;justify-content:center;flex-wrap:wrap;font-family:"Inter",system-ui,sans-serif;font-weight:600}
+  .cmc-nav a{text-decoration:none;color:#fff;opacity:.95}
+  .cmc-nav a:hover{text-decoration:underline;opacity:1}
+</style>
+
+</head>
+<body>
+<header class="cmc-header cmc-header--orange">
+  <div class="brand">
+    <h1 class="site-title">Claw Mark Cards</h1>
+    <p class="site-motto">Every Rip Leaves Its Mark</p>
+  </div>
+  <nav class="cmc-nav">
+    <a href="/index.html">Home</a>
+    <a href="/shop.html">Shop</a>
+    <a href="/about.html">About Us</a>
+    <a href="/tiers.html">The Marked Tiers</a>
+    <a href="/rewards.html">Rewards</a>
+    <a href="/social.html">Social Media</a>
+    <a href="/login.html">Login</a>
+    <a href="/signup.html">Signup</a>
+    <a href="/cart.html">Cart</a>
+      <a href="sportscardsplusmb.html">SportsCardsPlusMB</a>
+  </nav>
+</header>
+
+
+
+<style>
+  .cmc-header{position:sticky;top:0;background:#fff;z-index:50;border-bottom:1px solid #eee}
+  .cmc-nav{display:flex;gap:16px;padding:12px 16px;align-items:center;justify-content:center;flex-wrap:wrap;font-weight:600}
+  .cmc-nav a{text-decoration:none;color:#111}
+  .cmc-nav a:hover{text-decoration:underline}
+</style>
+
+  <header>
+    <div><strong>Claw Mark Admin</strong> <span class="badge" id="admin-email"></span></div>
+    <div class="row">
+      <a class="btn-ghost" href="index.html">Home</a>
+      <a class="btn-ghost" href="admin.html">Members Admin</a>
+      <a class="btn-ghost" href="admin-products.html">Products Admin</a>
+      <button id="logout" class="btn-ghost">Log Out</button>
+    </div>
+  </header>
+
+  <main>
+    <div id="gate" class="panel"></div>
+
+    <div id="ui" style="display:none">
+      <div class="tabs">
+        <div id="tabOffers" class="tab active">Offers</div>
+        <div id="tabWatch" class="tab">Watchers</div>
+      </div>
+
+      <!-- OFFERS -->
+      <section id="offersPanel" class="panel">
+        <div class="row" style="margin-bottom:8px;">
+          <input id="qOffer" placeholder="Search title/sku/email…">
+          <select id="statusOffer">
+            <option value="">All</option>
+            <option value="pending">pending</option>
+            <option value="accepted">accepted</option>
+            <option value="rejected">rejected</option>
+          </select>
+          <button id="refreshOffers" class="btn">Refresh</button>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>When</th><th>Item</th><th>Buyer</th><th>Offer</th><th>Status</th><th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="offersBody"></tbody>
+        </table>
+        <div id="offersStatus" class="muted" style="margin-top:10px;"></div>
+      </section>
+
+      <!-- WATCHLIST -->
+      <section id="watchPanel" class="panel" style="display:none;">
+        <div class="row" style="margin-bottom:8px;">
+          <input id="qWatch" placeholder="Search title/sku/uid…">
+          <button id="refreshWatch" class="btn">Refresh</button>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>User</th><th>Item</th><th>When</th><th class="muted">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="watchBody"></tbody>
+        </table>
+        <div id="watchStatus" class="muted" style="margin-top:10px;"></div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+  <script>
+  (function(){
+    const config = {
+      apiKey:"AIzaSyCM5La0C7dKpWgQUpAxVQguDcEV1D4Vmms",
+      authDomain:"clawmark-login.firebaseapp.com",
+      projectId:"clawmark-login",
+      storageBucket:"clawmark-login.firebasestorage.app",
+      messagingSenderId:"334338665183",
+      appId:"1:334338665183:web:eb179b820393234c74576a",
+      measurementId:"G-JE64ZQ56T5"
+    };
+    if(!firebase.apps.length) firebase.initializeApp(config);
+    const auth=firebase.auth(), db=firebase.firestore();
+
+    // DOM
+    const gate=document.getElementById('gate');
+    const ui=document.getElementById('ui');
+    const adminEmail=document.getElementById('admin-email');
+    const logout=document.getElementById('logout');
+
+    const tabOffers=document.getElementById('tabOffers');
+    const tabWatch=document.getElementById('tabWatch');
+    const offersPanel=document.getElementById('offersPanel');
+    const watchPanel=document.getElementById('watchPanel');
+
+    const qOffer=document.getElementById('qOffer');
+    const statusOffer=document.getElementById('statusOffer');
+    const refreshOffers=document.getElementById('refreshOffers');
+    const offersBody=document.getElementById('offersBody');
+    const offersStatus=document.getElementById('offersStatus');
+
+    const qWatch=document.getElementById('qWatch');
+    const refreshWatch=document.getElementById('refreshWatch');
+    const watchBody=document.getElementById('watchBody');
+    const watchStatus=document.getElementById('watchStatus');
+
+    function setGate(msg,bad=false){ gate.innerHTML=msg; gate.className="panel"+(bad?" danger":""); }
+
+    // Auth gate
+    auth.onAuthStateChanged(async (user)=>{
+      if(!user){ setGate(`Please <a href="login.html">log in</a> with an admin account.`, true); return; }
+      adminEmail.textContent=user.email||"";
+      const snap=await db.collection('admins').doc(user.uid).get();
+      if(!snap.exists){ setGate(`Forbidden (403): not an admin.`, true); return; }
+      setGate(`<span class="badge">Admin mode</span> — Offers & Watchers`);
+      ui.style.display='block';
+      loadOffers(); loadWatch();
+    });
+    logout.addEventListener('click', ()=> auth.signOut());
+
+    // Tabs
+    tabOffers.onclick=()=>{ tabOffers.classList.add('active'); tabWatch.classList.remove('active'); offersPanel.style.display='block'; watchPanel.style.display='none'; };
+    tabWatch.onclick =()=>{ tabWatch.classList.add('active'); tabOffers.classList.remove('active'); offersPanel.style.display='none'; watchPanel.style.display='block'; };
+
+    // Offers
+    async function loadOffers(){
+      offersStatus.textContent="Loading…"; offersBody.innerHTML="";
+      try{
+        let ref = db.collection('offers').orderBy('createdAt','desc').limit(300);
+        const qs = await ref.get();
+        const rows=[];
+        qs.forEach(d=>{
+          const o=d.data()||{};
+          if(statusOffer.value && o.status!==statusOffer.value) return;
+          const hay = `${o.title||''} ${o.sku||''} ${o.email||''}`.toLowerCase();
+          if(qOffer.value && !hay.includes(qOffer.value.toLowerCase())) return;
+          const when = o.createdAt?.toDate?.()?.toLocaleString?.() || '—';
+          rows.push(`
+            <tr data-id="${d.id}">
+              <td>${when}</td>
+              <td><div style="font-weight:800">${o.title||o.sku||'(item)'}</div><div class="muted">${o.sku||''}</div></td>
+              <td>${o.email||o.uid||'—'}</td>
+              <td>$${Number(o.amount||0).toFixed(2)} <span class="muted">(list $${Number(o.listPrice||0).toFixed(2)})</span></td>
+              <td><span class="status-pill">${o.status||'pending'}</span></td>
+              <td>
+                <button class="btn-accept act-accept">Accept</button>
+                <button class="btn-reject act-reject">Reject</button>
+              </td>
+            </tr>
+          `);
+        });
+        offersBody.innerHTML = rows.length ? rows.join('') : `<tr><td colspan="6" class="muted">No offers.</td></tr>`;
+        offersStatus.textContent = `Loaded ${rows.length} offer(s).`;
+      }catch(e){ console.error(e); offersStatus.textContent="Failed to load offers."; }
+    }
+    offersBody.addEventListener('click', async (e)=>{
+      const tr=e.target.closest('tr[data-id]'); if(!tr) return;
+      const id=tr.getAttribute('data-id');
+      try{
+        if(e.target.classList.contains('act-accept')) await db.collection('offers').doc(id).update({ status:'accepted' });
+        if(e.target.classList.contains('act-reject')) await db.collection('offers').doc(id).update({ status:'rejected' });
+        loadOffers();
+      }catch(err){ console.error(err); alert('Update failed'); }
+    });
+    refreshOffers.onclick=loadOffers;
+    statusOffer.onchange=loadOffers;
+
+    // Watchers (collectionGroup over /users/*/watchlist)
+    async function loadWatch(){
+      watchStatus.textContent="Loading…"; watchBody.innerHTML="";
+      try{
+        let ref = db.collectionGroup('watchlist').orderBy('createdAt','desc').limit(300);
+        const qs = await ref.get();
+        const rows=[];
+        qs.forEach(d=>{
+          const w=d.data()||{};
+          const uid = d.ref.parent.parent.id; // parent user id
+          const hay = `${w.title||''} ${w.sku||''} ${uid}`.toLowerCase();
+          if(qWatch.value && !hay.includes(qWatch.value.toLowerCase())) return;
+          const when = w.createdAt?.toDate?.()?.toLocaleString?.() || '—';
+          rows.push(`
+            <tr data-uid="${uid}" data-sku="${w.sku||d.id}">
+              <td>${uid}</td>
+              <td>
+                <div style="display:flex;gap:8px;align-items:center;">
+                  <img class="thumb" src="${w.img||'placeholder.png'}" alt="">
+                  <div>
+                    <div style="font-weight:800">${w.title||'(item)'}</div>
+                    <div class="muted">${w.sku||''}</div>
+                  </div>
+                </div>
+              </td>
+              <td>${when}</td>
+              <td><button class="btn-ghost act-remove">Remove</button></td>
+            </tr>
+          `);
+        });
+        watchBody.innerHTML = rows.length ? rows.join('') : `<tr><td colspan="4" class="muted">No watchers.</td></tr>`;
+        watchStatus.textContent = `Loaded ${rows.length} watch entries.`;
+      }catch(e){ console.error(e); watchStatus.textContent="Failed to load watchers. Check rules patch."; }
+    }
+    watchBody.addEventListener('click', async (e)=>{
+      const tr=e.target.closest('tr[data-uid]'); if(!tr) return;
+      if(!e.target.classList.contains('act-remove')) return;
+      const uid=tr.getAttribute('data-uid');
+      const sku=tr.getAttribute('data-sku');
+      if(!confirm('Remove this watch entry?')) return;
+      try{
+        await db.collection('users').doc(uid).collection('watchlist').doc(sku).delete();
+        loadWatch();
+      }catch(err){ console.error(err); alert('Remove failed'); }
+    });
+    refreshWatch.onclick=loadWatch;
+
+  })();
+  </script>
+
+<section style="max-width:1100px;margin:20px auto;padding:0 16px">
+  <h2>Offer Inbox</h2>
+  <div id="offerStatus">Loading…</div>
+  <table id="offerTable" border="1" cellspacing="0" cellpadding="6" style="width:100%;border-collapse:collapse;display:none">
+    <thead><tr>
+      <th>When</th><th>Product</th><th>SKU</th><th>Listed</th><th>Offer</th><th>User</th><th>Status</th><th>Action</th>
+    </tr></thead>
+    <tbody></tbody>
+  </table>
+</section>
+
+<dialog id="decisionDialog" style="border:none;border-radius:12px;max-width:480px;width:95%">
+  <form method="dialog" id="decisionForm" style="padding:16px;display:grid;gap:10px">
+    <h3 id="decisionTitle">Decide Offer</h3>
+    <label>Note to record (optional)
+      <textarea id="decisionNote" rows="3" placeholder="Internal note…"></textarea>
+    </label>
+    <div style="display:flex;gap:10px;justify-content:flex-end">
+      <button value="cancel">Cancel</button>
+      <button id="decisionSubmit" value="default">Submit</button>
+    </div>
+  </form>
+</dialog>
+
+<script type="module">
+  import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+  import { getFirestore, collection, query, orderBy, getDocs, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+  const auth = getAuth(); const db = getFirestore();
+
+  let actionChoice = null; // 'accept' | 'reject'
+  let actingOfferId = null;
+
+  async function isAdmin(uid){
+    const snap = await getDoc(doc(db,'admins', uid)); return snap.exists();
+  }
+  function tsToLocal(ts){
+    if(!ts) return '';
+    const d = ts.toDate ? ts.toDate() : new Date(ts);
+    return d.toLocaleString();
+  }
+  async function loadOffers(){
+    const q = query(collection(db,'offers'), orderBy('createdAt','desc'));
+    const snap = await getDocs(q);
+    const rows = snap.docs.map(d=>({ id:d.id, ...d.data() }));
+    const tb = document.querySelector('#offerTable tbody');
+    tb.innerHTML = rows.map(r=>`<tr data-id="${r.id}">
+      <td>${tsToLocal(r.createdAt)}</td>
+      <td>${(r.productName||'')}</td>
+      <td>${(r.sku||'')}</td>
+      <td>$${Number(r.listedPrice||0).toFixed(2)}</td>
+      <td><strong>$${Number(r.offerPrice||0).toFixed(2)}</strong></td>
+      <td>${(r.userEmail||r.userId||'')}</td>
+      <td>${r.status||'pending'}</td>
+      <td>${
+        (r.status==='pending')
+        ? '<button class="btn-accept">Accept</button> <button class="btn-reject">Reject</button>'
+        : (r.status==='accepted' ? 'Accepted' : 'Rejected')
+      }</td>
+    </tr>`).join('');
+    document.getElementById('offerTable').style.display = 'table';
+    document.getElementById('offerStatus').textContent = '';
+    // add events
+    tb.querySelectorAll('.btn-accept').forEach(b=>b.addEventListener('click', ()=> openDecision(b, 'accept')));
+    tb.querySelectorAll('.btn-reject').forEach(b=>b.addEventListener('click', ()=> openDecision(b, 'reject')));
+  }
+  function openDecision(btn, action){
+    const tr = btn.closest('tr');
+    actingOfferId = tr?.dataset?.id || null;
+    actionChoice = action;
+    const dlg = document.getElementById('decisionDialog');
+    const title = document.getElementById('decisionTitle');
+    title.textContent = (action==='accept') ? 'Accept Offer' : 'Reject Offer';
+    dlg?.showModal();
+  }
+  async function submitDecision(){
+    const u = auth.currentUser; if(!u) return alert('Sign in first.');
+    const tok = await u.getIdToken();
+    const note = document.getElementById('decisionNote').value;
+    const resp = await fetch('/moderateOffer', {
+      method:'POST',
+      headers:{ 'Content-Type':'application/json', Authorization:'Bearer '+tok },
+      body: JSON.stringify({ offerId: actingOfferId, action: actionChoice, note })
+    });
+    if(!resp.ok){ alert('Action failed.'); return; }
+    document.getElementById('decisionDialog')?.close();
+    await loadOffers();
+  }
+  document.getElementById('decisionSubmit').addEventListener('click', (e)=>{ e.preventDefault(); submitDecision(); });
+
+  auth.onAuthStateChanged(async (u)=>{
+    if(!u){ document.getElementById('offerStatus').textContent='Please sign in.'; return; }
+    if(!(await isAdmin(u.uid))){ document.getElementById('offerStatus').textContent='Forbidden (admin only).'; return; }
+    await loadOffers();
+  });
+</script>
+
+</body>
+</html>
