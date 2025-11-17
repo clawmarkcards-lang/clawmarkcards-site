@@ -1,5 +1,0 @@
-Replace every existing absolute link line (<a href="/sportscardsplusmb.html">SportsCardsPlusMB</a>)
-with:
-<a href="sportscardsplusmb.html">SportsCardsPlusMB</a>
-
-Do this in all HTML pages listed earlier.
