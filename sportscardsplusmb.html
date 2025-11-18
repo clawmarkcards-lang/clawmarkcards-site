@@ -11,6 +11,7 @@
       --scp-blue:#113a6d;
       --scp-red:#d42b2b;
       --scp-white:#fff;
+      --glow-orange:#ff9b30;
     }
     *{box-sizing:border-box}
     body{
@@ -134,46 +135,64 @@
       opacity:.8;
     }
 
-    /* LOGO BUTTON */
-    .logo-btn{
-      display:block;
-      width:100%;
-      max-width:260px;
-      margin:32px auto 0;
-      text-align:center;
+    /* ANIMATED ARROWS + LOGO BUTTON */
+    @keyframes arrowBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(6px); }
     }
-    .logo-btn img{
-      width:100%;
-      height:auto;
-      filter:drop-shadow(0 6px 16px rgba(0,0,0,.45));
-      transition:.2s;
-    }
-    .logo-btn img:hover{
-      transform:scale(1.05);
-      filter:drop-shadow(0 8px 22px rgba(0,0,0,.6));
+    @keyframes arrowBounceUp {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
     }
 
-    @media (max-width:880px){
-      .hero{
-        grid-template-columns:1fr;
-        gap:12px;
-        text-align:center;
-      }
-      .cta-row{
-        justify-content:center;
-      }
-      .brand h1{
-        font-size:1.4rem;
-      }
+    .clawmark-wrapper{
+      margin-top:36px;
+      text-align:center;
     }
-    @media (max-width:520px){
-      .wrap{padding:16px 14px 35px}
-      a.badge{
-        width:100%;
-        text-align:center;
+
+    .arrow-text{
+      color:var(--glow-orange);
+      font-weight:800;
+      font-size:1.1rem;
+      letter-spacing:1px;
+      text-shadow:0 0 10px rgba(255,153,51,.9);
+      margin:12px 0;
+      animation:arrowBounce 1.4s infinite;
+    }
+    .arrow-text.up{
+      animation:arrowBounceUp 1.4s infinite;
+    }
+
+    .logo-btn-glow{
+      display:inline-block;
+      width:100%;
+      max-width:300px;
+      margin:0 auto;
+      text-align:center;
+      position:relative;
+    }
+    .logo-btn-glow img{
+      width:100%;
+      height:auto;
+      transition:.25s ease;
+      filter:
+        drop-shadow(0 0 14px rgba(255,160,50,1))
+        drop-shadow(0 0 28px rgba(255,130,0,.8));
+    }
+    .logo-btn-glow:hover img{
+      transform:scale(1.10);
+      filter:
+        drop-shadow(0 0 20px rgba(255,180,70,1))
+        drop-shadow(0 0 40px rgba(255,120,0,1))
+        drop-shadow(0 0 60px rgba(255,90,0,.9));
+    }
+
+    @media(max-width:520px){
+      .logo-btn-glow{
+        max-width:240px;
       }
-      .logo-btn{
-        max-width:220px;
+      .arrow-text{
+        font-size:1rem;
       }
     }
   </style>
@@ -184,20 +203,12 @@
     <div class="brand">
       <div class="kicker">Store Info &amp; Directions</div>
       <h1>Sports Cards Plus — Myrtle Beach</h1>
-      <div class="subline">
-        4735 Hwy 17 Bypass South, Myrtle Beach, SC 29577
-      </div>
-      <div class="subline">
-        Your local destination for Sports Cards
-      </div>
+      <div class="subline">4735 Hwy 17 Bypass South, Myrtle Beach, SC 29577</div>
+      <div class="subline">Your local destination for sports cards, memorabilia, and live breaks.</div>
       <div class="cta-row">
         <a class="badge" href="tel:18432741605">Call 843-274-1605</a>
-        <a class="badge" target="_blank" rel="noopener" href="https://maps.apple.com/?q=4735%20Hwy%2017%20Bypass%20South%2C%20Myrtle%20Beach%2C%20SC%2029577">
-          Open in Apple Maps
-        </a>
-        <a class="badge" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=4735%20Hwy%2017%20Bypass%20South%2C%20Myrtle%20Beach%2C%2029577">
-          Open in Google Maps
-        </a>
+        <a class="badge" target="_blank" rel="noopener" href="https://maps.apple.com/?q=4735%20Hwy%2017%20Bypass%20South%2C%20Myrtle%20Beach%2C%2029577">Open in Apple Maps</a>
+        <a class="badge" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=4735%20Hwy%2017%20Bypass%20South%2C%20Myrtle%20Beach%2C%2029577">Open in Google Maps</a>
       </div>
     </div>
   </header>
@@ -209,8 +220,8 @@
         <div>
           <div class="info-block-title">Address</div>
           <div class="info-text">
-            Sports Cards Plus<br />
-            4735 Hwy 17 Bypass South<br />
+            Sports Cards Plus<br>
+            4735 Hwy 17 Bypass South<br>
             Myrtle Beach, SC 29577
           </div>
         </div>
@@ -223,19 +234,26 @@
             <tr><td>Saturday</td><td>10:00 AM – 6:00 PM</td></tr>
             <tr><td>Sunday</td><td>10:00 AM – 6:00 PM</td></tr>
           </table>
-          <div class="note">
-            Hours may vary on holidays or for special events.
-            Check our social pages or call ahead to confirm.
-          </div>
+          <div class="note">Hours may vary on holidays or for special events.</div>
         </div>
       </div>
 
-      <!-- NEW LOGO BUTTON -->
-      <a href="/index.html" class="logo-btn">
-        <img src="logo.png" alt="Visit Claw Mark Cards">
-      </a>
+      <!-- ▼▼▼ ANIMATED CALLOUT SECTION ▼▼▼ -->
+      <div class="clawmark-wrapper">
+
+        <div class="arrow-text">▼▼▼ VISIT CLAW MARK CARDS — CLICK HERE ▼▼▼</div>
+
+        <a href="/index.html" class="logo-btn-glow">
+          <img src="clawmarkcards-logo.png" alt="Visit Claw Mark Cards">
+        </a>
+
+        <div class="arrow-text up">▲▲▲ VISIT CLAW MARK CARDS — CLICK HERE ▲▲▲</div>
+
+      </div>
+      <!-- ▲▲▲ END CALLOUT ▲▲▲ -->
 
     </section>
   </main>
+
 </body>
 </html>
