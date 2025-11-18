@@ -82,7 +82,7 @@
       background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.03));
       border:1px solid rgba(255,255,255,.12);
       border-radius:14px;
-      padding:18px 16px 20px;
+      padding:18px 16px 28px;
       margin:22px 0 0;
       box-shadow:0 10px 26px rgba(0,0,0,.25);
     }
@@ -133,25 +133,24 @@
       font-size:.9rem;
       opacity:.8;
     }
-    /* Visit Button */
-    .visit-btn{
+
+    /* LOGO BUTTON */
+    .logo-btn{
       display:block;
       width:100%;
       max-width:260px;
-      margin:26px auto 0;
-      padding:14px 18px;
-      background:rgba(255,255,255,.08);
-      border:1px solid rgba(255,255,255,.18);
-      color:#fff;
-      text-decoration:none;
+      margin:32px auto 0;
       text-align:center;
-      border-radius:12px;
-      font-size:1.05rem;
-      font-weight:600;
+    }
+    .logo-btn img{
+      width:100%;
+      height:auto;
+      filter:drop-shadow(0 6px 16px rgba(0,0,0,.45));
       transition:.2s;
     }
-    .visit-btn:hover{
-      background:rgba(255,255,255,.18);
+    .logo-btn img:hover{
+      transform:scale(1.05);
+      filter:drop-shadow(0 8px 22px rgba(0,0,0,.6));
     }
 
     @media (max-width:880px){
@@ -173,6 +172,9 @@
         width:100%;
         text-align:center;
       }
+      .logo-btn{
+        max-width:220px;
+      }
     }
   </style>
 </head>
@@ -186,14 +188,14 @@
         4735 Hwy 17 Bypass South, Myrtle Beach, SC 29577
       </div>
       <div class="subline">
-        Your local destination for sports cards, memorabilia, and live breaks.
+        Your local destination for Sports Cards
       </div>
       <div class="cta-row">
         <a class="badge" href="tel:18432741605">Call 843-274-1605</a>
         <a class="badge" target="_blank" rel="noopener" href="https://maps.apple.com/?q=4735%20Hwy%2017%20Bypass%20South%2C%20Myrtle%20Beach%2C%20SC%2029577">
           Open in Apple Maps
         </a>
-        <a class="badge" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=4735%20Hwy%2017%20Bypass%20South%2C%20Myrtle%20Beach%2C%20SC%2029577">
+        <a class="badge" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=4735%20Hwy%2017%20Bypass%20South%2C%20Myrtle%20Beach%2C%2029577">
           Open in Google Maps
         </a>
       </div>
@@ -228,8 +230,10 @@
         </div>
       </div>
 
-      <!-- NEW BUTTON -->
-      <a href="/index.html" class="visit-btn">Visit Claw Mark Cards</a>
+      <!-- NEW LOGO BUTTON -->
+      <a href="/index.html" class="logo-btn">
+        <img src="clawmarkcards-logo.png" alt="Visit Claw Mark Cards">
+      </a>
 
     </section>
   </main>
