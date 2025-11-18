@@ -276,15 +276,6 @@
   })();
   </script>
 
-<section style="max-width:1100px;margin:20px auto;padding:0 16px">
-  <h2>Users</h2>
-  <div id="usersStatus">Loading…</div>
-  <table id="usersTable" border="1" cellspacing="0" cellpadding="6" style="width:100%;border-collapse:collapse;display:none">
-    <thead><tr><th>Email</th><th>Name</th><th>UID</th></tr></thead>
-    <tbody></tbody>
-  </table>
-</section>
-<script type="module">
   import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
   import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
   const auth = getAuth(); const db = getFirestore();
