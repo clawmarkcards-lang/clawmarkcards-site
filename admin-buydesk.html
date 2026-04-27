@@ -25,22 +25,28 @@
     .badge{font-weight:800;color:var(--blue)}.danger{color:var(--red)}
     main{max-width:1280px;margin:20px auto;padding:0 18px 44px}
     .panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:16px;box-shadow:0 0 18px rgba(0,0,0,.18)}
-    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:12px}.col-12{grid-column:span 12}.col-8{grid-column:span 8}.col-6{grid-column:span 6}.col-4{grid-column:span 4}.col-3{grid-column:span 3}
-    @media(max-width:900px){.col-8,.col-6,.col-4,.col-3{grid-column:span 12}.cmc-header .site-title{font-size:28px}}
+    .panel.tight{padding:12px}.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:12px}.col-12{grid-column:span 12}.col-8{grid-column:span 8}.col-6{grid-column:span 6}.col-4{grid-column:span 4}.col-3{grid-column:span 3}.col-2{grid-column:span 2}
+    @media(max-width:900px){.col-8,.col-6,.col-4,.col-3,.col-2{grid-column:span 12}.cmc-header .site-title{font-size:28px}}
     label{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:6px;font-weight:800}
     input,select,textarea{width:100%;background:#0f0f0f;color:#fff;border:1px solid #333;border-radius:9px;padding:10px;font:inherit;min-height:40px}
     textarea{min-height:84px;resize:vertical}.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
     button,.btn-link{border:none;border-radius:9px;padding:10px 13px;font-weight:900;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;min-height:40px}
-    .btn{background:var(--blue);color:#000}.btn:hover{filter:brightness(1.08)}.btn-ghost{background:transparent;color:#f2f2f2;border:1px solid #3a3a3a}.btn-danger{background:var(--red);color:#fff}
-    h2,h3{margin:0 0 12px}.muted{color:var(--muted)}.small{font-size:12px}.right{text-align:right}
+    .btn{background:var(--blue);color:#000}.btn:hover{filter:brightness(1.08)}.btn-ghost{background:transparent;color:#f2f2f2;border:1px solid #3a3a3a}.btn-danger{background:var(--red);color:#fff}.btn-warn{background:var(--yellow);color:#111}
+    h2,h3{margin:0 0 12px}.muted{color:var(--muted)}.small{font-size:12px}.right{text-align:right}.hide{display:none!important}
     table{width:100%;border-collapse:collapse}th,td{border-bottom:1px solid #242424;padding:10px 8px;text-align:left;vertical-align:top}th{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+    .step-title{display:flex;gap:10px;align-items:center;margin-bottom:10px}.step-num{display:inline-flex;width:28px;height:28px;border-radius:999px;background:var(--orange);align-items:center;justify-content:center;color:#fff;font-weight:1000}
+    .choice-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.choice{border:2px solid #333;background:#101010;border-radius:14px;padding:18px;text-align:left;color:#fff;min-height:112px;display:block}.choice strong{display:block;font-size:22px;margin-bottom:6px}.choice span{display:block;color:#b7bdc5;line-height:1.35}.choice.selected{border-color:var(--blue);box-shadow:0 0 0 2px rgba(0,200,255,.18),0 0 20px rgba(0,200,255,.12)}.choice.call{border-color:#644c18}.choice.call.selected{border-color:var(--yellow)}
+    @media(max-width:900px){.choice-grid{grid-template-columns:1fr}.choice strong{font-size:20px}}
     .result{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.metric{background:var(--panel2);border:1px solid #282828;border-radius:12px;padding:14px}.metric .k{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:800}.metric .v{font-size:26px;font-weight:900;margin-top:6px}
     @media(max-width:900px){.result{grid-template-columns:1fr 1fr}.metric .v{font-size:22px}}@media(max-width:520px){.result{grid-template-columns:1fr}}
-    .decision{font-size:30px;font-weight:1000;letter-spacing:.02em}.decision.buy{color:var(--green)}.decision.review{color:var(--yellow)}.decision.pass{color:var(--red)}
-    .pill{display:inline-flex;align-items:center;border:1px solid #333;border-radius:999px;padding:4px 9px;background:#111;color:#eee;font-size:12px;font-weight:800;margin:2px}.pill.red{border-color:#642525;color:#ffb8b8}.pill.yellow{border-color:#6c5a1d;color:#ffe2a0}.pill.green{border-color:#285a34;color:#baffc9}
+    .decision{font-size:34px;font-weight:1000;letter-spacing:.02em}.decision.buy{color:var(--green)}.decision.review{color:var(--yellow)}.decision.pass{color:var(--red)}
+    .pill{display:inline-flex;align-items:center;border:1px solid #333;border-radius:999px;padding:4px 9px;background:#111;color:#eee;font-size:12px;font-weight:800;margin:2px}.pill.red{border-color:#642525;color:#ffb8b8}.pill.yellow{border-color:#6c5a1d;color:#ffe2a0}.pill.green{border-color:#285a34;color:#baffc9}.pill.blue{border-color:#1c5970;color:#b7efff}
     .checkgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.checkitem{background:#101010;border:1px solid #2a2a2a;border-radius:10px;padding:9px;display:flex;gap:8px;align-items:flex-start}.checkitem input{width:auto;min-height:auto;margin-top:2px}.checkitem label{margin:0;color:#fff;text-transform:none;letter-spacing:0;font-size:13px;font-weight:700}
     @media(max-width:900px){.checkgrid{grid-template-columns:1fr}}
-    .comp-row{display:grid;grid-template-columns:150px 1fr 44px;gap:8px;margin-bottom:8px}.comp-row button{padding:8px;min-height:40px}.hide{display:none!important}
+    .comp-row{display:grid;grid-template-columns:150px 1fr 44px;gap:8px;margin-bottom:8px}.key-row{display:grid;grid-template-columns:2fr 130px 2fr 44px;gap:8px;margin-bottom:8px}.comp-row button,.key-row button{padding:8px;min-height:40px}
+    @media(max-width:700px){.comp-row,.key-row{grid-template-columns:1fr}.comp-row button,.key-row button{width:100%}}
+    .script-box{background:#101010;border:1px solid #2b2b2b;border-radius:12px;padding:14px;margin-top:14px}.script-box strong{color:var(--blue)}
+    .aaron-note{background:rgba(255,106,0,.10);border:1px solid rgba(255,106,0,.35);border-radius:12px;padding:12px;color:#ffe6d5}
   </style>
 </head>
 <body>
@@ -75,11 +81,37 @@
   <div id="admin-ui" class="hide">
     <section class="panel">
       <h2>Claw Mark Buy Desk</h2>
-      <p class="muted" style="margin-top:0">Phase 1 working calculator: enter the card, comps, condition, and seller ask. The page gives Aaron a start offer, target offer, max offer, and Hunter-review flags.</p>
+      <p class="muted" style="margin-top:0">Aaron-first buying assistant. It handles single cards, lots, and the common “I do not know, what would you offer?” situation.</p>
+      <div class="aaron-note"><strong>Simple rule:</strong> Aaron should only need to answer what is on the screen, press Calculate, then read the offer/script back to the seller.</div>
     </section>
 
-    <section class="panel">
-      <h3>1) Card intake</h3>
+    <section class="panel" id="flowStart">
+      <div class="step-title"><span class="step-num">1</span><h3 style="margin:0">What are we buying?</h3></div>
+      <div class="choice-grid">
+        <button class="choice" data-mode="single"><strong>Single Card</strong><span>One card or one graded slab.</span></button>
+        <button class="choice" data-mode="lot"><strong>Multiple Card Lot</strong><span>Stack, binder, box, mixed group, or several cards together.</span></button>
+        <button class="choice call" data-mode="call"><strong>Call Hunter</strong><span>Use when Aaron is unsure, the seller is pushy, or the item feels risky.</span></button>
+      </div>
+    </section>
+
+    <section class="panel hide" id="sellerPricePanel">
+      <div class="step-title"><span class="step-num">2</span><h3 style="margin:0">Did the seller give a price?</h3></div>
+      <div class="choice-grid" style="grid-template-columns:repeat(2,1fr)">
+        <button class="choice" data-price-known="yes"><strong>Yes</strong><span>Seller named a price. We will compare it against our max.</span></button>
+        <button class="choice" data-price-known="no"><strong>No</strong><span>Seller wants us to make the first offer. Build an offer range.</span></button>
+      </div>
+      <div id="sellerAskWrap" class="grid hide" style="margin-top:14px">
+        <div class="col-3"><label>Seller asking price</label><input id="ask" type="number" step="0.01" placeholder="0.00"></div>
+        <div class="col-9"><label>Seller note</label><input id="sellerNote" placeholder="Example: seller says they are flexible / wants cash / has more cards in car"></div>
+      </div>
+      <div id="noAskScript" class="script-box hide">
+        <strong>Say this first:</strong><br>
+        Okay, no problem. I’ll look through it and make you a cash offer based on what we can realistically resell it for. We have to leave room for fees, condition, and the time it takes to move.
+      </div>
+    </section>
+
+    <section class="panel hide" id="singlePanel">
+      <div class="step-title"><span class="step-num">3</span><h3 style="margin:0">Single card intake</h3></div>
       <div class="grid">
         <div class="col-3"><label>Category</label><select id="category"><option>Sports Card</option><option>Pokemon</option><option>TCG</option><option>Autograph</option><option>Memorabilia</option><option>Sealed Product</option></select></div>
         <div class="col-3"><label>Sport</label><select id="sport"><option>Football</option><option>Basketball</option><option>Baseball</option><option>Soccer</option><option>Hockey</option><option>Racing</option><option>Pokemon</option><option>Other</option></select></div>
@@ -92,30 +124,21 @@
         <div class="col-3"><label>Raw / Graded</label><select id="gradeType"><option value="raw">Raw</option><option value="graded">Graded</option></select></div>
         <div class="col-3"><label>Grading company</label><select id="grader"><option value="">None</option><option>PSA</option><option>SGC</option><option>BGS</option><option>CGC</option><option>Other slab</option></select></div>
         <div class="col-3"><label>Grade</label><input id="grade" placeholder="10 / 9 / Authentic"></div>
-        <div class="col-3"><label>Seller asking price</label><input id="ask" type="number" step="0.01" placeholder="0.00"></div>
       </div>
-    </section>
 
-    <section class="panel">
-      <div class="row" style="justify-content:space-between;margin-bottom:10px">
-        <h3 style="margin:0">2) Sold comps</h3>
-        <button id="addComp" class="btn-ghost">+ Add comp</button>
+      <div class="row" style="justify-content:space-between;margin:18px 0 10px">
+        <h3 style="margin:0">Sold comps</h3>
+        <button id="addComp" class="btn-ghost" type="button">+ Add comp</button>
       </div>
       <div id="comps"></div>
       <p class="muted small">Use real sold comps when possible. Do not mix PSA 10, PSA 9, raw, damaged, and clean copies unless the notes explain why.</p>
-    </section>
 
-    <section class="panel">
-      <h3>3) Condition, liquidity, and risk</h3>
+      <h3 style="margin-top:18px">Condition, liquidity, and risk</h3>
       <div class="grid">
         <div class="col-3"><label>Raw condition bucket</label><select id="condition"><option value="1">Clean / sharp</option><option value="0.92">Near mint but not perfect</option><option value="0.82">Light wear</option><option value="0.65">Moderate issue</option><option value="0.40">Damaged</option><option value="0.25">Major damage</option></select></div>
         <div class="col-3"><label>Liquidity</label><select id="liquidity"><option value="0.95">High — star / easy mover</option><option value="0.85">Medium — normal demand</option><option value="0.65">Low — slow mover</option><option value="0.45">Very low / niche</option></select></div>
         <div class="col-3"><label>Comp confidence</label><select id="confidence"><option value="0.95">High — clean comps</option><option value="0.85">Medium</option><option value="0.70">Low — mixed comps</option><option value="0.55">Very low</option></select></div>
         <div class="col-3"><label>Buy target</label><select id="buyTarget"><option value="0.70">A+ liquid star — up to 70%</option><option value="0.62" selected>Normal good card — 62%</option><option value="0.50">Slow/moderate card — 50%</option><option value="0.40">Damaged/risky — 40%</option><option value="0.30">Bulk/deep discount — 30%</option></select></div>
-        <div class="col-3"><label>Selling fee %</label><input id="feeRate" type="number" step="0.01" value="15"></div>
-        <div class="col-3"><label>Shipping / handling</label><input id="shipCost" type="number" step="0.01" value="5"></div>
-        <div class="col-3"><label>Grading cost, if planned</label><input id="gradingCost" type="number" step="0.01" value="0"></div>
-        <div class="col-3"><label>Extra risk reserve</label><input id="riskReserve" type="number" step="0.01" value="5"></div>
       </div>
       <div class="checkgrid" style="margin-top:12px">
         <div class="checkitem"><input id="flagCrease" type="checkbox"><label for="flagCrease">Crease, wrinkle, dent, or surface depression</label></div>
@@ -125,12 +148,68 @@
         <div class="checkitem"><input id="flagAuto" type="checkbox"><label for="flagAuto">Autograph is not authenticated</label></div>
         <div class="checkitem"><input id="flagRare" type="checkbox"><label for="flagRare">Rare/odd parallel, low serial, 1/1, or unclear variation</label></div>
       </div>
-      <div class="col-12" style="margin-top:12px"><label>Notes / what Aaron sees</label><textarea id="notes" placeholder="Example: check back surface under light; verify refractor finish; compare card number; seller has full collection..."></textarea></div>
     </section>
 
-    <section class="panel">
+    <section class="panel hide" id="lotPanel">
+      <div class="step-title"><span class="step-num">3</span><h3 style="margin:0">Multiple card lot intake</h3></div>
+      <div class="aaron-note" style="margin-bottom:12px"><strong>Lot rule:</strong> Do not pay like every card will sell fast. Lots need room for sorting time, slow movers, condition surprises, and cards that never sell.</div>
+      <div class="grid">
+        <div class="col-4"><label>Lot type</label><select id="lotType">
+          <option value="mixed" data-target="0.45">Mixed card lot — normal</option>
+          <option value="clean" data-target="0.58">Small clean lot — mostly good cards</option>
+          <option value="bulk" data-target="0.22">Bulk sports commons</option>
+          <option value="slabs" data-target="0.45">Low-end graded slab lot</option>
+          <option value="highend" data-target="0.50">High-end/key-card lot — review likely</option>
+          <option value="damaged" data-target="0.25">Damaged/unknown lot</option>
+        </select></div>
+        <div class="col-2"><label>Total items/cards</label><input id="lotCount" type="number" step="1" placeholder="50"></div>
+        <div class="col-3"><label>Lot condition</label><select id="lotCondition"><option value="0.92">Clean overall</option><option value="0.80" selected>Normal mixed condition</option><option value="0.62">Lots of wear</option><option value="0.42">Damaged/unknown</option></select></div>
+        <div class="col-3"><label>Lot confidence</label><select id="lotConfidence"><option value="0.90">High — values are solid</option><option value="0.78" selected>Medium</option><option value="0.60">Low — guessing</option><option value="0.45">Very low — call Hunter</option></select></div>
+      </div>
+
+      <div class="row" style="justify-content:space-between;margin:18px 0 10px">
+        <h3 style="margin:0">Key cards to price individually</h3>
+        <button id="addKeyCard" class="btn-ghost" type="button">+ Add key card</button>
+      </div>
+      <p class="muted small">Use this for the best cards in the lot. If the lot is mostly bulk, leave this blank and use the buckets below.</p>
+      <div id="keyCards"></div>
+
+      <h3 style="margin-top:18px">Bulk/value buckets</h3>
+      <div class="grid">
+        <div class="col-3"><label>$1 box cards — count</label><input id="bucketDollarCount" type="number" step="1" value="0"></div>
+        <div class="col-3"><label>$1 box cards — resale each</label><input id="bucketDollarEach" type="number" step="0.01" value="1"></div>
+        <div class="col-3"><label>$3–$5 cards — count</label><input id="bucketMidCount" type="number" step="1" value="0"></div>
+        <div class="col-3"><label>$3–$5 cards — resale each</label><input id="bucketMidEach" type="number" step="0.01" value="4"></div>
+        <div class="col-3"><label>$5–$10 cards — count</label><input id="bucketBetterCount" type="number" step="1" value="0"></div>
+        <div class="col-3"><label>$5–$10 cards — resale each</label><input id="bucketBetterEach" type="number" step="0.01" value="8"></div>
+        <div class="col-3"><label>Slabs total resale</label><input id="bucketSlabsTotal" type="number" step="0.01" value="0"></div>
+        <div class="col-3"><label>Bulk/common resale</label><input id="bucketBulkTotal" type="number" step="0.01" value="0"></div>
+      </div>
+
+      <div class="checkgrid" style="margin-top:12px">
+        <div class="checkitem"><input id="lotFlagHighEnd" type="checkbox"><label for="lotFlagHighEnd">High-end raw card, rare parallel, or $250+ card inside</label></div>
+        <div class="checkitem"><input id="lotFlagAuto" type="checkbox"><label for="lotFlagAuto">Unauthenticated autos included</label></div>
+        <div class="checkitem"><input id="lotFlagVintage" type="checkbox"><label for="lotFlagVintage">Vintage stars or authenticity risk</label></div>
+        <div class="checkitem"><input id="lotFlagCondition" type="checkbox"><label for="lotFlagCondition">Condition varies a lot / hidden damage risk</label></div>
+        <div class="checkitem"><input id="lotFlagSellerPushy" type="checkbox"><label for="lotFlagSellerPushy">Seller is pressuring / not letting us inspect</label></div>
+        <div class="checkitem"><input id="lotFlagUnsure" type="checkbox"><label for="lotFlagUnsure">Aaron is not sure what is in the lot</label></div>
+      </div>
+    </section>
+
+    <section class="panel hide" id="sharedNumbersPanel">
+      <div class="step-title"><span class="step-num">4</span><h3 style="margin:0">Shop numbers</h3></div>
+      <div class="grid">
+        <div class="col-3"><label>Selling fee %</label><input id="feeRate" type="number" step="0.01" value="15"></div>
+        <div class="col-3"><label>Shipping / handling</label><input id="shipCost" type="number" step="0.01" value="5"></div>
+        <div class="col-3"><label>Grading cost, if planned</label><input id="gradingCost" type="number" step="0.01" value="0"></div>
+        <div class="col-3"><label>Extra risk reserve</label><input id="riskReserve" type="number" step="0.01" value="5"></div>
+        <div class="col-12"><label>Notes / what Aaron sees</label><textarea id="notes" placeholder="Example: check back surface under light; seller has more cards; verify refractor finish; lot looked clean but needs sorting..."></textarea></div>
+      </div>
+    </section>
+
+    <section class="panel hide" id="resultPanel">
       <div class="row" style="justify-content:space-between">
-        <h3 style="margin:0">4) Buy recommendation</h3>
+        <h3 style="margin:0">Buy recommendation</h3>
         <div class="row"><button id="calcBtn" class="btn">Calculate</button><button id="saveBtn" class="btn-ghost">Save Deal</button><button id="resetBtn" class="btn-ghost">Reset</button></div>
       </div>
       <div id="result" style="margin-top:14px"></div>
@@ -143,7 +222,7 @@
       </div>
       <div style="overflow:auto">
         <table>
-          <thead><tr><th>When</th><th>Card</th><th>Decision</th><th>Safe resale</th><th>Max offer</th><th>Ask</th></tr></thead>
+          <thead><tr><th>When</th><th>Type / Item</th><th>Decision</th><th>Safe resale</th><th>Max offer</th><th>Seller price</th></tr></thead>
           <tbody id="dealsBody"><tr><td colspan="6" class="muted">No deals loaded yet.</td></tr></tbody>
         </table>
       </div>
@@ -172,55 +251,115 @@
   const FSV = firebase.firestore.FieldValue;
 
   const $ = id => document.getElementById(id);
+  const $$ = sel => Array.from(document.querySelectorAll(sel));
   const gate = $('gate'), adminUI = $('admin-ui'), adminEmail = $('admin-email');
-  const compsEl = $('comps'), resultEl = $('result'), dealsBody = $('dealsBody'), dealStatus = $('dealStatus');
+  const compsEl = $('comps'), keyCardsEl = $('keyCards'), resultEl = $('result'), dealsBody = $('dealsBody'), dealStatus = $('dealStatus');
+  const sellerPricePanel = $('sellerPricePanel'), singlePanel = $('singlePanel'), lotPanel = $('lotPanel'), sharedNumbersPanel = $('sharedNumbersPanel'), resultPanel = $('resultPanel');
   let lastCalc = null;
+  let currentMode = null;
+  let sellerPriceKnown = null;
 
   function money(n){ return '$' + Number(n || 0).toLocaleString(undefined,{minimumFractionDigits:2, maximumFractionDigits:2}); }
-  function num(id){ const v = parseFloat($(id).value); return Number.isFinite(v) ? v : 0; }
-  function text(id){ return ($(id).value || '').trim(); }
+  function num(id){ const el = $(id); const v = parseFloat(el ? el.value : '0'); return Number.isFinite(v) ? v : 0; }
+  function text(id){ const el = $(id); return ((el && el.value) || '').trim(); }
+  function val(id){ const el = $(id); return el ? el.value : ''; }
   function setGate(msg, bad=false){ gate.innerHTML = msg; gate.className = 'panel' + (bad ? ' danger' : ''); }
   function median(arr){ const xs = arr.slice().sort((a,b)=>a-b); if(!xs.length) return 0; const mid=Math.floor(xs.length/2); return xs.length % 2 ? xs[mid] : (xs[mid-1]+xs[mid])/2; }
   function clamp(n,min,max){ return Math.max(min, Math.min(max, n)); }
-  function escapeHtml(s){ return String(s||'').replace(/[&<>"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch])); }
+  function escapeHtml(s){ return String(s||'').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch])); }
+
+  function selectChoice(selector, attr, value){
+    $$(selector).forEach(btn => btn.classList.toggle('selected', btn.getAttribute(attr) === value));
+  }
+
+  function showWorkPanels(){
+    sellerPricePanel.classList.toggle('hide', !currentMode || currentMode === 'call');
+    singlePanel.classList.toggle('hide', currentMode !== 'single');
+    lotPanel.classList.toggle('hide', currentMode !== 'lot');
+    sharedNumbersPanel.classList.toggle('hide', !currentMode || currentMode === 'call');
+    resultPanel.classList.toggle('hide', !currentMode);
+    $('sellerAskWrap').classList.toggle('hide', sellerPriceKnown !== true);
+    $('noAskScript').classList.toggle('hide', sellerPriceKnown !== false);
+    if(currentMode === 'call') renderCallHunter();
+    else resultEl.innerHTML = '';
+  }
+
+  function setMode(mode){
+    currentMode = mode;
+    selectChoice('[data-mode]', 'data-mode', mode);
+    showWorkPanels();
+  }
+
+  function setSellerPriceKnown(isKnown){
+    sellerPriceKnown = isKnown;
+    selectChoice('[data-price-known]', 'data-price-known', isKnown ? 'yes' : 'no');
+    $('sellerAskWrap').classList.toggle('hide', !isKnown);
+    $('noAskScript').classList.toggle('hide', isKnown);
+    if(!isKnown) $('ask').value = '';
+  }
 
   function addComp(value='', note=''){
     const row = document.createElement('div');
     row.className = 'comp-row';
-    row.innerHTML = `
-      <input class="comp-value" type="number" step="0.01" placeholder="Sold $" value="${escapeHtml(value)}">
-      <input class="comp-note" placeholder="Comp note: raw clean / PSA 9 / damaged / date / source" value="${escapeHtml(note)}">
-      <button class="btn-ghost remove-comp" title="Remove">×</button>`;
+    row.innerHTML = '<input class="comp-value" type="number" step="0.01" placeholder="Sold $" value="' + escapeHtml(value) + '">' +
+      '<input class="comp-note" placeholder="Comp note: raw clean / PSA 9 / damaged / date / source" value="' + escapeHtml(note) + '">' +
+      '<button class="btn-ghost remove-comp" title="Remove" type="button">×</button>';
     compsEl.appendChild(row);
   }
 
+  function addKeyCard(name='', value='', note=''){
+    const row = document.createElement('div');
+    row.className = 'key-row';
+    row.innerHTML = '<input class="key-name" placeholder="Key card name" value="' + escapeHtml(name) + '">' +
+      '<input class="key-value" type="number" step="0.01" placeholder="Safe resale $" value="' + escapeHtml(value) + '">' +
+      '<input class="key-note" placeholder="Note: comped clean / damaged / slab / needs Hunter" value="' + escapeHtml(note) + '">' +
+      '<button class="btn-ghost remove-key" title="Remove" type="button">×</button>';
+    keyCardsEl.appendChild(row);
+  }
+
   function getComps(){
-    return Array.from(document.querySelectorAll('.comp-row')).map(row => ({
+    return $$('.comp-row').map(row => ({
       value: parseFloat(row.querySelector('.comp-value').value || '0') || 0,
       note: row.querySelector('.comp-note').value || ''
     })).filter(c => c.value > 0);
+  }
+
+  function getKeyCards(){
+    return $$('.key-row').map(row => ({
+      name: row.querySelector('.key-name').value || '',
+      value: parseFloat(row.querySelector('.key-value').value || '0') || 0,
+      note: row.querySelector('.key-note').value || ''
+    })).filter(c => c.name || c.value > 0 || c.note);
   }
 
   function cardLabel(){
     return [text('year'), text('setName'), text('player'), text('cardNumber'), text('variant'), text('serial')].filter(Boolean).join(' ');
   }
 
-  function calculate(){
-    const comps = getComps();
-    const compValues = comps.map(c=>c.value);
-    const med = median(compValues);
-    const condition = parseFloat($('condition').value);
-    const liquidity = parseFloat($('liquidity').value);
-    const confidence = parseFloat($('confidence').value);
-    const feeRate = num('feeRate') / 100;
-    const shipCost = num('shipCost');
-    const gradingCost = num('gradingCost');
-    const riskReserve = num('riskReserve');
-    const target = parseFloat($('buyTarget').value);
-    const ask = num('ask');
+  function commonNumbers(){
+    return {
+      sellerPriceKnown,
+      sellerAsk: sellerPriceKnown ? num('ask') : 0,
+      sellerNote: text('sellerNote'),
+      feeRate: num('feeRate') / 100,
+      shipCost: num('shipCost'),
+      gradingCost: num('gradingCost'),
+      riskReserve: num('riskReserve'),
+      notes: text('notes')
+    };
+  }
 
+  function calculateSingle(){
+    const common = commonNumbers();
+    const comps = getComps();
+    const med = median(comps.map(c=>c.value));
+    const condition = parseFloat(val('condition'));
+    const liquidity = parseFloat(val('liquidity'));
+    const confidence = parseFloat(val('confidence'));
+    const target = parseFloat(val('buyTarget'));
     const flags = [];
-    if(comps.length < 3) flags.push('Fewer than 3 usable comps');
+
+    if(comps.length < 3) flags.push('Fewer than 3 usable comps — Hunter review');
     if($('flagCrease').checked) flags.push('Crease/wrinkle/dent risk');
     if($('flagBack').checked) flags.push('Back damage/scuff/paper-loss risk');
     if($('flagCorners').checked) flags.push('Corner/edge wear risk');
@@ -229,10 +368,9 @@
     if($('flagRare').checked) flags.push('Rare or unclear variation — Hunter approval');
 
     const safeResale = med * condition * liquidity * confidence;
-    const fees = safeResale * feeRate;
-    const expectedNet = Math.max(0, safeResale - fees - shipCost - gradingCost - riskReserve);
+    const fees = safeResale * common.feeRate;
+    const expectedNet = Math.max(0, safeResale - fees - common.shipCost - common.gradingCost - common.riskReserve);
     let maxOffer = expectedNet * target;
-
     if($('flagCrease').checked) maxOffer *= 0.85;
     if($('flagBack').checked) maxOffer *= 0.90;
     if($('flagCorners').checked) maxOffer *= 0.92;
@@ -240,64 +378,165 @@
     if($('flagAuto').checked) maxOffer *= 0.70;
     if($('flagRare').checked) maxOffer *= 0.85;
     maxOffer = Math.max(0, maxOffer);
-
     const startOffer = maxOffer * 0.72;
     const targetOffer = maxOffer * 0.88;
 
-    if(med >= 250 && $('gradeType').value === 'raw') flags.push('Raw card value over $250 — Hunter review');
-    if(ask >= 300) flags.push('Seller ask over $300 — Hunter review');
-    if(ask > 0 && ask > maxOffer) flags.push('Seller ask is above max offer');
+    if(med >= 250 && val('gradeType') === 'raw') flags.push('Raw card value over $250 — Hunter review');
+    if(common.sellerPriceKnown && common.sellerAsk >= 300) flags.push('Seller ask over $300 — Hunter review');
+    if(maxOffer >= 250) flags.push('Max offer over $250 — Hunter review');
+    if(common.sellerPriceKnown && common.sellerAsk > maxOffer) flags.push('Seller ask is above max offer');
     if(confidence <= 0.70) flags.push('Low comp confidence');
+    if(!common.sellerPriceKnown) flags.push('Seller did not name price — use first-offer script');
 
     let decision = 'BUY';
     if(flags.some(f => f.includes('Hunter approval') || f.includes('Hunter review') || f.includes('Fewer than 3'))) decision = 'HUNTER REVIEW';
-    if(ask > 0 && ask > maxOffer * 1.20) decision = 'PASS';
+    if(common.sellerPriceKnown && common.sellerAsk > maxOffer * 1.20) decision = 'PASS';
     if(!comps.length) decision = 'HUNTER REVIEW';
 
-    const priorityScore = clamp(Math.round((target*100) + (liquidity*20) + (confidence*15) - (flags.length*7)), 1, 100);
+    const priorityScore = clamp(Math.round((target*100) + (liquidity*20) + (confidence*15) - (flags.filter(f=>!f.includes('Seller did not name')).length*7)), 1, 100);
     let priority = 'C';
     if(priorityScore >= 88) priority = 'A+';
     else if(priorityScore >= 76) priority = 'A';
     else if(priorityScore >= 62) priority = 'B';
     else if(priorityScore < 40) priority = 'D';
 
-    lastCalc = {
-      category:text('category') || $('category').value,
-      sport:$('sport').value, year:text('year'), player:text('player'), setName:text('setName'), cardNumber:text('cardNumber'), variant:text('variant'), serial:text('serial'),
-      gradeType:$('gradeType').value, grader:$('grader').value, grade:text('grade'), ask, notes:text('notes'), comps,
-      medianComp:med, condition, liquidity, confidence, feeRate, shipCost, gradingCost, riskReserve, target,
-      safeResale, expectedNet, startOffer, targetOffer, maxOffer, decision, priority, priorityScore, flags, cardLabel:cardLabel()
+    return {
+      dealType:'single', modeLabel:'Single Card',
+      category:val('category'), sport:val('sport'), year:text('year'), player:text('player'), setName:text('setName'), cardNumber:text('cardNumber'), variant:text('variant'), serial:text('serial'),
+      gradeType:val('gradeType'), grader:val('grader'), grade:text('grade'), comps,
+      medianComp:med, condition, liquidity, confidence, target,
+      safeResale, expectedNet, startOffer, targetOffer, maxOffer, decision, priority, priorityScore, flags, cardLabel:cardLabel(),
+      ...common
     };
+  }
+
+  function calculateLot(){
+    const common = commonNumbers();
+    const keyCards = getKeyCards();
+    const keyTotal = keyCards.reduce((sum,c)=>sum + (c.value || 0), 0);
+    const dollarValue = num('bucketDollarCount') * num('bucketDollarEach');
+    const midValue = num('bucketMidCount') * num('bucketMidEach');
+    const betterValue = num('bucketBetterCount') * num('bucketBetterEach');
+    const slabsValue = num('bucketSlabsTotal');
+    const bulkValue = num('bucketBulkTotal');
+    const bucketTotal = dollarValue + midValue + betterValue + slabsValue + bulkValue;
+    const grossResale = keyTotal + bucketTotal;
+    const lotTypeEl = $('lotType');
+    const lotType = lotTypeEl.value;
+    const target = parseFloat(lotTypeEl.options[lotTypeEl.selectedIndex].dataset.target || '0.45');
+    const condition = parseFloat(val('lotCondition'));
+    const confidence = parseFloat(val('lotConfidence'));
+    const lotCount = num('lotCount');
+    const flags = [];
+
+    if(!grossResale) flags.push('No lot value entered — Hunter review');
+    if(lotType === 'highend') flags.push('High-end/key-card lot — Hunter review');
+    if($('lotFlagHighEnd').checked) flags.push('High-end raw/rare card inside — Hunter review');
+    if($('lotFlagAuto').checked) flags.push('Unauthenticated autos in lot — Hunter approval');
+    if($('lotFlagVintage').checked) flags.push('Vintage/authenticity risk — Hunter review');
+    if($('lotFlagCondition').checked) flags.push('Hidden condition risk');
+    if($('lotFlagSellerPushy').checked) flags.push('Seller pressure/no full inspection — Hunter review');
+    if($('lotFlagUnsure').checked) flags.push('Aaron unsure what is in lot — Hunter review');
+    if(confidence <= 0.60) flags.push('Low lot confidence — Hunter review');
+    if(grossResale >= 500) flags.push('Lot resale over $500 — Hunter review');
+    if(common.sellerPriceKnown && common.sellerAsk >= 300) flags.push('Seller ask over $300 — Hunter review');
+    if(!common.sellerPriceKnown) flags.push('Seller did not name price — use first-offer script');
+
+    let safeResale = grossResale * condition * confidence;
+    if($('lotFlagCondition').checked) safeResale *= 0.88;
+    if($('lotFlagSellerPushy').checked) safeResale *= 0.75;
+    if($('lotFlagUnsure').checked) safeResale *= 0.70;
+    const fees = safeResale * common.feeRate;
+    const sortingReserve = Math.max(5, grossResale * 0.08);
+    const expectedNet = Math.max(0, safeResale - fees - common.shipCost - common.gradingCost - common.riskReserve - sortingReserve);
+    let maxOffer = expectedNet * target;
+    if(lotType === 'bulk') maxOffer = Math.min(maxOffer, grossResale * 0.25);
+    if(lotType === 'damaged') maxOffer = Math.min(maxOffer, grossResale * 0.30);
+    maxOffer = Math.max(0, maxOffer);
+    const startOffer = maxOffer * 0.72;
+    const targetOffer = maxOffer * 0.88;
+    if(maxOffer >= 250) flags.push('Max offer over $250 — Hunter review');
+    if(common.sellerPriceKnown && common.sellerAsk > maxOffer) flags.push('Seller ask is above max offer');
+
+    let decision = 'BUY';
+    if(flags.some(f => f.includes('Hunter approval') || f.includes('Hunter review'))) decision = 'HUNTER REVIEW';
+    if(common.sellerPriceKnown && common.sellerAsk > maxOffer * 1.20) decision = 'PASS';
+
+    const priorityScore = clamp(Math.round((target*110) + (condition*18) + (confidence*20) - (flags.filter(f=>!f.includes('Seller did not name')).length*8)), 1, 100);
+    let priority = 'C';
+    if(priorityScore >= 88) priority = 'A+';
+    else if(priorityScore >= 76) priority = 'A';
+    else if(priorityScore >= 62) priority = 'B';
+    else if(priorityScore < 40) priority = 'D';
+
+    return {
+      dealType:'lot', modeLabel:'Multiple Card Lot', lotType, lotCount, keyCards,
+      keyTotal, bucketDollarCount:num('bucketDollarCount'), bucketDollarEach:num('bucketDollarEach'), bucketMidCount:num('bucketMidCount'), bucketMidEach:num('bucketMidEach'), bucketBetterCount:num('bucketBetterCount'), bucketBetterEach:num('bucketBetterEach'), bucketSlabsTotal:slabsValue, bucketBulkTotal:bulkValue,
+      bucketTotal, grossResale, medianComp:0, condition, confidence, target,
+      sortingReserve, safeResale, expectedNet, startOffer, targetOffer, maxOffer, decision, priority, priorityScore, flags,
+      cardLabel: lotCount ? (lotCount + ' item/card lot') : 'Multiple card lot',
+      ...common
+    };
+  }
+
+  function calculate(){
+    if(currentMode === 'call') return renderCallHunter();
+    if(!currentMode){ alert('Choose Single Card or Multiple Card Lot first.'); return null; }
+    if(sellerPriceKnown === null){ alert('Choose whether the seller gave a price.'); return null; }
+    lastCalc = currentMode === 'single' ? calculateSingle() : calculateLot();
     renderResult(lastCalc);
     return lastCalc;
   }
 
+  function renderCallHunter(){
+    lastCalc = {
+      dealType:'hunter-call', modeLabel:'Call Hunter', sellerPriceKnown:null, sellerAsk:0, decision:'HUNTER REVIEW', priority:'CALL', priorityScore:0,
+      safeResale:0, expectedNet:0, startOffer:0, targetOffer:0, maxOffer:0, flags:['Aaron chose Call Hunter'], cardLabel:'Needs Hunter review', notes:text('notes')
+    };
+    resultEl.innerHTML = '<div class="decision review">CALL HUNTER</div>' +
+      '<div class="script-box"><strong>Aaron script:</strong><br>I need to have Hunter look at this one before I can make a strong offer. There is enough value or uncertainty here that I do not want to guess.</div>' +
+      '<div class="script-box"><strong>What to do:</strong><br>Take clear front/back photos, ask the seller if they can wait a few minutes, and send Hunter the card/lot details.</div>';
+    return lastCalc;
+  }
+
+  function decisionScript(r){
+    if(r.dealType === 'hunter-call') return 'I need to have Hunter look at this one before I can make a strong offer.';
+    const itemWord = r.dealType === 'lot' ? 'lot' : 'card';
+    if(!r.sellerPriceKnown){
+      if(r.decision === 'BUY') return 'I am seeing enough room on this ' + itemWord + ', but I still have to account for fees, condition, sorting time, and resale risk. I would be at ' + money(r.startOffer) + ' cash right now.';
+      return 'This one has enough uncertainty that I need Hunter to review it before I make a strong cash offer. If I had to be safe, I could not go past about ' + money(r.maxOffer) + ' without approval.';
+    }
+    if(r.decision === 'BUY') return 'Your price is in the range where we can work with it. I would start at ' + money(r.startOffer) + ', and my max today is ' + money(r.maxOffer) + '.';
+    if(r.decision === 'PASS') return 'I cannot get to that number. Based on what we can realistically resell it for, my max would be around ' + money(r.maxOffer) + ', so I would have to pass unless you are close to that.';
+    return 'This one needs Hunter review before I can pay strong. I cannot go past ' + money(r.maxOffer) + ' without approval.';
+  }
+
   function renderResult(r){
     const cls = r.decision === 'BUY' ? 'buy' : (r.decision === 'PASS' ? 'pass' : 'review');
-    const flagHtml = r.flags.length ? r.flags.map(f=>`<span class="pill ${f.includes('above') || f.includes('Fewer') ? 'yellow':'red'}">${escapeHtml(f)}</span>`).join('') : '<span class="pill green">No forced red flags</span>';
-    const script = r.decision === 'BUY'
-      ? `I am seeing the safe number around ${money(r.safeResale)}, but I have to leave room for fees, condition risk, and resale time. I would be at ${money(r.startOffer)} cash right now.`
-      : `This one needs review before I can pay strong. The comps/condition have enough risk that I cannot go past ${money(r.maxOffer)} without approval.`;
-    resultEl.innerHTML = `
-      <div class="decision ${cls}">${r.decision}</div>
-      <div class="muted" style="margin:4px 0 14px">${escapeHtml(r.cardLabel || '(card not named yet)')} — Priority ${r.priority} / Score ${r.priorityScore}</div>
-      <div class="result">
-        <div class="metric"><div class="k">Median comp</div><div class="v">${money(r.medianComp)}</div></div>
-        <div class="metric"><div class="k">Safe resale</div><div class="v">${money(r.safeResale)}</div></div>
-        <div class="metric"><div class="k">Expected net</div><div class="v">${money(r.expectedNet)}</div></div>
-        <div class="metric"><div class="k">Max offer</div><div class="v">${money(r.maxOffer)}</div></div>
-        <div class="metric"><div class="k">Start offer</div><div class="v">${money(r.startOffer)}</div></div>
-        <div class="metric"><div class="k">Target offer</div><div class="v">${money(r.targetOffer)}</div></div>
-        <div class="metric"><div class="k">Seller ask</div><div class="v">${money(r.ask)}</div></div>
-        <div class="metric"><div class="k">Usable comps</div><div class="v">${r.comps.length}</div></div>
-      </div>
-      <div style="margin-top:14px"><strong>Flags:</strong><br>${flagHtml}</div>
-      <div class="panel" style="background:#101010;margin:14px 0 0"><strong>Aaron script:</strong><br>${escapeHtml(script)}</div>
-      <div class="muted small" style="margin-top:10px">Before paying: verify exact set, card number, variation/parallel, serial number, front/back condition, surface under light, and slab/auto authenticity where relevant.</div>`;
+    const flagHtml = r.flags.length ? r.flags.map(f=>'<span class="pill ' + (f.includes('above') || f.includes('Seller did not') ? 'yellow':'red') + '">' + escapeHtml(f) + '</span>').join('') : '<span class="pill green">No forced red flags</span>';
+    const sellerText = r.sellerPriceKnown === false ? 'No price — we make first offer' : money(r.sellerAsk);
+    const topLine = r.dealType === 'lot' ? (escapeHtml(r.cardLabel) + ' — Key resale ' + money(r.keyTotal || 0) + ' / Bulk resale ' + money(r.bucketTotal || 0)) : escapeHtml(r.cardLabel || '(card not named yet)');
+    resultEl.innerHTML =
+      '<div class="decision ' + cls + '">' + escapeHtml(r.decision) + '</div>' +
+      '<div class="muted" style="margin:4px 0 14px">' + topLine + ' — Priority ' + escapeHtml(r.priority) + ' / Score ' + escapeHtml(r.priorityScore) + '</div>' +
+      '<div class="result">' +
+        '<div class="metric"><div class="k">Seller price</div><div class="v">' + sellerText + '</div></div>' +
+        '<div class="metric"><div class="k">Safe resale</div><div class="v">' + money(r.safeResale) + '</div></div>' +
+        '<div class="metric"><div class="k">Expected net</div><div class="v">' + money(r.expectedNet) + '</div></div>' +
+        '<div class="metric"><div class="k">Max offer</div><div class="v">' + money(r.maxOffer) + '</div></div>' +
+        '<div class="metric"><div class="k">Start offer</div><div class="v">' + money(r.startOffer) + '</div></div>' +
+        '<div class="metric"><div class="k">Target offer</div><div class="v">' + money(r.targetOffer) + '</div></div>' +
+        '<div class="metric"><div class="k">Mode</div><div class="v" style="font-size:20px">' + escapeHtml(r.modeLabel) + '</div></div>' +
+        '<div class="metric"><div class="k">Values used</div><div class="v">' + (r.dealType === 'lot' ? money(r.grossResale || 0) : String((r.comps || []).length) + ' comps') + '</div></div>' +
+      '</div>' +
+      '<div style="margin-top:14px"><strong>Flags:</strong><br>' + flagHtml + '</div>' +
+      '<div class="script-box"><strong>Aaron script:</strong><br>' + escapeHtml(decisionScript(r)) + '</div>' +
+      '<div class="script-box"><strong>Before paying:</strong><br>' + escapeHtml(r.dealType === 'lot' ? 'Flip through the whole lot, check hidden damage, pull out the best cards, confirm no major cards are fake/altered, and call Hunter if anything feels off.' : 'Verify exact set, card number, variation/parallel, serial number, front/back condition, surface under light, and slab/auto authenticity where relevant.') + '</div>';
   }
 
   async function saveDeal(){
     const r = lastCalc || calculate();
+    if(!r) return;
     if(!auth.currentUser){ alert('Not logged in.'); return; }
     try{
       await db.collection('buyDeskDeals').add({
@@ -313,10 +552,18 @@
   }
 
   function resetForm(){
-    ['year','player','setName','cardNumber','variant','serial','grade','ask','notes','gradingCost'].forEach(id=>$(id).value='');
+    currentMode = null; sellerPriceKnown = null; lastCalc = null;
+    $$('.choice').forEach(btn => btn.classList.remove('selected'));
+    ['year','player','setName','cardNumber','variant','serial','grade','ask','sellerNote','notes','gradingCost','lotCount'].forEach(id=>{ if($(id)) $(id).value=''; });
     $('feeRate').value='15'; $('shipCost').value='5'; $('riskReserve').value='5';
-    ['flagCrease','flagBack','flagCorners','flagTrim','flagAuto','flagRare'].forEach(id=>$(id).checked=false);
-    compsEl.innerHTML=''; addComp(); addComp(); addComp(); resultEl.innerHTML=''; lastCalc=null;
+    ['bucketDollarCount','bucketMidCount','bucketBetterCount','bucketSlabsTotal','bucketBulkTotal'].forEach(id=>$(id).value='0');
+    $('bucketDollarEach').value='1'; $('bucketMidEach').value='4'; $('bucketBetterEach').value='8';
+    ['flagCrease','flagBack','flagCorners','flagTrim','flagAuto','flagRare','lotFlagHighEnd','lotFlagAuto','lotFlagVintage','lotFlagCondition','lotFlagSellerPushy','lotFlagUnsure'].forEach(id=>{ if($(id)) $(id).checked=false; });
+    compsEl.innerHTML=''; addComp(); addComp(); addComp();
+    keyCardsEl.innerHTML=''; addKeyCard(); addKeyCard();
+    sellerPricePanel.classList.add('hide'); singlePanel.classList.add('hide'); lotPanel.classList.add('hide'); sharedNumbersPanel.classList.add('hide'); resultPanel.classList.add('hide');
+    $('sellerAskWrap').classList.add('hide'); $('noAskScript').classList.add('hide');
+    resultEl.innerHTML='';
   }
 
   async function loadDeals(){
@@ -326,16 +573,27 @@
       if(snap.empty){ dealsBody.innerHTML = '<tr><td colspan="6" class="muted">No saved deals yet.</td></tr>'; dealStatus.textContent=''; return; }
       dealsBody.innerHTML = snap.docs.map(doc=>{
         const d = doc.data() || {};
-        const when = d.createdAt?.toDate?.()?.toLocaleString?.() || '—';
+        const when = d.createdAt && d.createdAt.toDate ? d.createdAt.toDate().toLocaleString() : '—';
         const pillClass = d.decision === 'BUY' ? 'green' : (d.decision === 'PASS' ? 'red' : 'yellow');
-        return `<tr><td>${when}</td><td><strong>${escapeHtml(d.cardLabel||'(card)')}</strong><br><span class="muted small">${escapeHtml(d.sport||'')} ${escapeHtml(d.gradeType||'')}</span></td><td><span class="pill ${pillClass}">${escapeHtml(d.decision||'')}</span></td><td>${money(d.safeResale)}</td><td>${money(d.maxOffer)}</td><td>${money(d.ask)}</td></tr>`;
+        const askText = d.sellerPriceKnown === false ? 'No price' : money(d.sellerAsk || d.ask || 0);
+        const label = d.cardLabel || (d.dealType === 'lot' ? 'Multiple card lot' : '(card)');
+        return '<tr><td>' + escapeHtml(when) + '</td><td><strong>' + escapeHtml(d.modeLabel || d.dealType || 'Deal') + '</strong><br><span class="muted small">' + escapeHtml(label) + '</span></td><td><span class="pill ' + pillClass + '">' + escapeHtml(d.decision || '') + '</span></td><td>' + money(d.safeResale) + '</td><td>' + money(d.maxOffer) + '</td><td>' + askText + '</td></tr>';
       }).join('');
-      dealStatus.textContent = `Loaded ${snap.size} deal(s).`;
+      dealStatus.textContent = 'Loaded ' + snap.size + ' deal(s).';
     }catch(e){ console.error(e); dealsBody.innerHTML = '<tr><td colspan="6" class="danger">Failed to load deals. Check Firestore rules/indexes.</td></tr>'; dealStatus.textContent=''; }
   }
 
-  compsEl.addEventListener('click', e => { if(e.target.classList.contains('remove-comp')) e.target.closest('.comp-row').remove(); });
+  document.addEventListener('click', e => {
+    const modeBtn = e.target.closest('[data-mode]');
+    if(modeBtn){ setMode(modeBtn.getAttribute('data-mode')); return; }
+    const priceBtn = e.target.closest('[data-price-known]');
+    if(priceBtn){ setSellerPriceKnown(priceBtn.getAttribute('data-price-known') === 'yes'); return; }
+    if(e.target.classList.contains('remove-comp')){ e.target.closest('.comp-row').remove(); return; }
+    if(e.target.classList.contains('remove-key')){ e.target.closest('.key-row').remove(); return; }
+  });
+
   $('addComp').addEventListener('click', () => addComp());
+  $('addKeyCard').addEventListener('click', () => addKeyCard());
   $('calcBtn').addEventListener('click', calculate);
   $('saveBtn').addEventListener('click', saveDeal);
   $('resetBtn').addEventListener('click', resetForm);
