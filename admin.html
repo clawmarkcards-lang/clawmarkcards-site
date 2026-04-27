@@ -79,6 +79,7 @@
     <div class="row">
       <a class="btn-ghost" href="index.html">Home</a>
       <a class="btn-ghost" href="admin-products.html">Products Admin</a>
+      <a class="btn-ghost" href="admin-buydesk.html">Buy Desk</a>
       <a class="btn-ghost" href="admin-engagement.html">Offers & Watchers</a>
       <button id="logout" class="btn-danger">Log Out</button>
     </div>
@@ -276,26 +277,6 @@
   })();
   </script>
 
-  import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-  import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-  const auth = getAuth(); const db = getFirestore();
-  async function isAdmin(uid){
-    const snap = await getDoc(doc(db,'admins', uid));
-    return snap.exists();
-  }
-  auth.onAuthStateChanged(async (u)=>{
-    if(!u){ document.getElementById('usersStatus').textContent='Please sign in.'; return; }
-    if(!(await isAdmin(u.uid))){ document.getElementById('usersStatus').textContent='Forbidden (admin only).'; return; }
-    const tok = await u.getIdToken();
-    const resp = await fetch('/listUsers', { headers:{ Authorization:'Bearer '+tok } });
-    if(!resp.ok){ document.getElementById('usersStatus').textContent='Failed to load users.'; return; }
-    const data = await resp.json();
-    const tb = document.querySelector('#usersTable tbody');
-    tb.innerHTML = (data.users||[]).map(ux=>`<tr><td>${ux.email||''}</td><td>${ux.displayName||''}</td><td>${ux.uid}</td></tr>`).join('');
-    document.getElementById('usersTable').style.display = 'table';
-    document.getElementById('usersStatus').textContent = '';
-  });
-</script>
 
 </body>
 </html>

@@ -4,6 +4,10 @@
     {
       "source": "/sportscardsplusmb",
       "destination": "/sportscardsplusmb.html"
+    },
+    {
+      "source": "/admin-buydesk",
+      "destination": "/admin-buydesk.html"
     }
   ]
 }
