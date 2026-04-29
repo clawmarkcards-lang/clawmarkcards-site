@@ -1,0 +1,19 @@
+Square API route fix
+
+Problem found:
+- square-health.js was at the repo root.
+- Vercel only creates /api/square-health when the file lives at api/square-health.js.
+
+Install:
+1. Copy the api folder from this patch into the TOP LEVEL of your repo.
+2. Final path must be: api/square-health.js
+3. Commit/push to GitHub.
+4. Wait for Vercel to deploy.
+5. Open: https://clawmarkcards.com/api/square-health
+
+Expected result:
+- JSON response, not 404.
+- If env variables are correct, ok: true.
+- If an env variable is missing, the JSON will name the missing variable.
+
+Do not put Square access tokens in this repo. Keep them only in Vercel Environment Variables.
