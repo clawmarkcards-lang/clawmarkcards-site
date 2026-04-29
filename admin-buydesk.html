@@ -241,8 +241,8 @@
       </div>
       <div style="overflow:auto">
         <table>
-          <thead><tr><th>When</th><th>Type / Item</th><th>Outcome</th><th>Decision</th><th>Safe resale</th><th>Max offer</th><th>Paid</th><th>Seller price</th></tr></thead>
-          <tbody id="dealsBody"><tr><td colspan="8" class="muted">No purchase records loaded yet.</td></tr></tbody>
+          <thead><tr><th>When</th><th>Type / Item</th><th>Outcome</th><th>Decision</th><th>Safe resale</th><th>Max offer</th><th>Paid</th><th>Seller price</th><th>Action</th></tr></thead>
+          <tbody id="dealsBody"><tr><td colspan="9" class="muted">No purchase records loaded yet.</td></tr></tbody>
         </table>
       </div>
       <div id="dealStatus" class="muted small" style="margin-top:8px"></div>
@@ -603,21 +603,36 @@
     resultEl.innerHTML='';
   }
 
+  async function deleteDeal(docId){
+    if(!docId) return;
+    if(!auth.currentUser){ alert('Not logged in.'); return; }
+    const ok = confirm('Delete this saved buy desk record? This cannot be undone.');
+    if(!ok) return;
+    try{
+      await db.collection(BUY_COLLECTION).doc(docId).delete();
+      dealStatus.textContent = 'Deleted purchase record.';
+      await loadDeals();
+    }catch(e){
+      console.error(e);
+      dealStatus.textContent = 'Delete failed. Check Firestore rules/permissions.';
+    }
+  }
+
   async function loadDeals(){
-    dealsBody.innerHTML = '<tr><td colspan="8" class="muted">Loading…</td></tr>';
+    dealsBody.innerHTML = '<tr><td colspan="9" class="muted">Loading…</td></tr>';
     try{
       const snap = await db.collection(BUY_COLLECTION).orderBy('createdAt','desc').limit(25).get();
-      if(snap.empty){ dealsBody.innerHTML = '<tr><td colspan="8" class="muted">No saved purchase records yet.</td></tr>'; dealStatus.textContent=''; return; }
+      if(snap.empty){ dealsBody.innerHTML = '<tr><td colspan="9" class="muted">No saved purchase records yet.</td></tr>'; dealStatus.textContent=''; return; }
       dealsBody.innerHTML = snap.docs.map(doc=>{
         const d = doc.data() || {};
         const when = d.createdAt && d.createdAt.toDate ? d.createdAt.toDate().toLocaleString() : '—';
         const pillClass = d.decision === 'BUY' ? 'green' : (d.decision === 'PASS' ? 'red' : 'yellow');
         const askText = d.sellerPriceKnown === false ? 'No price' : money(d.sellerAsk || d.ask || 0);
         const label = d.cardLabel || (d.dealType === 'lot' ? 'Multiple card lot' : '(card)');
-        return '<tr><td>' + escapeHtml(when) + '</td><td><strong>' + escapeHtml(d.modeLabel || d.dealType || 'Deal') + '</strong><br><span class="muted small">' + escapeHtml(label) + '</span></td><td><span class="pill blue">' + escapeHtml(d.purchaseStatus || d.status || 'draft') + '</span></td><td><span class="pill ' + pillClass + '">' + escapeHtml(d.decision || '') + '</span></td><td>' + money(d.safeResale) + '</td><td>' + money(d.maxOffer) + '</td><td>' + money(d.amountPaid || 0) + '</td><td>' + askText + '</td></tr>';
+        return '<tr><td>' + escapeHtml(when) + '</td><td><strong>' + escapeHtml(d.modeLabel || d.dealType || 'Deal') + '</strong><br><span class="muted small">' + escapeHtml(label) + '</span></td><td><span class="pill blue">' + escapeHtml(d.purchaseStatus || d.status || 'draft') + '</span></td><td><span class="pill ' + pillClass + '">' + escapeHtml(d.decision || '') + '</span></td><td>' + money(d.safeResale) + '</td><td>' + money(d.maxOffer) + '</td><td>' + money(d.amountPaid || 0) + '</td><td>' + askText + '</td><td><button class="btn-danger delete-deal" data-id="' + escapeHtml(doc.id) + '" type="button">Delete</button></td></tr>';
       }).join('');
       dealStatus.textContent = 'Loaded ' + snap.size + ' record(s).';
-    }catch(e){ console.error(e); dealsBody.innerHTML = '<tr><td colspan="8" class="danger">Failed to load purchase records. Check Firestore rules/indexes.</td></tr>'; dealStatus.textContent=''; }
+    }catch(e){ console.error(e); dealsBody.innerHTML = '<tr><td colspan="9" class="danger">Failed to load purchase records. Check Firestore rules/indexes.</td></tr>'; dealStatus.textContent=''; }
   }
 
   document.addEventListener('click', e => {
@@ -627,6 +642,8 @@
     if(priceBtn){ setSellerPriceKnown(priceBtn.getAttribute('data-price-known') === 'yes'); return; }
     if(e.target.classList.contains('remove-comp')){ e.target.closest('.comp-row').remove(); return; }
     if(e.target.classList.contains('remove-key')){ e.target.closest('.key-row').remove(); return; }
+    const deleteBtn = e.target.closest('.delete-deal');
+    if(deleteBtn){ deleteDeal(deleteBtn.getAttribute('data-id')); return; }
   });
 
   $('addComp').addEventListener('click', () => addComp());
