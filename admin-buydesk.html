@@ -207,23 +207,42 @@
       </div>
     </section>
 
+    <section class="panel hide" id="purchaseDetailsPanel">
+      <div class="step-title"><span class="step-num">5</span><h3 style="margin:0">Save purchase record</h3></div>
+      <p class="muted small" style="margin-top:0">Optional but recommended. This is what turns Aaron’s work into a saved buy-desk record you can review later.</p>
+      <div class="grid">
+        <div class="col-3"><label>Outcome</label><select id="purchaseStatus">
+          <option value="draft">Draft / quote only</option>
+          <option value="bought">Bought</option>
+          <option value="passed">Passed</option>
+          <option value="owner-review">Needs owner review</option>
+        </select></div>
+        <div class="col-3"><label>Amount actually paid</label><input id="amountPaid" type="number" step="0.01" placeholder="0.00"></div>
+        <div class="col-3"><label>Payment method</label><select id="paymentMethod"><option value="">Not entered</option><option>Cash</option><option>Card</option><option>Venmo</option><option>Cash App</option><option>PayPal</option><option>Trade</option><option>Other</option></select></div>
+        <div class="col-3"><label>Where item is now</label><input id="storageLocation" placeholder="Showcase / back office / Aaron / needs photos"></div>
+        <div class="col-4"><label>Seller name</label><input id="sellerName" placeholder="Optional"></div>
+        <div class="col-4"><label>Seller phone</label><input id="sellerPhone" placeholder="Optional"></div>
+        <div class="col-4"><label>Seller email</label><input id="sellerEmail" placeholder="Optional"></div>
+      </div>
+    </section>
+
     <section class="panel hide" id="resultPanel">
       <div class="row" style="justify-content:space-between">
         <h3 style="margin:0">Buy recommendation</h3>
-        <div class="row"><button id="calcBtn" class="btn">Calculate</button><button id="saveBtn" class="btn-ghost">Save Deal</button><button id="resetBtn" class="btn-ghost">Reset</button></div>
+        <div class="row"><button id="calcBtn" class="btn">Calculate</button><button id="saveBtn" class="btn-ghost">Save Purchase Record</button><button id="resetBtn" class="btn-ghost">Reset</button></div>
       </div>
       <div id="result" style="margin-top:14px"></div>
     </section>
 
     <section class="panel">
       <div class="row" style="justify-content:space-between;margin-bottom:8px">
-        <h3 style="margin:0">Recent Buy Desk deals</h3>
+        <h3 style="margin:0">Recent Buy Desk purchase records</h3>
         <button id="loadDeals" class="btn-ghost">Refresh</button>
       </div>
       <div style="overflow:auto">
         <table>
-          <thead><tr><th>When</th><th>Type / Item</th><th>Decision</th><th>Safe resale</th><th>Max offer</th><th>Seller price</th></tr></thead>
-          <tbody id="dealsBody"><tr><td colspan="6" class="muted">No deals loaded yet.</td></tr></tbody>
+          <thead><tr><th>When</th><th>Type / Item</th><th>Outcome</th><th>Decision</th><th>Safe resale</th><th>Max offer</th><th>Paid</th><th>Seller price</th></tr></thead>
+          <tbody id="dealsBody"><tr><td colspan="8" class="muted">No purchase records loaded yet.</td></tr></tbody>
         </table>
       </div>
       <div id="dealStatus" class="muted small" style="margin-top:8px"></div>
@@ -249,12 +268,13 @@
   const auth = firebase.auth();
   const db = firebase.firestore();
   const FSV = firebase.firestore.FieldValue;
+  const BUY_COLLECTION = 'buyDeskPurchases';
 
   const $ = id => document.getElementById(id);
   const $$ = sel => Array.from(document.querySelectorAll(sel));
   const gate = $('gate'), adminUI = $('admin-ui'), adminEmail = $('admin-email');
   const compsEl = $('comps'), keyCardsEl = $('keyCards'), resultEl = $('result'), dealsBody = $('dealsBody'), dealStatus = $('dealStatus');
-  const sellerPricePanel = $('sellerPricePanel'), singlePanel = $('singlePanel'), lotPanel = $('lotPanel'), sharedNumbersPanel = $('sharedNumbersPanel'), resultPanel = $('resultPanel');
+  const sellerPricePanel = $('sellerPricePanel'), singlePanel = $('singlePanel'), lotPanel = $('lotPanel'), sharedNumbersPanel = $('sharedNumbersPanel'), purchaseDetailsPanel = $('purchaseDetailsPanel'), resultPanel = $('resultPanel');
   let lastCalc = null;
   let currentMode = null;
   let sellerPriceKnown = null;
@@ -277,6 +297,7 @@
     singlePanel.classList.toggle('hide', currentMode !== 'single');
     lotPanel.classList.toggle('hide', currentMode !== 'lot');
     sharedNumbersPanel.classList.toggle('hide', !currentMode || currentMode === 'call');
+    purchaseDetailsPanel.classList.toggle('hide', !currentMode);
     resultPanel.classList.toggle('hide', !currentMode);
     $('sellerAskWrap').classList.toggle('hide', sellerPriceKnown !== true);
     $('noAskScript').classList.toggle('hide', sellerPriceKnown !== false);
@@ -346,6 +367,18 @@
       gradingCost: num('gradingCost'),
       riskReserve: num('riskReserve'),
       notes: text('notes')
+    };
+  }
+
+  function purchaseDetails(){
+    return {
+      purchaseStatus: val('purchaseStatus') || 'draft',
+      amountPaid: num('amountPaid'),
+      paymentMethod: val('paymentMethod'),
+      storageLocation: text('storageLocation'),
+      sellerName: text('sellerName'),
+      sellerPhone: text('sellerPhone'),
+      sellerEmail: text('sellerEmail')
     };
   }
 
@@ -538,15 +571,19 @@
     const r = lastCalc || calculate();
     if(!r) return;
     if(!auth.currentUser){ alert('Not logged in.'); return; }
+    const details = purchaseDetails();
     try{
-      await db.collection('buyDeskDeals').add({
+      await db.collection(BUY_COLLECTION).add({
         ...r,
-        createdBy: auth.currentUser.uid,
+        ...details,
+        createdByUid: auth.currentUser.uid,
         createdByEmail: auth.currentUser.email || '',
         createdAt: FSV.serverTimestamp(),
-        status: r.decision
+        updatedAt: FSV.serverTimestamp(),
+        status: details.purchaseStatus || r.decision,
+        source: 'admin-buydesk'
       });
-      dealStatus.textContent = 'Saved deal.';
+      dealStatus.textContent = 'Saved purchase record to ' + BUY_COLLECTION + '.';
       await loadDeals();
     }catch(e){ console.error(e); dealStatus.textContent = 'Save failed. Check Firestore rules/permissions.'; }
   }
@@ -554,33 +591,33 @@
   function resetForm(){
     currentMode = null; sellerPriceKnown = null; lastCalc = null;
     $$('.choice').forEach(btn => btn.classList.remove('selected'));
-    ['year','player','setName','cardNumber','variant','serial','grade','ask','sellerNote','notes','gradingCost','lotCount'].forEach(id=>{ if($(id)) $(id).value=''; });
-    $('feeRate').value='15'; $('shipCost').value='5'; $('riskReserve').value='5';
+    ['year','player','setName','cardNumber','variant','serial','grade','ask','sellerNote','notes','gradingCost','lotCount','amountPaid','storageLocation','sellerName','sellerPhone','sellerEmail'].forEach(id=>{ if($(id)) $(id).value=''; });
+    $('feeRate').value='15'; $('shipCost').value='5'; $('riskReserve').value='5'; $('purchaseStatus').value='draft'; $('paymentMethod').value='';
     ['bucketDollarCount','bucketMidCount','bucketBetterCount','bucketSlabsTotal','bucketBulkTotal'].forEach(id=>$(id).value='0');
     $('bucketDollarEach').value='1'; $('bucketMidEach').value='4'; $('bucketBetterEach').value='8';
     ['flagCrease','flagBack','flagCorners','flagTrim','flagAuto','flagRare','lotFlagHighEnd','lotFlagAuto','lotFlagVintage','lotFlagCondition','lotFlagSellerPushy','lotFlagUnsure'].forEach(id=>{ if($(id)) $(id).checked=false; });
     compsEl.innerHTML=''; addComp(); addComp(); addComp();
     keyCardsEl.innerHTML=''; addKeyCard(); addKeyCard();
-    sellerPricePanel.classList.add('hide'); singlePanel.classList.add('hide'); lotPanel.classList.add('hide'); sharedNumbersPanel.classList.add('hide'); resultPanel.classList.add('hide');
+    sellerPricePanel.classList.add('hide'); singlePanel.classList.add('hide'); lotPanel.classList.add('hide'); sharedNumbersPanel.classList.add('hide'); purchaseDetailsPanel.classList.add('hide'); resultPanel.classList.add('hide');
     $('sellerAskWrap').classList.add('hide'); $('noAskScript').classList.add('hide');
     resultEl.innerHTML='';
   }
 
   async function loadDeals(){
-    dealsBody.innerHTML = '<tr><td colspan="6" class="muted">Loading…</td></tr>';
+    dealsBody.innerHTML = '<tr><td colspan="8" class="muted">Loading…</td></tr>';
     try{
-      const snap = await db.collection('buyDeskDeals').orderBy('createdAt','desc').limit(25).get();
-      if(snap.empty){ dealsBody.innerHTML = '<tr><td colspan="6" class="muted">No saved deals yet.</td></tr>'; dealStatus.textContent=''; return; }
+      const snap = await db.collection(BUY_COLLECTION).orderBy('createdAt','desc').limit(25).get();
+      if(snap.empty){ dealsBody.innerHTML = '<tr><td colspan="8" class="muted">No saved purchase records yet.</td></tr>'; dealStatus.textContent=''; return; }
       dealsBody.innerHTML = snap.docs.map(doc=>{
         const d = doc.data() || {};
         const when = d.createdAt && d.createdAt.toDate ? d.createdAt.toDate().toLocaleString() : '—';
         const pillClass = d.decision === 'BUY' ? 'green' : (d.decision === 'PASS' ? 'red' : 'yellow');
         const askText = d.sellerPriceKnown === false ? 'No price' : money(d.sellerAsk || d.ask || 0);
         const label = d.cardLabel || (d.dealType === 'lot' ? 'Multiple card lot' : '(card)');
-        return '<tr><td>' + escapeHtml(when) + '</td><td><strong>' + escapeHtml(d.modeLabel || d.dealType || 'Deal') + '</strong><br><span class="muted small">' + escapeHtml(label) + '</span></td><td><span class="pill ' + pillClass + '">' + escapeHtml(d.decision || '') + '</span></td><td>' + money(d.safeResale) + '</td><td>' + money(d.maxOffer) + '</td><td>' + askText + '</td></tr>';
+        return '<tr><td>' + escapeHtml(when) + '</td><td><strong>' + escapeHtml(d.modeLabel || d.dealType || 'Deal') + '</strong><br><span class="muted small">' + escapeHtml(label) + '</span></td><td><span class="pill blue">' + escapeHtml(d.purchaseStatus || d.status || 'draft') + '</span></td><td><span class="pill ' + pillClass + '">' + escapeHtml(d.decision || '') + '</span></td><td>' + money(d.safeResale) + '</td><td>' + money(d.maxOffer) + '</td><td>' + money(d.amountPaid || 0) + '</td><td>' + askText + '</td></tr>';
       }).join('');
-      dealStatus.textContent = 'Loaded ' + snap.size + ' deal(s).';
-    }catch(e){ console.error(e); dealsBody.innerHTML = '<tr><td colspan="6" class="danger">Failed to load deals. Check Firestore rules/indexes.</td></tr>'; dealStatus.textContent=''; }
+      dealStatus.textContent = 'Loaded ' + snap.size + ' record(s).';
+    }catch(e){ console.error(e); dealsBody.innerHTML = '<tr><td colspan="8" class="danger">Failed to load purchase records. Check Firestore rules/indexes.</td></tr>'; dealStatus.textContent=''; }
   }
 
   document.addEventListener('click', e => {
@@ -605,7 +642,14 @@
     adminEmail.textContent = user.email || '';
     try{
       const adminDoc = await db.collection('admins').doc(user.uid).get();
-      if(!adminDoc.exists){ setGate('Forbidden (403): Your account is not an admin.', true); adminUI.classList.add('hide'); return; }
+      const adminData = adminDoc.exists ? (adminDoc.data() || {}) : null;
+      const allowedRoles = ['owner','admin','buyer'];
+      const role = String(adminData?.role || '').toLowerCase();
+      if(!adminDoc.exists || adminData.active === false || !allowedRoles.includes(role)){
+        setGate('Forbidden (403): Your account is not allowed to use the Buy Desk.', true);
+        adminUI.classList.add('hide');
+        return;
+      }
       setGate('<span class="badge">Admin mode enabled</span> — Buy Desk is ready.');
       adminUI.classList.remove('hide');
       resetForm();
