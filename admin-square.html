@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Claw Mark Cards — Square Connection</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rock+Salt&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    body{margin:0;background:#0d0d0d;color:#f2f2f2;font-family:Inter,Arial,sans-serif}
+    .cmc-header--orange{background:#ff6a00;color:#fff;border-bottom:none}
+    .cmc-header{position:sticky;top:0;z-index:50;text-align:center;padding:16px 16px 10px}
+    .site-title{font-family:"Rock Salt",system-ui,sans-serif;font-size:34px;margin:0;color:#fff;line-height:1.1}
+    .site-motto{font-family:"Rock Salt",system-ui,sans-serif;font-size:15px;margin:6px 0 14px;color:#ffe6d5}
+    .cmc-nav{display:flex;gap:22px;padding:10px 16px 14px;align-items:center;justify-content:center;flex-wrap:wrap;font-weight:800}
+    .cmc-nav a{text-decoration:none;color:#fff;opacity:.95}.cmc-nav a:hover{text-decoration:underline;opacity:1}
+    main{max-width:980px;margin:22px auto;padding:0 18px 50px}
+    .panel{background:#151515;border:1px solid #262626;border-radius:14px;padding:16px;margin-bottom:16px;box-shadow:0 12px 30px rgba(0,0,0,.25)}
+    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .btn{border:none;border-radius:10px;padding:11px 14px;font-weight:900;cursor:pointer;background:#00f0ff;color:#000}
+    .btn-ghost{display:inline-block;border:1px solid #333;border-radius:10px;padding:10px 13px;color:#f2f2f2;text-decoration:none;background:#111;font-weight:800}
+    .muted{color:#9aa0a6}.good{color:#4dff9a}.bad{color:#ff5757}.warn{color:#ffcc4d}.badge{color:#00f0ff;font-weight:900}
+    pre{white-space:pre-wrap;word-break:break-word;background:#070707;border:1px solid #262626;border-radius:12px;padding:14px;max-height:460px;overflow:auto}
+    table{width:100%;border-collapse:collapse;margin-top:12px}th,td{border-bottom:1px solid #262626;padding:10px;text-align:left}th{color:#9aa0a6}
+    code{background:#080808;border:1px solid #262626;border-radius:6px;padding:2px 5px}
+  </style>
+</head>
+<body>
+  <header class="cmc-header cmc-header--orange">
+    <h1 class="site-title">Claw Mark Cards</h1>
+    <p class="site-motto">Every Rip Leaves Its Mark</p>
+    <nav class="cmc-nav">
+      <a href="/index.html">Home</a>
+      <a href="/shop.html">Shop</a>
+      <a href="/admin.html">Members Admin</a>
+      <a href="/admin-products.html">Products Admin</a>
+      <a href="/admin-engagement.html">Offers & Watchers</a>
+      <a href="/admin-buydesk.html">Buy Desk</a>
+      <a href="/admin-square.html">Square</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="gate" class="panel">Checking admin access…</section>
+
+    <section id="admin-ui" class="panel" style="display:none;">
+      <h2>Square Connection Test</h2>
+      <p class="muted">This checks that Vercel can reach Square using the private server-side access token. The token is never displayed.</p>
+      <div class="row">
+        <button id="testBtn" class="btn" type="button">Test Square Connection</button>
+        <a class="btn-ghost" href="/api/square-health" target="_blank" rel="noopener">Open Raw Health Check</a>
+      </div>
+      <div id="status" class="muted" style="margin-top:14px;">Not tested yet.</div>
+      <div id="summary"></div>
+      <pre id="output" style="display:none;"></pre>
+    </section>
+  </main>
+
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="firebase-config.js"></script>
+  <script>
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+    const gate = document.getElementById('gate');
+    const adminUI = document.getElementById('admin-ui');
+    const statusEl = document.getElementById('status');
+    const summaryEl = document.getElementById('summary');
+    const outputEl = document.getElementById('output');
+
+    function setGate(message, bad){
+      gate.innerHTML = message;
+      gate.className = 'panel' + (bad ? ' bad' : '');
+    }
+    function escapeHtml(value){
+      return String(value ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+    }
+    function renderSummary(data){
+      const locations = Array.isArray(data.locations) ? data.locations : [];
+      summaryEl.innerHTML = `
+        <table>
+          <tr><th>Status</th><td>${data.ok ? '<span class="good">Connected</span>' : '<span class="bad">Failed</span>'}</td></tr>
+          <tr><th>Environment</th><td>${escapeHtml(data.environment || '—')}</td></tr>
+          <tr><th>Expected Location ID</th><td><code>${escapeHtml(data.expectedLocationId || '—')}</code></td></tr>
+          <tr><th>Location Found</th><td>${data.locationFound ? '<span class="good">Yes</span>' : '<span class="warn">No</span>'}</td></tr>
+          <tr><th>Locations Returned</th><td>${escapeHtml(data.locationCount ?? locations.length)}</td></tr>
+        </table>
+        ${locations.length ? `<h3>Locations</h3><table><thead><tr><th>Name</th><th>ID</th><th>Status</th><th>Currency</th></tr></thead><tbody>${locations.map(loc => `<tr><td>${escapeHtml(loc.name || loc.businessName || '—')}</td><td><code>${escapeHtml(loc.id)}</code></td><td>${escapeHtml(loc.status || '—')}</td><td>${escapeHtml(loc.currency || '—')}</td></tr>`).join('')}</tbody></table>` : ''}
+      `;
+    }
+
+    document.getElementById('testBtn').addEventListener('click', async () => {
+      statusEl.textContent = 'Testing Square connection…';
+      summaryEl.innerHTML = '';
+      outputEl.style.display = 'none';
+      outputEl.textContent = '';
+      try{
+        const res = await fetch('/api/square-health', { method: 'GET' });
+        const data = await res.json();
+        renderSummary(data);
+        outputEl.textContent = JSON.stringify(data, null, 2);
+        outputEl.style.display = 'block';
+        statusEl.innerHTML = data.ok ? '<span class="good">Square connection test passed.</span>' : '<span class="bad">Square connection test failed.</span>';
+      }catch(err){
+        statusEl.innerHTML = '<span class="bad">Could not call /api/square-health.</span>';
+        outputEl.textContent = err && err.message ? err.message : String(err);
+        outputEl.style.display = 'block';
+      }
+    });
+
+    auth.onAuthStateChanged(async user => {
+      if(!user){ setGate('Please <a href="login.html">log in</a> with an admin account.', true); adminUI.style.display = 'none'; return; }
+      try{
+        const adminDoc = await db.collection('admins').doc(user.uid).get();
+        const adminData = adminDoc.exists ? (adminDoc.data() || {}) : null;
+        const role = String(adminData?.role || '').toLowerCase();
+        if(!adminDoc.exists || adminData.active === false || !['owner','admin'].includes(role)){
+          setGate('Forbidden: owner/admin access required for Square setup.', true);
+          adminUI.style.display = 'none';
+          return;
+        }
+        setGate('<span class="badge">Admin mode enabled</span> — Square setup tools are ready. Signed in as ' + escapeHtml(user.email || '') + '.');
+        adminUI.style.display = 'block';
+      }catch(e){
+        console.error(e);
+        setGate('Error checking admin access.', true);
+        adminUI.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>
